@@ -1,0 +1,35 @@
+.left {
+    background: yellow;  
+}
+  
+.right {
+    background: red;  
+}
+
+.main-wrapper {
+    height: 100vh;  
+}
+
+.section {
+    height: 100%;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.OWO {
+    height: 100%;  
+    display: flex;
+    flex-direction: column;
+}
+
+.half {
+    height: 50%;  
+    width: 100%;
+    margin: 15px 0;
+}
+
+h4 {
+    color: white;  
+}

@@ -6,39 +6,80 @@
 	<title>Interfaz de Frigorífico</title>
 	<script src="../electro.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="index.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
 </head>
 
-<body>
-
-	<div class="jumbotron text-center">
-		<h1>My First Bootstrap Page</h1>
-		<p>Resize this responsive page to see the effect!</p>
-	  </div>
-	  
-	  <div class="container">
-		<div class="row">
-			<div class="col-sm-4">
-			  <h3>Column 1</h3>
-			  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-			  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-			</div>
-			<div class="col-sm-4">
-			  <h3>Column 2</h3>
-			  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-			  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-			</div>
-			<div class="col-sm-4">
-			  <h3>Column 3</h3>        
-			  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-			  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-			</div>
-		  </div>
+<body>	 
+	 
+	<div class="main-wrapper">
+		<div class="section right col-xs-5">
+			<h4>Extra step: center stuff here</h4>
+		</div>
+		<div class="OWO left col-xs-7">
+			<h4>Bottom left</h4>
+		</div>
+	
 	</div>
 
-	<button onclick="encenderLuzRefrigerador()">Encender luz refrigerador</button>
-	<button onclick="apagarLuzRefrigerador()">Apagar luz refrigerador</button>
+<!--
+	<div class="container-fluid">
+		<div class="row justify-content-center min-vh-100">
+		  <div class="col-4 bg-red">
+			<div class="d-flex flex-column h-100">
+			  <div class="row justify-content-center bg-purple">
+				<div class="text-white">
+				  <div style="height:150px">ROW 1 - fixed height</div>
+				</div>
+			  </div>
+			  <div class="row justify-content-center bg-blue flex-grow-1">
+				<div class="text-white">ROW 2 - grow remaining height</div>
+			  </div>
+			</div>
+		  </div>
+		  <div class="col-8 bg-gray"></div>
+		</div>
+	  </div>
+-->
+	
+	<!--
+	<div class="row">
+		<div class="grisIzq text-center col-md-5 align-middle flex-grow-1">
+			<h1>My First Bootstrap Page</h1>
+			<p>Resize this responsive page to see the effect!</p>
+		</div>
+		<div class="col-md-7 text-center blancoDcha">
+			<h1>My First Bootstrap Page</h1>
+			<p>Resize this responsive page to see the effect!</p>
+		</div>
+	</div>
+	
+
+	
+
+		<div class="container blancoDcha ">
+		<div class="row">
+			<div class="col-sm-5 grisIzq " >
+				<div class="row">
+
+				</div>
+				<div class="large ">
+					Hey ;) ;))))
+					
+
+				</div>
+			</div>
+
+			<div class="col-sm-7">
+				<button type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check "></i>Noice ;)</i></button>
+			</div>
+		</div>
+	</div>
+	-->
+	
+
 	
 	<script>
 		var frigo = new Electro();

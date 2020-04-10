@@ -4,82 +4,61 @@
 <head>
 	<meta charset="utf8">
 	<title>Interfaz de Frigorífico</title>
-	<script src="../electro.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="index.css">
+	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	
+	<script src="../electro.js"></script>
+	<script src="functions.js"></script>
 </head>
 
 <body>	 
-	 
+
 	<div class="main-wrapper">
-		<div class="section right col-xs-5">
-			<h4>Extra step: center stuff here</h4>
+		<div class="clock grey col-xs-5">
+			<h2>Hola!</h2>
+			<h3 id="hour"></h3>
+			<h4>Frigorífico 5ºC | Congelador -4ºC</h4>
 		</div>
-		<div class="OWO left col-xs-7">
-			<h4>Bottom left</h4>
-		</div>
-	
-	</div>
-
-<!--
-	<div class="container-fluid">
-		<div class="row justify-content-center min-vh-100">
-		  <div class="col-4 bg-red">
-			<div class="d-flex flex-column h-100">
-			  <div class="row justify-content-center bg-purple">
-				<div class="text-white">
-				  <div style="height:150px">ROW 1 - fixed height</div>
-				</div>
-			  </div>
-			  <div class="row justify-content-center bg-blue flex-grow-1">
-				<div class="text-white">ROW 2 - grow remaining height</div>
-			  </div>
-			</div>
-		  </div>
-		  <div class="col-8 bg-gray"></div>
-		</div>
-	  </div>
--->
-	
-	<!--
-	<div class="row">
-		<div class="grisIzq text-center col-md-5 align-middle flex-grow-1">
-			<h1>My First Bootstrap Page</h1>
-			<p>Resize this responsive page to see the effect!</p>
-		</div>
-		<div class="col-md-7 text-center blancoDcha">
-			<h1>My First Bootstrap Page</h1>
-			<p>Resize this responsive page to see the effect!</p>
-		</div>
-	</div>
-	
-
-	
-
-		<div class="container blancoDcha ">
-		<div class="row">
-			<div class="col-sm-5 grisIzq " >
-				<div class="row">
-
-				</div>
-				<div class="large ">
-					Hey ;) ;))))
-					
-
-				</div>
+		<div class="section white col-xs-7">
+			<div class="row">
+				<button type="button" class="btn btn-default btn-circle">
+					<i class="fas fa-power-off"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-circle">
+					<i class="fas fa-thermometer-half"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-circle" onclick="encenderLuzRefrigerador()">
+					<i class="far fa-lightbulb"></i>
+				</button>
+				
 			</div>
 
-			<div class="col-sm-7">
-				<button type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check "></i>Noice ;)</i></button>
+			<div class="row">
+				<button type="button" class="btn btn-default btn-circle">
+					<i class="far fa-clock"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-circle">
+					<i class="fas fa-shopping-basket"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-circle">
+					<i class="far fa-edit"></i>
+				</button>
 			</div>
+
+			<div class="row">
+				<h5>15ºC Alicante <i class="fas fa-wind"></i></h5>
+				<p>El primer ministro español declarado culpable por matar perritos <i class="fas fa-dog"></i></p>
+			</div>
+		
 		</div>
 	</div>
+
+	<!-- BOTONES DEL PROFE
+		<button onclick="encenderLuzRefrigerador()">Encender luz refrigerador</button>
+		<button onclick="apagarLuzRefrigerador()">Apagar luz refrigerador</button>
 	-->
-	
-
 	
 	<script>
 		var frigo = new Electro();

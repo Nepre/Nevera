@@ -14,6 +14,9 @@
 </head>
 
 <body>	 
+	<script>
+		init();
+	</script>
 
 	<div class="main-wrapper">
 		<div class="clock grey col-xs-5">
@@ -29,10 +32,9 @@
 				<button type="button" class="btn btn-default btn-circle">
 					<i class="fas fa-thermometer-half"></i>
 				</button>
-				<button type="button" class="btn btn-default btn-circle" onclick="encenderLuzRefrigerador()">
+				<button type="button" class="btn btn-default btn-circle" onclick="alternarLuzRefrigerador()">
 					<i class="far fa-lightbulb"></i>
 				</button>
-				
 			</div>
 
 			<div class="row">
@@ -43,7 +45,8 @@
 					<i class="fas fa-shopping-basket"></i>
 				</button>
 				<button type="button" class="btn btn-default btn-circle">
-					<i class="far fa-edit"></i>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<i class="fas fa-charging-station"></i>
 				</button>
 			</div>
 
@@ -54,33 +57,6 @@
 		
 		</div>
 	</div>
-
-	<!-- BOTONES DEL PROFE
-		<button onclick="encenderLuzRefrigerador()">Encender luz refrigerador</button>
-		<button onclick="apagarLuzRefrigerador()">Apagar luz refrigerador</button>
-	-->
-	
-	<script>
-		var frigo = new Electro();
-		frigo.on("connect", function () {
-			console.log("Ya estoy conectado con el frigorifico!!!")
-			console.log("Con este hay " + frigo.clientes + " clientes conectados");
-
-			function encenderLuzRefrigerador() {
-				frigo.refrigeradorLuz = true;
-			}
-
-			function apagarLuzRefrigerador() {
-				frigo.refrigeradorLuz = false;
-			}
-
-			// Activar la luz del refrigerador cuando se abre la puerta
-			frigo.on("refrigeradorPuerta", function (abierta) {
-				console.log("Puerta:", abierta);
-				frigo.refrigeradorLuz = abierta;
-			});
-		});
-	</script>
 </body>
 
 </html>

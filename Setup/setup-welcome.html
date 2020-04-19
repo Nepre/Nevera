@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf8">
+	<title>Interfaz de Frigorífico</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../index.css">
+	<link rel="stylesheet" href="setup.css">
+	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="../../electro.js"></script>
+	<script src="setup.js"></script>
+</head>
+
+<body>	 
+	<script>
+		init();
+		window.setInterval(function(){
+			changeLanguage();
+		}, 5000);
+	</script>
+
+	<div class="main-wrapper">
+		<div class="welcomebg white">
+			<div class="welcome grey">
+				<h2 id= "title" style="padding-left: 1%;">Hola!</h2>
+				<p  id= "subtitle" class = "welcomeTXT" style="margin-left: -1em;">Pulsa para continuar</p>
+			</div>
+		</div>
+		
+	</div>
+</body>
+
+</html>

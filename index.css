@@ -1,5 +1,5 @@
 .grey {
-    background: #f4f4f4;  
+    background: #CCC;  
 }
   
 .white {
@@ -17,6 +17,7 @@
     justify-content: center;
     align-items: center;
 }
+
 
 .section {
     height: 100%;  

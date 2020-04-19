@@ -20,6 +20,12 @@ function encenderLuzRefrigerador() {
 	
 }
 
+function cambiarHora() {
+	frigo.refrigeradorLuz = true;
+	console.log(frigo.refrigeradorLuz);
+	
+}
+
 function apagarLuzRefrigerador() {
 	frigo.refrigeradorLuz = false;
 	console.log(frigo.refrigeradorLuz);

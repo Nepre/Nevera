@@ -19,44 +19,75 @@
 	</script>
 
 	<div class="main-wrapper">
-		<div class="clock grey col-xs-5">
+		<div class="row">
+			<div class="grey col-sm-12">
+				<div class="float-right">
+					<a href="settings.html">
+						<i class="fas fa-cog"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="grey col-sm-5">
+				<h2>Hola!</h2>
+				<h3 id="hour"></h3>
+				<h4>Frigorífico 5ºC | Congelador -4ºC</h4>
+			</div>
+
+			<div class="white col-sm-7">
+				<button type="button" class="btn btn-default btn-circle">
+					<a href="onoff.html">
+						<i class="fas fa-power-off"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!--<div class="main-wrapper">
+		<div class="clock grey col-12 col-sm-5">
 			<h2>Hola!</h2>
 			<h3 id="hour"></h3>
 			<h4>Frigorífico 5ºC | Congelador -4ºC</h4>
 		</div>
-		<div class="section white col-xs-7">
+
+		<div class="section white col-12 col-sm-7">
 			<div class="row">
-				<button type="button" class="btn btn-default btn-circle">
-					<i class="fas fa-power-off"></i>
-				</button>
-				<button type="button" class="btn btn-default btn-circle">
-					<i class="fas fa-thermometer-half"></i>
-				</button>
-				<button type="button" class="btn btn-default btn-circle" onclick="alternarLuzRefrigerador()">
-					<i class="far fa-lightbulb"></i>
-				</button>
+				<a href="settings.html">
+					<i class="fas fa-cog"></i>
+				</a>
 			</div>
 
-			<div class="row">
-				<button type="button" class="btn btn-default btn-circle">
-					<i class="far fa-clock"></i>
-				</button>
-				<button type="button" class="btn btn-default btn-circle">
-					<i class="fas fa-shopping-basket"></i>
-				</button>
-				<button type="button" class="btn btn-default btn-circle">
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<i class="fas fa-charging-station"></i>
-				</button>
+			<div class="botones">
+				<div class="row">
+					<button type="button" class="btn btn-default btn-circle">
+						<a href="onoff.html">
+							<i class="fas fa-power-off"></i>
+						</a>
+					</button>
+					<button type="button" class="btn btn-default btn-circle" onclick="alternarLuzRefrigerador()">
+						<i class="far fa-lightbulb"></i>
+					</button>
+				</div>
+	
+				<div class="row">
+					<button type="button" class="btn btn-default btn-circle">
+						<i class="fas fa-shopping-basket"></i>
+					</button>
+					<button type="button" class="btn btn-default btn-circle">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<i class="fas fa-charging-station"></i>
+					</button>
+				</div>
 			</div>
-
+		
 			<div class="row">
 				<h5>15ºC Alicante <i class="fas fa-wind"></i></h5>
 				<p>El primer ministro español declarado culpable por matar perritos <i class="fas fa-dog"></i></p>
 			</div>
 		
 		</div>
-	</div>
+	</div>-->
 </body>
 
 </html>

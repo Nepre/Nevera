@@ -50,3 +50,14 @@ function setTime(dateobj){
 	converted_date = hours + ":" + minutes;
    	document.getElementById("hour").innerHTML = converted_date;
 }
+
+/* SETTINGS */
+
+// Para cambiar el titulo de los settings dependiendo de donde pinches
+$(document).ready(function(){
+	$("li").click(function(){
+		$("h2").html($(this).text());
+	});
+});
+
+/************/

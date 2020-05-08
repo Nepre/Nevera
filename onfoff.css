@@ -1,0 +1,74 @@
+.grey {
+    background: #CCC;  
+}
+  
+.white {
+    background: white;  
+}
+
+a{
+    color: #666;
+}
+
+a:hover, a:active{
+    color: #333;
+}
+
+.fa-arrow-left{
+    padding: .75em 0;
+    font-size: 2em;
+}
+
+.btn-circle {
+    width: 35em;
+    height: 35em;
+    border-radius: 17.5em;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+p{
+    text-align: center;
+    font-size: 20px;
+}
+
+.btn{
+    margin: 1.5em;
+    background-color: #F1D1D1;
+    border-color: white;
+    text-align: center;
+}
+
+.peque{
+    width: 15em;
+    height: 15em;
+    border-radius: 7.5em;
+    background-color: #ccc;
+}
+
+.btn:hover{
+    border-color: #f4f4f4;
+}
+
+.btn:hover i{ /* Para que cambie el color del i a la vez que se hace el hover */
+    color: #333;
+}
+
+.col-sm-4:first-child{
+    margin-top: 8em;
+    text-align: center;
+}
+
+.row > .col-sm-4:nth-child(2){
+    margin-top: 2em;
+    padding: 0 4.5em;
+}
+
+.row > .col-sm-4:nth-child(2) button:nth-child(odd){
+    margin-left: -2em;
+}
+
+.fa-power-off{
+    font-size: 10em;
+}

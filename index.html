@@ -4,42 +4,53 @@
 <head>
 	<meta charset="utf8">
 	<title>Interfaz de Frigorífico</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="index.css">
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="../electro.js"></script>
 	<script src="functions.js"></script>
 </head>
 
-<body>	 
+<body class="md:overflow-hidden">	 
 	<script>
 		init();
 	</script>
 
-	<div class="main-wrapper">
-		<div class="row">
-			<div class="grey col-sm-12">
-				<div class="float-right">
-					<a href="settings.html">
-						<i class="fas fa-cog"></i>
-					</a>
+	<div class="w-full flex flex-wrap">
+		<div class="w-full h-16 flex justify-end -mb-16 z-10">
+			<button onclick="location.href='settings.html'" type="button" class="text-4xl w-16 h-16">
+				<span class="fas fa-cog"></span>
+			</button>
+		</div>
+
+		<div class="md:h-screen bg-gray-400 p-8 w-full md:w-5/12 flex flex-col justify-center items-center">
+			<h2 class="xxl-font hidden md:block">Hola!</h2>
+			<h3 id="hour" class="text-6xl"></h3>
+			<h4 class="text-2xl">Frigorífico 5ºC | Congelador -4ºC</h4>
+		</div>
+
+		<div class="p-8 md:h-screen w-full md:w-7/12 flex items-center justify-center">
+			<div>
+				<div class="flex flex-wrap md:flex-no-wrap justify-center">
+					<button onclick="location.href='onoff.html'" type="button" class="bg-purple-500 text-6xl w-40 h-40 rounded-full m-6">
+						<span class="fas fa-power-off text-gray-200"></span>
+					</button>
+
+					<button type="button" class="bg-purple-500 text-6xl w-40 h-40 rounded-full m-6" onclick="alternarLuzRefrigerador()">
+						<span class="far fa-lightbulb text-gray-200"></span>
+					</button>
 				</div>
-			</div>
 
-			<div class="grey col-sm-5">
-				<h2>Hola!</h2>
-				<h3 id="hour"></h3>
-				<h4>Frigorífico 5ºC | Congelador -4ºC</h4>
-			</div>
+				<div class="flex flex-wrap md:flex-no-wrap justify-center">
+					<button type="button" class="bg-purple-500 text-6xl w-40 h-40 rounded-full m-6">
+						<span class="fas fa-shopping-basket text-gray-200"></span>
+					</button>
 
-			<div class="white col-sm-7">
-				<button type="button" class="btn btn-default btn-circle">
-					<a href="onoff.html">
-						<i class="fas fa-power-off"></i>
-					</a>
-				</button>
+					<button type="button" class="bg-purple-500 text-6xl w-40 h-40 rounded-full m-6">
+						<span class="fas fa-charging-station text-gray-200 pl-3"></span>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>

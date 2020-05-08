@@ -2,18 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.grey {
-    background: #CCC;  
-}
-  
-.white {
-    background: white; 
-}
-
-.main-wrapper{
-    overflow-x: hidden; /* A tomar por culo el scroll */
-}
-
 .xxl-font{
     font-size: 100px;
+}
+
+.big-btn{
+    width: 24rem;
+    height: 24rem;
 }

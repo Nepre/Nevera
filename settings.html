@@ -9,7 +9,7 @@
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="../electro.js"></script>
-	<!--<script src="functions.js"></script>-->
+	<script src="functions.js"></script>
 </head>
 
 <body class="text-gray-800 md:overflow-hidden">
@@ -21,24 +21,39 @@
             </button>
         </div>
 
-        <div class="pt-3 w-4/12 -mb-16 z-10">
-			<input class="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-sm focus:outline-none"
-				  type="search" name="search" placeholder="Buscar...">
+        <div class="pt-3 pl-12 md:pl-0 w-3/4 md:w-2/12 -mb-16 z-10">
+			<input class="-ml-2 w-full h-10 bg-white border-2 border-gray-300 rounded-lg px-5 text-sm"
+				type="search" name="search" placeholder="Buscar...">
 		</div>
             
-        <div class="w-7/12 flex justify-end -mb-16 z-10">
+        <div class="w-full md:w-9/12 flex justify-end -mb-16 z-10">
             <button onclick="location.href='settings.html'" type="button" class="text-4xl w-16 h-16">
 				<span class="fas fa-cog hover:text-gray-500"></span>
 			</button>
         </div>
 
-		<div class="md:h-screen bg-gray-400 p-8 w-full md:w-3/12 flex flex-col justify-center items-center">
-			Sidebar
+		<div class="md:h-screen bg-gray-400 w-full md:w-3/12 flex flex-col items-left">
+			<ul class="mt-20">
+				<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes generales</a></li>
+				<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Ajustes avanzados</a></li>
+				<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes adicionales</a></li>
+				<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Idioma</a></li>
+				<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Fecha y hora</a></li>
+				<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Modo energético</a></li>
+				<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Pantalla</a></li>
+				<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Rendimiento</a></li>
+				<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Sobre el dispositivo</a></li>
+				<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Temas</a></li>
+				<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Wi-fi</a></li>
+			</ul>
 		</div>
 
-		<div class="p-8 md:h-screen w-full md:w-9/12 flex items-center justify-center">
+		<div class="p-8 pt-2 md:h-screen w-full md:w-9/12 flex">
 			<div>
-				Cosas de ajustes
+				<h2 class="text-4xl">Ajustes generales</h2>
+				<p class="pt-3">
+					Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+				</p>
 			</div>
 		</div>
 

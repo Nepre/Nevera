@@ -35,7 +35,14 @@ function alternarLuzRefrigerador() {
 	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
 }
 
+function alternarLuzCongelador() {
+	frigo.congeladorLuz = !frigo.congeladorLuz;
+}
 
+function alternarAmbasLuces() {
+	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
+	frigo.congeladorLuz = !frigo.congeladorLuz;
+}
 
 setInterval(function(){
 	var date = new Date();

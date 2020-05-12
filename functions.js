@@ -58,6 +58,15 @@ function setTime(dateobj){
    	document.getElementById("hour").innerHTML = converted_date;
 }
 
+/** JQUERY **/
+
+// Menu de hamburguesa
+$(document).ready(function(){
+	$(".fa-bars").click(function(){
+		$("nav").toggle();
+	});
+});
+
 /* SETTINGS */
 
 // Para cambiar el titulo de los settings dependiendo de donde pinches

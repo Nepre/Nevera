@@ -1,22 +1,207 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf8">
-	<title>Cesta</title>
-	<link rel="stylesheet" href="index.css">
-	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<html lang="en">
+  <head>
+  <title>Tailwind CSS Modal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">  
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-	<script src="../electro.js"></script>
-	<!--<script src="functions.js"></script>   w-full md:w-9/12 flex justify-end -mb-16 z-10-->
+
 </head>
 
-<body class="text-gray-800 md:overflow-hidden">	 
-	<div class="w-full flex flex-wrap">
+<body class="bg-gray-200 flex items-center h-screen">
 
-        
+
+  <div class="w-full flex flex-wrap">
+      
+    <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
+        <div class="w-2/12 md:w-1/12 flex justify-start pl-5">
+            <button title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
+                <span class="fas fa-arrow-left hover:text-gray-500"></span>
+            </button>
+        </div>
+
+        <div class="w-4/12 md:w-2/12 p-2">
+            <input class="w-full h-10 bg-white border-2 border-gray-300 rounded-lg px-5 text-sm mt-2"
+    type="search" name="search" placeholder="Buscar...">
+        </div>
+
+        <div class="w-2/12 block md:hidden flex justify-center">
+            <button type="button" class="text-4xl">
+                <span class="fas fa-bars hover:text-gray-500"></span>
+            </button>
+        </div>
+
+        <div class="w-2/12 md:w-8/12 flex justify-center md:justify-end">
+            <button onclick="location.href='cart.html'" type="button" class="text-4xl">
+                <span class="fas fa-shopping-cart hover:text-gray-500"></span>
+            </button>
+        </div>
+
+        <div class="w-2/12 md:w-1/12 flex justify-center">
+            <button onclick="location.href='settings.html'" type="button" class="text-4xl">
+                <span class="fas fa-cog hover:text-gray-500"></span>
+            </button>
+        </div>
+    </header>
+
+
+
+
+
+
+	<div class="h-screen flex w-full">
+    <!-- Fixed sidebar -->
+    <div class="bg-gray-400 w-3/12 hidden md:block">
+      <nav class="bg-gray-400 w-full">
+        <ul class="mt-20">
+            <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-drumstick-bite pr-3"></span>Carne</a></li>
+            <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-apple-alt pr-4"></span>Fruta</a></li>
+            <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-egg pr-4"></span>Ovolácteos</a></li>
+            <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-fish pr-4"></span>Pescado</a></li>
+            <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-carrot pr-4"></span>Verdura</a></li>   
+        </ul>
+        <div class="flex items-center">
+            <button title="Código de barras" type="button" class="modal-open margin-auto bg-purple-400 hover:bg-purple-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
+                <p class="fas fa-barcode text-gray-200"></p>
+            </button>
+        </div>
+    </nav>
     </div>
-</body>
 
+    <div class="flex-1 flex overflow-hidden">
+      <div class="flex-1 overflow-y-scroll">
+        <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-10">
+          <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+          <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+
+              <div class="modal-content py-4 text-left px-6">
+                  <!--Title-->
+                  <div class="flex justify-between items-center pb-3">
+                      <p class="text-2xl font-bold">Añadir producto</p>
+                      <div class="modal-close cursor-pointer z-50">
+                          <span title="Cerrar" class="fas fa-times fill-current text-grey hover:text-purple-300"></span>
+                      </div>
+                  </div>
+
+                  <p>Coloque el código de barras del producto frente al lector o introduzca el código a mano.</p>
+                  <div class="flex">
+                      <input type="number" placeholder="ej.: 1234 5678 9123" class="border-2 border-gray-300 rounded-lg p-2 w-full my-2">
+                      <span title="Añadir" onclick="addElement();" class="p-6 cursor-pointer fas fa-plus fill-current text-grey hover:text-purple-300"></span>
+                  </div>
+
+                  <div class="tags flex">
+                      <div onclick="deleteElement(this);" class="m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full">
+                          <p>Huevos</p>
+                          <span title="Eliminar" class="fas fa-times cursor-pointer px-1 py-2 fill-current text-grey"></span>
+                      </div>
+
+                      <div onclick="deleteElement(this);" class="m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full">
+                          <p>Leche</p>
+                          <span title="Eliminar" class="fas fa-times cursor-pointer px-1 py-2 fill-current text-grey"></span>
+                      </div>
+
+                      <div onclick="deleteElement(this);" class="new-tag">
+
+                      </div>
+                  </div>
+
+                  <div class="flex justify-end pt-2">
+                      <button title="Cancelar" class="px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2">Cancelar</button>
+                      <button title="Hecho" class="modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300">Hecho</button>
+                  </div>   
+              </div>
+          </div>
+      </div>
+
+      <div class="p-8 pt-16 md:pt-2 w-full overflow-y-auto bg-white">
+          <h2 class="text-4xl w-full mb-2">Lista de la compra</h2>
+          <div class="shopping-list flex flex-col w-auto">
+              <div class="rounded-lg flex bg-gray-200 my-2">
+                  <img src="resources/egg.png" alt="Huevos" class="h-32 w-32 rounded-l-lg object-cover">
+                  <div class="data flex-col w-full">
+                      <h3 class="px-4 py-2 text-2xl">Docena de huevos</h3>
+                      <h4 class="px-4">Precio: 0.95€</h4>
+                  </div>
+                  <div class="bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12">
+                      <button class="my-auto"><span class="fas fa-plus"></span></button>
+                      <input type="number" name="Cantidad" value="1" class="bg-purple-100 h-10 text-center pl-3 font-bold">
+                      <button class="my-auto"><span class="fas fa-minus"></span></button>
+                  </div>
+              </div>
+
+              <div class="rounded-lg flex bg-gray-200 my-2">
+                  <img src="resources/bread.png" alt="Pan" class="h-32 w-32 rounded-l-lg object-cover">
+                  <div class="data flex-col w-full">
+                      <h3 class="px-4 py-2 text-2xl">Hogaza de pan de leña</h3>
+                      <h4 class="px-4">Precio: 1.20€</h4>
+                  </div>
+                  <div class="bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12">
+                      <button class="my-auto"><span class="fas fa-plus"></span></button>
+                      <input type="number" name="Cantidad" value="1" class="bg-purple-100 h-10 text-center pl-3 font-bold">
+                      <button class="my-auto"><span class="fas fa-minus"></span></button>
+                  </div>
+              </div>
+
+              <div class="rounded-lg flex bg-gray-200 my-2">
+                  <img src="resources/egg.png" alt="Huevos" class="h-32 w-32 rounded-l-lg object-cover">
+                  <div class="data flex-col w-full">
+                      <h3 class="px-4 py-2 text-2xl">Docena de huevos</h3>
+                      <h4 class="px-4">Precio: 0.95€</h4>
+                  </div>
+                  <div class="bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12">
+                      <button class="my-auto"><span class="fas fa-plus"></span></button>
+                      <input type="number" name="Cantidad" value="1" class="bg-purple-100 h-10 text-center pl-3 font-bold">
+                      <button class="my-auto"><span class="fas fa-minus"></span></button>
+                  </div>
+              </div>
+
+              <div class="rounded-lg flex bg-gray-200 my-2">
+                  <img src="resources/bread.png" alt="Pan" class="h-32 w-32 rounded-l-lg object-cover">
+                  <div class="data flex-col w-full">
+                      <h3 class="px-4 py-2 text-2xl">Hogaza de pan de leña</h3>
+                      <h4 class="px-4">Precio: 1.20€</h4>
+                  </div>
+                  <div class="bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12">
+                      <button class="my-auto"><span class="fas fa-plus"></span></button>
+                      <input type="number" name="Cantidad" value="1" class="bg-purple-100 h-10 text-center pl-3 font-bold">
+                      <button class="my-auto"><span class="fas fa-minus"></span></button>
+                  </div>
+              </div>
+
+              <div class="rounded-lg flex bg-gray-200 my-2">
+                  <img src="resources/egg.png" alt="Huevos" class="h-32 w-32 rounded-l-lg object-cover">
+                  <div class="data flex-col w-full">
+                      <h3 class="px-4 py-2 text-2xl">Docena de huevos</h3>
+                      <h4 class="px-4">Precio: 0.95€</h4>
+                  </div>
+                  <div class="bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12">
+                      <button class="my-auto"><span class="fas fa-plus"></span></button>
+                      <input type="number" name="Cantidad" value="1" class="bg-purple-100 h-10 text-center pl-3 font-bold">
+                      <button class="my-auto"><span class="fas fa-minus"></span></button>
+                  </div>
+              </div>
+
+              <div class="rounded-lg flex bg-gray-200 my-2">
+                  <img src="resources/bread.png" alt="Pan" class="h-32 w-32 rounded-l-lg object-cover">
+                  <div class="data flex-col w-full">
+                      <h3 class="px-4 py-2 text-2xl">Hogaza de pan de leña</h3>
+                      <h4 class="px-4">Precio: 1.20€</h4>
+                  </div>
+                  <div class="bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12">
+                      <button class="my-auto"><span class="fas fa-plus"></span></button>
+                      <input type="number" name="Cantidad" value="1" class="bg-purple-100 h-10 text-center pl-3 font-bold">
+                      <button class="my-auto"><span class="fas fa-minus"></span></button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="fixed z-10 right-0 bottom-0 flex m-4 shadow-sm">
+          <h3 class="font-bold rounded-l-lg bg-purple-400 p-2">Total:</h3>
+          <h3 class="font-bold rounded-r-lg bg-gray-300 p-2">12.75€</h3>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
 </html>

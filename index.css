@@ -14,3 +14,7 @@
 .pr-1-15{
     padding-right: 1.15rem;
 }
+
+.margin-auto{
+    margin: 3rem auto;
+}

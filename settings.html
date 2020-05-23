@@ -12,7 +12,7 @@
 	<script src="functions.js"></script>
 </head>
 
-<body class="text-gray-800 md:overflow-hidden">	 
+<body class="text-gray-800" onload="showShoppingList();">	 
 	<div class="w-full flex flex-wrap">
       
         <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
@@ -33,43 +33,48 @@
                 </button>
             </div>
 
-            <div class="w-2/12 md:w-8/12 flex justify-center md:justify-end">
+            <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
                 <button onclick="location.href='cart.html'" type="button" class="text-4xl">
-                    <span class="fas fa-shopping-cart hover:text-gray-500"></span>
+                    <span class="pr-1 fas fa-shopping-cart hover:text-gray-500"></span>
                 </button>
             </div>
 
-            <div class="w-2/12 md:w-1/12 flex justify-center">
+            <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
                 <button onclick="location.href='settings.html'" type="button" class="text-4xl">
                     <span class="fas fa-cog hover:text-gray-500"></span>
                 </button>
             </div>
         </header>
 
-        <main class="w-full h-screen flex flex-wrap">
-            <nav class="bg-gray-400 w-full hidden md:block md:w-3/12">
-                <ul class="mt-20">
-                    <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes generales</a></li>
-					<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Ajustes avanzados</a></li>
-					<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes adicionales</a></li>
-					<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Idioma</a></li>
-					<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Fecha y hora</a></li>
-					<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Modo energético</a></li>
-					<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Pantalla</a></li>
-					<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Rendimiento</a></li>
-					<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Sobre el dispositivo</a></li>
-					<li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Temas</a></li>
-					<li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Wi-fi</a></li> 
-                </ul>
-            </nav>
-			<div class="p-8 pt-16 md:pt-2 md:h-screen w-full md:w-9/12 flex">
-				<div>
-					<h2 class="text-4xl">Ajustes generales</h2>
-					<p class="pt-3">
-						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-					</p>
-				</div>
-			</div>
+        <main class="w-full h-screen flex">
+            <!--QUIERO PODER CERRAR EL MENU DE HAMBURGUESA CUANDO HAGO CLICK EN ALGUN ELEMENTO DE LA LISTA-->
+            <div class="burger bg-gray-400 w-full md:w-3/12 hidden md:block">
+                <nav class="w-full">
+                    <ul class="mt-20 cursor-pointer">
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes generales</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Ajustes avanzados</a></li>
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes adicionales</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Idioma</a></li>
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Fecha y hora</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Modo energético</a></li>
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Pantalla</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Rendimiento</a></li>
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Sobre el dispositivo</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Temas</a></li>
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Wi-fi</a></li> 
+                    </ul>
+                </nav>
+            </div>
+
+            <!--Modal-->
+            <div class="flex-1 flex overflow-hidden">
+                <div class="flex-1 overflow-y-scroll">
+                    <div class="p-8 pt-16 md:pt-2 w-full overflow-y-auto">
+                        <h2 class='text-4xl w-full mb-2 z-40'>Ajustes generales</h2>
+                        <!--AQUI VA EL CONTENIDO PRINCIPAL-->
+                    </div>
+                </div>
+            </div>
         </main>
 
     </div>

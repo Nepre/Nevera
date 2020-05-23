@@ -47,6 +47,7 @@
         </header>
 
         <main class="w-full h-screen flex">
+            <!--QUIERO PODER CERRAR EL MENU DE HAMBURGUESA CUANDO HAGO CLICK EN ALGUN ELEMENTO DE LA LISTA-->
             <div class="burger bg-gray-400 w-full md:w-3/12 hidden md:block">
                 <nav class="w-full">
                     <ul class="mt-20 cursor-pointer">
@@ -118,15 +119,21 @@
                 </div>
             </div>
 
-            <div class="fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg">
+            <div class="fixed z-10 right-0 bottom-0 flex m-6 mr-48 text-lg hidden lg:flex">
+                <button title="Modo cuadrícula" class="grid bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-large p-2 cursor-pointer hover:text-purple-400"></span></button>
+                <button title="Modo lista" class="list bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-list p-2 cursor-pointer hover:text-purple-400"></span></button>
+            </div>
+
+            <div class="fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg">                
                 <h3 class="font-bold rounded-l-lg bg-purple-400 p-2 px-3">Total:</h3>
-                <h3 class="font-bold rounded-r-lg bg-gray-300 p-2">12.75€</h3>
+                <h3 class="total-price font-bold rounded-r-lg bg-gray-300 p-2"></h3>
             </div>
         </main>
 
     </div>
 
     <script>
+        switchGridList();
         /* MENSAJE MODAL */
         var openmodal = document.querySelectorAll('.modal-open')
         for (var i = 0; i < openmodal.length; i++) {

@@ -87,6 +87,7 @@ $(document).ready(function(){
 	});
 });
 
+// Función para cambiar el modo de visualización de grid a lista y viceversa
 function switchGridList(){
 	$('button').click(function(e) {
 		if ($(this).hasClass('grid')) {
@@ -100,10 +101,21 @@ function switchGridList(){
 	});
 }
 
+/* ITEMS*/
 // Items de la lista de compra
 var items = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1}, 
 	{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"fish.png", "alt":"Pescado", "title":"Dorada", "price":"6.50", "quantity":1}, 
 	{"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1}];
+// Items de la lista de carne
+var meat = [{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"burger.png", "alt":"Hamburguesa", "title":"Hamburguesa de ternera y cerdo", "price":"2.05", "quantity":1},
+{"file":"chicken-breast.png", "alt":"Pollo", "title":"Pechuga de pollo", "price":"5.27", "quantity":1}];
+// Items de la lista de carne
+var fruit = [{"file":"strawberries.png", "alt":"Fresas", "title":"Fresas", "price":"3.75", "quantity":1}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1},
+{"file":"peaches.png", "alt":"Melocotones", "title":"Melocotones", "price":"1.14", "quantity":1}, {"file":"pear.png", "alt":"Peras", "title":"Peras", "price":"2.35", "quantity":1},
+{"file":"bananas.png", "alt":"Plátanos", "title":"Plátanos", "price":"3.15", "quantity":1}, {"file":"watermelon.png", "alt":"Sandía", "title":"Sandía entera", "price":"7.16", "quantity":1}];
+// Array de la lista en la que estoy actualmente
+var array = 0;
+/********/
 
 // Función para aumentar la cantidad de un producto determinado
 function increment(id, item) {
@@ -133,6 +145,7 @@ function decrement(id, item){
 	return false;
 }
 
+// Función para mostrar los elementos de la lista de la compra
 function showShoppingList(){
 	if(screen.width < 768)
 		$('.burger').hide();
@@ -169,40 +182,53 @@ function showShoppingList(){
 	return false;
 }
 
-var meat = [{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"burger.png", "alt":"Hamburguesa", "title":"Hamburguesa de ternera y cerdo", "price":"2.05", "quantity":1},
-{"file":"chicken-breast.png", "alt":"Pollo", "title":"Pechuga de pollo", "price":"5.27", "quantity":1}]
-
-function showFoodItems(id){
+// Función para mostrar los elementos de cada apartado de la "tienda"
+function showFoodItems(a){
 	if(screen.width < 768)
 		$('.burger').hide();
-	let total = "<h2 class='text-4xl w-full mb-2 z-40'>" + $(id).text() + "</h2>";
-	switch($(id).text()){
-		case "Carne":
-			let id = 0;
-			for(let i = 0; i < meat.length; i++){
-				let meatItems = "<div id='" + id + "' class='shopping-list flex flex-col w-auto'>" +
-					"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
-						"<div class='relative h-32 w-40'>" + 
-							"<img src='resources/" + meat[i].file + "' alt='" + meat[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
-						"</div>" +
-						"<div class='data flex-col w-full'>" + 
-							"<h3 class='px-4 py-2 text-2xl'>" + meat[i].title + "</h3>" +
-							"<h4 class='price font-bold px-4'>Precio: " + meat[i].price + "€</h4>" +
-						"</div>" +
-						"<div class='bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-16 cursor-pointer'>" +
-							"<button title='Añadir' class='my-auto'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
-						"</div>" +
-					"</div>" +
-				"</div>";
-				total += meatItems;
-				id++;
-			}
-			$(".principal").html(total);
-		break;
 
-		default:
-		break;
+	let total = "<h2 class='text-4xl w-full mb-2 z-40'>" + $(this).text() + "</h2>";
+	array = a;
+
+	for(let i = 0; i < array.length; i++){
+		let divItems = "<div class='shopping-list flex flex-col w-auto'>" +
+			"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
+				"<div class='relative h-32 w-40'>" + 
+					"<img src='resources/" + array[i].file + "' alt='" + array[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
+				"</div>" +
+				"<div class='data flex-col w-full'>" + 
+					"<h3 class='px-4 py-2 text-2xl'>" + array[i].title + "</h3>" +
+					"<h4 class='price font-bold px-4'>Precio: " + array[i].price + "€</h4>" +
+				"</div>" +
+				"<div class='bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-16 cursor-pointer'>" +
+					"<button onclick='addToItems(array, " + i + ");' title='Añadir' class='my-auto'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
+				"</div>" +
+			"</div>" +
+		"</div>";
+		total += divItems;
 	}
+	$(".principal").html(total);
+
+	return false;
+}
+
+// Función para añadir elementos a la lista de la compra
+function addToItems(array, id){
+	let exists = false;
+	let element = 0;
+	// Recorro todos los elementos de la lista de la compra y busco si el que acabo de añadir existe ya o no
+	for(let i = 0; i < items.length; i++){
+		if(items[i].file == array[id].file){
+			exists = true;
+			element = i;
+			break;
+		}
+	}
+	if(exists) // Si existe, aumentamos la cantidad
+		items[element].quantity++;
+	else // Si no existe, lo añadimos al array de items
+		items.push(array[id]);
+
 	return false;
 }
 

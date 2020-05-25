@@ -1,5 +1,9 @@
 var frigo = new Electro();
 
+window.setInterval(function(){
+	recalculateTotal();
+}, 50);
+
 function init(){
 	frigo.on("connect", function () {
 		console.log("Ya estoy conectado con el frigorifico!!!")
@@ -126,7 +130,8 @@ var array = 0;
 function increment(id, item) {
 	// Cambiamos el value del input
 	let value = $(id).next('input').val();
-	value++ ;
+	if(value < 100)
+		value++ ;
 	$(id).next('input').val(value);
 	// Y además la cantidad asociada al item
 	items[item].quantity = value;
@@ -146,6 +151,23 @@ function decrement(id, item){
 	$(id).prev('input').val(value);
 	// Con esto conseguimos que aparezca el nuevo precio cuando disminuimos la cantidad
 	$(id).parent().prev().children('h4').html("Precio: " + (items[item].price * value).toFixed(2)+ "€");
+
+	return false;
+}
+
+function recalc(id, item){
+	let value = $(id).val();
+
+	if(value > 100)
+		value = 100;
+
+	if(value < 1)
+		value = 1;
+	// Y además la cantidad asociada al item
+	items[item].quantity = value;
+	// Con esto conseguimos que aparezca el nuevo precio cuando aumentamos la cantidad
+	$(id).parent().prev().children('h4').html("Precio: " + (items[item].price * value).toFixed(2)+ "€");
+	$(id).val(value);
 
 	return false;
 }
@@ -171,7 +193,7 @@ function showShoppingList(){
 				"</div>" +
 				"<div class='bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12'>" +
 					"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='my-auto'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
-					"<input type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 h-10 text-center font-bold'>" +
+					"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 h-10 text-center font-bold'>" +
 					"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='my-auto'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
 				"</div>" +
 			"</div>" +
@@ -235,6 +257,18 @@ function addToItems(array, id){
 		items.push(array[id]);
 
 	return false;
+}
+
+function recalculateTotal(){
+	var totalPrice = 0;
+	for(let i = 0; i < items.length; i++){
+		let price = (items[i].price * items[i].quantity).toFixed(2);
+		totalPrice += Number(price);
+	}
+
+	let finalPrice = totalPrice.toFixed(2);
+	$(".total-price").html(finalPrice + "€"); // Hay que mostrar el precio total constantemente, pero ahora mismo no sé cómo hacerlo
+
 }
 
 /************/

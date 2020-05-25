@@ -1,6 +1,8 @@
 var cont = 0;
 function init(){
-    
+    $('body').click(function(){
+        window.location.href = "setup-welcome.html";
+    });
 }
 
 var welcomeArray = 
@@ -24,7 +26,4 @@ function changeLanguage(){
         $("#title").fadeIn();
         $("#subtitle").fadeIn();
     }, 1200);
-
-    
-
 }

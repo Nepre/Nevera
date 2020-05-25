@@ -7,7 +7,8 @@
 	<link rel="stylesheet" href="index.css">
 	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 	<script src="../electro.js"></script>
 	<script src="functions.js"></script>
 </head>
@@ -34,7 +35,7 @@
             </div>
 
             <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
-                <button onclick="location.href='cart.html'" type="button" class="text-4xl">
+                <button onclick="Cookies.set('prevPlace', 'consumo.html'); location.href='shopping.html'" type="button" class="text-4xl">
                     <span class="pr-1 fas fa-shopping-cart hover:text-gray-500"></span>
                 </button>
             </div>

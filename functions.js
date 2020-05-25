@@ -1,7 +1,18 @@
 var frigo = new Electro();
+var small = false;
+const widthChange = 767; 
 
 window.setInterval(function(){
 	recalculateTotal();
+
+	if(window.innerWidth > widthChange){
+		small = false;
+		$(".burger").show();
+	}
+	else if(window.innerWidth <= widthChange && !small){
+		small = true;
+		$(".burger").hide();
+	} 
 }, 50);
 
 function init(){
@@ -90,20 +101,6 @@ $(document).ready(function(){
 		$("h2").html($(this).text());
 	});
 });
-
-// Función para cambiar el modo de visualización de grid a lista y viceversa
-function switchGridList(){
-	$('button').click(function(e) {
-		if ($(this).hasClass('grid')) {
-			console.log("Grid");
-			$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
-		}
-		else if($(this).hasClass('list')) {
-			console.log("List");
-			$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
-		}
-	});
-}
 
 /* ITEMS*/
 // Items de la lista de compra
@@ -205,6 +202,7 @@ function showShoppingList(){
 	
 	$(".principal").html(title);
 	$(".total-price").html(totalPrice + "€"); // Hay que mostrar el precio total constantemente, pero ahora mismo no sé cómo hacerlo
+	checkGrid();
 	
 	return false;
 }
@@ -235,6 +233,8 @@ function showFoodItems(a){
 		total += divItems;
 	}
 	$(".principal").html(total);
+
+	checkGrid();
 
 	return false;
 }
@@ -269,6 +269,35 @@ function recalculateTotal(){
 	let finalPrice = totalPrice.toFixed(2);
 	$(".total-price").html(finalPrice + "€"); // Hay que mostrar el precio total constantemente, pero ahora mismo no sé cómo hacerlo
 
+}
+
+function checkGrid(){
+	if (Cookies.get("grid") == 1) {
+		$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
+	}
+	else{
+		$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
+	}
+}
+
+// Función para cambiar el modo de visualización de grid a lista y viceversa
+function switchGridList(){
+	$('button').click(function(e) {
+		if ($(this).hasClass('grid')) {
+			console.log("Grid");
+			Cookies.set('grid', 1);
+			$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
+		}
+		else if($(this).hasClass('list')) {
+			console.log("List");
+			Cookies.set('grid', 2);
+			$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
+		}
+	});
+}
+
+function checkPrevPage(){
+	$("#atras").attr("onclick", "location.href='"+ Cookies.get("prevPlace") +"'");
 }
 
 /************/

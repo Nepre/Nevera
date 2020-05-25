@@ -7,6 +7,7 @@
 	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 	<script src="../electro.js"></script>
 	<script src="functions.js"></script>
@@ -17,7 +18,7 @@
       
         <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
             <div class="w-2/12 md:w-1/12 flex justify-start pl-5">
-                <button title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
+                <button id="atras" title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
                     <span class="fas fa-arrow-left hover:text-gray-500"></span>
                 </button>
             </div>
@@ -135,6 +136,8 @@
     <script>
         switchGridList();
         recalculateTotal();
+        checkGrid();
+        checkPrevPage();
         /* MENSAJE MODAL */
         var openmodal = document.querySelectorAll('.modal-open')
         for (var i = 0; i < openmodal.length; i++) {

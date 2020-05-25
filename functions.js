@@ -109,10 +109,15 @@ var items = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña",
 // Items de la lista de carne
 var meat = [{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"burger.png", "alt":"Hamburguesa", "title":"Hamburguesa de ternera y cerdo", "price":"2.05", "quantity":1},
 {"file":"chicken-breast.png", "alt":"Pollo", "title":"Pechuga de pollo", "price":"5.27", "quantity":1}];
-// Items de la lista de carne
+// Items de la lista de fruta
 var fruit = [{"file":"strawberries.png", "alt":"Fresas", "title":"Fresas", "price":"3.75", "quantity":1}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1},
 {"file":"peaches.png", "alt":"Melocotones", "title":"Melocotones", "price":"1.14", "quantity":1}, {"file":"pear.png", "alt":"Peras", "title":"Peras", "price":"2.35", "quantity":1},
 {"file":"bananas.png", "alt":"Plátanos", "title":"Plátanos", "price":"3.15", "quantity":1}, {"file":"watermelon.png", "alt":"Sandía", "title":"Sandía entera", "price":"7.16", "quantity":1}];
+// Items de la lista de ovolácteos
+var eggmilk = [{"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1}, {"file":"milk.png", "alt":"Leche", "title":"Leche de vaca entera", "price":"0.79", "quantity":1},
+{"file":"cheese.png", "alt":"Mozzarella", "title":"Queso mozarella", "price":"0.80", "quantity":1}];
+// Items de la lista de pan
+var bread = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"sandwichbread.png", "alt":"Pan de molde", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}];
 // Array de la lista en la que estoy actualmente
 var array = 0;
 /********/

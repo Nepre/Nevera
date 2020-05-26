@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 	<script src="../electro.js"></script>
-	<script src="functions.js"></script>
+    <script src="functions.js"></script>
 </head>
 
 <body class="text-gray-800" onload="showShoppingList();">	 
@@ -56,12 +56,12 @@
                         <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-drumstick-bite w-10 -ml-2 text-center"></span>Carne</a></li>
                         <li onclick="return showFoodItems(fruit);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-apple-alt w-10 -ml-2 text-center"></span>Fruta</a></li>
                         <li onclick="return showFoodItems(eggmilk);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-egg w-10 -ml-2 text-center"></span>Ovolácteos</a></li>
-                        <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-bread-slice w-10 -ml-2 text-center"></span>Pan</a></li>
-                        <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-fish w-10 -ml-2 text-center"></span>Pescado</a></li>
-                        <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-carrot w-10 -ml-2 text-center"></span>Verdura</a></li>   
+                        <li onclick="return showFoodItems(bread);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-bread-slice w-10 -ml-2 text-center"></span>Pan</a></li>
+                        <li onclick="return showFoodItems(fish);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-fish w-10 -ml-2 text-center"></span>Pescado</a></li>
+                        <li onclick="return showFoodItems(veggies);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-carrot w-10 -ml-2 text-center"></span>Verdura</a></li>   
                     </ul>
                     <div class="flex items-center">
-                        <button title="Código de barras" type="button" class="modal-open margin-auto bg-purple-400 hover:bg-purple-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
+                        <button title="Código de barras" type="button" class="bar-code modal-open margin-auto bg-purple-400 hover:bg-purple-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
                             <p class="fas fa-barcode text-gray-200"></p>
                         </button>
                     </div>
@@ -69,14 +69,17 @@
             </div>
 
             <!--Modal-->
+
             <div class="flex-1 flex overflow-hidden">
                 <div class="flex-1 overflow-y-scroll">
+                    <!--Modal de hacer pedido-->
+
                     <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-10">
                         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
                         <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
 
                             <div class="modal-content py-4 text-left px-6">
-                                <!--Title-->
+                                <!--Title
                                 <div class="flex justify-between items-center pb-3">
                                     <p class="text-2xl font-bold">Añadir producto</p>
                                     <div class="modal-close cursor-pointer z-50">
@@ -84,7 +87,7 @@
                                     </div>
                                 </div>
 
-                                <p>Coloque el código de barras del producto frente al lector del frigorífico o introduzca el código a mano.</p>
+                                <p class="p-modal">Coloque el código de barras del producto frente al lector del frigorífico o introduzca el código a mano.</p>
                                 <div class="flex">
                                     <input type="number" placeholder="ej.: 1234 5678 9123" class="border-2 border-gray-300 rounded-lg p-2 w-full my-2">
                                     <span title="Añadir" onclick="addElement();" class="p-6 cursor-pointer fas fa-plus fill-current text-grey hover:text-purple-300"></span>
@@ -109,13 +112,14 @@
                                 <div class="flex justify-end pt-2">
                                     <button title="Cancelar" class="px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2">Cancelar</button>
                                     <button title="Hecho" class="modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300">Hecho</button>
-                                </div>   
+                                </div>  --> 
                             </div>
                         </div>
                     </div>
 
                     <div class="principal p-8 pt-16 md:pt-2 w-full overflow-y-auto">
                         <!-- AQUI VA EL CONTENIDO PRINCIPAL DE CADA PESTAÑA -->
+                        
                     </div>
                 </div>
             </div>
@@ -125,7 +129,7 @@
                 <button title="Modo lista" class="list bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-list p-2 cursor-pointer hover:text-purple-400"></span></button>
             </div>
 
-            <div class="fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg">                
+            <div class="order fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg cursor-pointer modal-open">                
                 <h3 class="font-bold rounded-l-lg bg-purple-400 p-2 px-3">Total:</h3>
                 <h3 class="total-price font-bold rounded-r-lg bg-gray-300 p-2"></h3>
             </div>

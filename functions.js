@@ -105,7 +105,7 @@ $(document).ready(function(){
 /* ITEMS*/
 // Items de la lista de compra
 var items = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1}, 
-	{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"fish.png", "alt":"Pescado", "title":"Dorada", "price":"6.50", "quantity":1}, 
+	{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"fish.png", "alt":"Dorada", "title":"Dorada", "price":"6.50", "quantity":1}, 
 	{"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1}];
 // Items de la lista de carne
 var meat = [{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"burger.png", "alt":"Hamburguesa", "title":"Hamburguesa de ternera y cerdo", "price":"2.05", "quantity":1},
@@ -118,7 +118,15 @@ var fruit = [{"file":"strawberries.png", "alt":"Fresas", "title":"Fresas", "pric
 var eggmilk = [{"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1}, {"file":"milk.png", "alt":"Leche", "title":"Leche de vaca entera", "price":"0.79", "quantity":1},
 {"file":"cheese.png", "alt":"Mozzarella", "title":"Queso mozarella", "price":"0.80", "quantity":1}];
 // Items de la lista de pan
-var bread = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"sandwichbread.png", "alt":"Pan de molde", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}];
+var bread = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"sandwichbread.png", "alt":"Pan de molde", "title":"Pan de molde", "price":"1.99", "quantity":1}];
+// Items de la lista de pescado
+var fish = [{"file":"fish.png", "alt":"Dorada", "title":"Dorada", "price":"6.50", "quantity":1}, {"file":"seabass.png", "alt":"Lubina", "title":"Lubina salvaje", "price":"40.60", "quantity":1}, 
+{"file":"hake.png", "alt":"Merluza", "title":"Merluza", "price":"4.25", "quantity":1}, {"file":"salmon.png", "alt":"Salmón", "title":"Salmón noruego", "price":"13.90", "quantity":1}, 
+{"file":"sardine.png", "alt":"Sardinas", "title":"Sardinas", "price":"4.96", "quantity":1}];
+// Items de la lista de verduras
+var veggies = [{"file":"eggplant.png", "alt":"Berenjena", "title":"Berenjena", "price":"0.54", "quantity":1}, {"file":"broccoli.png", "alt":"Brócoli", "title":"Brócoli", "price":"1.45", "quantity":1},
+{"file":"zucchini.png", "alt":"Calabacín", "title":"Calabacín", "price":"0.49", "quantity":1}, {"file":"potatoes.png", "alt":"Patatas", "title":"Patata nueva", "price":"1.34", "quantity":1}, 
+{"file":"peppers.png", "alt":"Pimientos", "title":"Trío de pimientos tricolor", "price":"1.19", "quantity":1}, {"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1}];
 // Array de la lista en la que estoy actualmente
 var array = 0;
 /********/
@@ -181,17 +189,17 @@ function showShoppingList(){
 		let shoppingItems = "<div id='" + id + "' class='shopping-list flex flex-col w-auto'>" +
 			"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
 				"<div class='relative h-32 w-40'>" + 
-					"<span onclick='$(this).parent().parent().parent().remove();' title='Eliminar' class='fas fa-times absolute bg-purple-300 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
+					"<span onclick='$(this).parent().parent().parent().remove();' title='Eliminar' class='fas fa-times absolute bg-purple-300 hover:bg-purple-200 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
 					"<img src='resources/" + items[i].file + "' alt='" + items[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
 				"</div>" +
 				"<div class='data flex-col w-full'>" + 
 					"<h3 class='px-4 py-2 text-2xl'>" + items[i].title + "</h3>" +
 					"<h4 class='price font-bold px-4'>Precio: " + price + "€</h4>" +
 				"</div>" +
-				"<div class='bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-12'>" +
-					"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='my-auto'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
-					"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 h-10 text-center font-bold'>" +
-					"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='my-auto'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
+				"<div class='selector flex flex-col justify-center rounded-r-lg w-12 bg-purple-100'>" +
+					"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='my-auto w-full h-full mb-2 bg-purple-300 hover:bg-purple-200 rounded-tr-lg'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
+					"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 text-center font-bold'>" +
+					"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='my-auto w-full h-full mt-2 bg-purple-300 hover:bg-purple-200 rounded-br-lg'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
 				"</div>" +
 			"</div>" +
 		"</div>";
@@ -225,9 +233,9 @@ function showFoodItems(a){
 					"<h3 class='px-4 py-2 text-2xl'>" + array[i].title + "</h3>" +
 					"<h4 class='price font-bold px-4'>Precio: " + array[i].price + "€</h4>" +
 				"</div>" +
-				"<div class='bg-purple-300 selector flex flex-col justify-center rounded-r-lg w-16 cursor-pointer'>" +
-					"<button onclick='addToItems(array, " + i + ");' title='Añadir' class='my-auto'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
-				"</div>" +
+				"<button onclick='addToItems(array, " + i + ");' title='Añadir' class='hover:bg-purple-200 bg-purple-300 selector flex flex-col justify-center items-center rounded-r-lg w-16 cursor-pointer'>" +
+					"<span class='fas fa-plus hover:text-gray-600'></span>" +
+				"</button>" +
 			"</div>" +
 		"</div>";
 		total += divItems;
@@ -259,6 +267,7 @@ function addToItems(array, id){
 	return false;
 }
 
+// Función para recalcular el precio total constantemente
 function recalculateTotal(){
 	var totalPrice = 0;
 	for(let i = 0; i < items.length; i++){
@@ -301,3 +310,71 @@ function checkPrevPage(){
 }
 
 /************/
+
+$(document).ready(function(){
+	$(".bar-code").click(function(){
+		let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
+		"<p class='text-2xl font-bold'>Añadir producto</p>" +
+		"<div class='modal-close cursor-pointer z-50'>" +
+			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
+		"</div>" +
+	"</div>" +
+
+	"<p class='p-modal'>Coloque el código de barras del producto frente al lector del frigorífico o introduzca el código a mano.</p>" +
+	"<div class='flex'>" +
+		"<input type='number' placeholder='ej.: 1234 5678 9123' class='border-2 border-gray-300 rounded-lg p-2 w-full my-2'>" +
+		"<span title='Añadir' onclick='addElement();' class='p-6 cursor-pointer fas fa-plus fill-current text-grey hover:text-purple-300'></span>" +
+	"</div>" +
+
+	"<div class='tags flex'>" +
+		"<div onclick='deleteElement(this);' class='m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
+			"<p>Huevos</p>" +
+			"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
+		"</div>" +
+
+		"<div onclick='deleteElement(this);' class='m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
+			"<p>Leche</p>" +
+			"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
+		"</div>" +
+
+		"<div onclick='deleteElement(this);' class='new-tag'>" +
+
+		"</div>" +
+	"</div>" +
+
+	"<div class='flex justify-end pt-2'>" +
+		"<button title='Cancelar' class='px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
+		"<button title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+	"</div>";
+
+	$(".modal-content").html(innerHTML);
+	});
+});
+
+$(document).ready(function(){
+	$(".order").click(function(){
+		let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
+		"<p class='text-2xl font-bold'>Resumen del pedido</p>" +
+		"<div class='modal-close cursor-pointer z-50'>" +
+			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
+		"</div>" +
+	"</div>" +
+
+	"<p class='p-modal'>Pulsa 'Hecho' para recibir la siguiente compra en tu domicilio.</p>" +
+	
+	"<ul class=''>";
+	
+	for(let i = 0; i < items.length; i++){
+		innerHTML += "<li><span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4'></span>" + items[i].title + "</li>";
+	}
+
+	innerHTML += "</ul>" + 
+
+	"<div class='flex justify-end pt-2'>" +
+		"<button title='Cancelar' class='px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
+		"<button title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+	"</div>";
+
+	$(".modal-content").html(innerHTML);
+	});
+});

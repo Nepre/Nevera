@@ -4,6 +4,7 @@ const widthChange = 767;
 
 window.setInterval(function(){
 	recalculateTotal();
+	checkShoppingList();
 
 	if(window.innerWidth > widthChange){
 		small = false;
@@ -177,6 +178,25 @@ function recalc(id, item){
 	return false;
 }
 
+function removeItem(id){ // No funciona porque necesitamos actualizar los id's de los items cada vez que eliminamos 1
+	let tam = items.length - 1;
+	let aux = [];
+
+	console.log(id);
+
+	for(let i = id; i < items.length; i++){
+		items[i] = items[i + 1];
+	}
+
+	for(let i = 0; i < tam; i++){
+		aux.push(items[i]);
+	}
+
+	items = aux;
+	console.log(items);
+}
+
+
 // Función para mostrar los elementos de la lista de la compra
 function showShoppingList(){
 	if(screen.width < 768)
@@ -189,7 +209,7 @@ function showShoppingList(){
 		let shoppingItems = "<div id='" + id + "' class='shopping-list flex flex-col w-auto'>" +
 			"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
 				"<div class='relative h-32 w-40'>" + 
-					"<span onclick='$(this).parent().parent().parent().remove();' title='Eliminar' class='fas fa-times absolute bg-purple-300 hover:bg-purple-200 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
+					"<span onclick='$(this).parent().parent().parent().remove(); removeItem(" + i + ");' title='Eliminar' class='fas fa-times absolute bg-purple-300 hover:bg-purple-200 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
 					"<img src='resources/" + items[i].file + "' alt='" + items[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
 				"</div>" +
 				"<div class='data flex-col w-full'>" + 
@@ -362,10 +382,10 @@ $(document).ready(function(){
 
 	"<p class='p-modal'>Pulsa 'Hecho' para recibir la siguiente compra en tu domicilio.</p>" +
 	
-	"<ul class=''>";
+	"<ul class='mt-2'>";
 	
 	for(let i = 0; i < items.length; i++){
-		innerHTML += "<li><span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4'></span>" + items[i].title + "</li>";
+		innerHTML += "<li><span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4 cursor-pointer'></span>" + items[i].title + "</li>";
 	}
 
 	innerHTML += "</ul>" + 
@@ -378,3 +398,12 @@ $(document).ready(function(){
 	$(".modal-content").html(innerHTML);
 	});
 });
+
+function checkShoppingList(){
+	if(items.length > 0){
+		$(".fa-circle").show();
+	} else if(items.length <= 0){
+		$(".fa-circle").hide();
+	}
+	return false;
+}

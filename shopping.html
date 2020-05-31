@@ -1,187 +1,116 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf8">
-	<title>Compra</title>
-	<link rel="stylesheet" href="index.css">
-	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-	<script src="../electro.js"></script>
-    <script src="functions.js"></script>
-</head>
+<html lang="es">
+    <head>
+        
+        <meta charset="utf8">
+        <title>Compra</title>
+        <link rel="stylesheet" href="index.css">
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="../electro.js"></script>
+        <script src="functions.js"></script>
+    </head>
 
-<body class="text-gray-800" onload="showShoppingList();">	 
-	<div class="w-full flex flex-wrap">
-      
-        <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
-            <div class="w-2/12 md:w-1/12 flex justify-start pl-5">
-                <button id="atras" title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
-                    <span class="fas fa-arrow-left hover:text-gray-500"></span>
-                </button>
-            </div>
+    <body class="text-gray-800" onload="showShoppingList();">	 
+        <div class="w-full flex flex-wrap">
+        
+            <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
+                <div class="w-2/12 md:w-1/12 flex justify-start pl-5">
+                    <button id="atras" title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
+                        <span class="fas fa-arrow-left hover:text-gray-500"></span>
+                    </button>
+                </div>
 
-            <div class="w-4/12 md:w-2/12 p-2">
-                <input class="w-full h-10 bg-white border-2 border-gray-300 rounded-lg px-5 text-sm mt-2"
-				type="search" name="search" placeholder="Buscar...">
-            </div>
+                <div class="w-4/12 md:w-2/12 p-2">
+                    <input class="w-full h-10 bg-white border-2 border-gray-300 rounded-lg px-5 text-sm mt-2"
+                    type="search" name="search" placeholder="Buscar...">
+                </div>
 
-            <div class="w-2/12 block md:hidden flex justify-center">
-                <button type="button" class="text-4xl">
-                    <span class="fas fa-bars hover:text-gray-500"></span>
-                </button>
-            </div>
+                <div class="w-2/12 block md:hidden flex justify-center">
+                    <button type="button" class="text-4xl">
+                        <span class="fas fa-bars hover:text-gray-500"></span>
+                    </button>
+                </div>
 
-            <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
-                <button onclick="location.href='cart.html'" type="button" class="text-4xl">
-                    <span class="pr-1 fas fa-shopping-cart hover:text-gray-500"><span class="fas fa-circle bg-transparent fixed text-red-500 mr-20 pr-1 -mt-4 text-xs right-0 z-50" style="display:none"></span></span>
-                </button>
-            </div>
+                <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
+                    <button type="button" class="flex flex-wrap justify-center h-14 order modal-open text-4xl">
+                        <span class="pr-1 pt-4 md:pt-2 fas fa-shopping-basket hover:text-gray-500"></span>
+                        <span class="fas fa-circle bg-transparent text-red-500 text-sm mt-10 -ml-4 md:ml-0 md:-mt-2 md:pl-8 z-50" style="display:none"></span>
+                    </button>
+                </div>
 
-            <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
-                <button onclick="location.href='settings.html'" type="button" class="text-4xl">
-                    <span class="fas fa-cog hover:text-gray-500"></span>
-                </button>
-            </div>
-        </header>
+                <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
+                    <button onclick="location.href='settings.html'" type="button" class="text-4xl">
+                        <span class="fas fa-cog hover:text-gray-500"></span>
+                    </button>
+                </div>
+            </header>
 
-        <main class="w-full h-screen flex">
-            <!--QUIERO PODER CERRAR EL MENU DE HAMBURGUESA CUANDO HAGO CLICK EN ALGUN ELEMENTO DE LA LISTA-->
-            <div class="burger bg-gray-400 w-full md:w-3/12 hidden md:block">
-                <nav class="w-full">
-                    <ul class="mt-20 cursor-pointer">
-                        <li onclick="return showShoppingList();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-shopping-cart w-10 -ml-2 text-center"></span>Lista de la compra</a></li>
-                        <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-drumstick-bite w-10 -ml-2 text-center"></span>Carne</a></li>
-                        <li onclick="return showFoodItems(fruit);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-apple-alt w-10 -ml-2 text-center"></span>Fruta</a></li>
-                        <li onclick="return showFoodItems(eggmilk);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-egg w-10 -ml-2 text-center"></span>Ovolácteos</a></li>
-                        <li onclick="return showFoodItems(bread);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-bread-slice w-10 -ml-2 text-center"></span>Pan</a></li>
-                        <li onclick="return showFoodItems(fish);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-fish w-10 -ml-2 text-center"></span>Pescado</a></li>
-                        <li onclick="return showFoodItems(veggies);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-carrot w-10 -ml-2 text-center"></span>Verdura</a></li>   
-                    </ul>
-                    <div class="flex items-center">
-                        <button title="Código de barras" type="button" class="bar-code modal-open margin-auto bg-purple-400 hover:bg-purple-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
-                            <p class="fas fa-barcode text-gray-200"></p>
-                        </button>
-                    </div>
-                </nav>
-            </div>
+            <main class="w-full h-screen flex">
+                <!--QUIERO PODER CERRAR EL MENU DE HAMBURGUESA CUANDO HAGO CLICK EN ALGUN ELEMENTO DE LA LISTA-->
+                <div class="burger bg-gray-400 w-full md:w-3/12 hidden md:block">
+                    <nav class="w-full">
+                        <ul class="mt-20 cursor-pointer">
+                            <li onclick="return showShoppingList();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-shopping-basket w-10 -ml-2 text-center"></span>Lista de la compra</a></li>
+                            <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-drumstick-bite w-10 -ml-2 text-center"></span>Carne</a></li>
+                            <li onclick="return showFoodItems(fruit);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-apple-alt w-10 -ml-2 text-center"></span>Fruta</a></li>
+                            <li onclick="return showFoodItems(eggmilk);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-egg w-10 -ml-2 text-center"></span>Ovolácteos</a></li>
+                            <li onclick="return showFoodItems(bread);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-bread-slice w-10 -ml-2 text-center"></span>Pan</a></li>
+                            <li onclick="return showFoodItems(fish);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-fish w-10 -ml-2 text-center"></span>Pescado</a></li>
+                            <li onclick="return showFoodItems(veggies);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-carrot w-10 -ml-2 text-center"></span>Verdura</a></li>   
+                        </ul>
+                        <div class="flex items-center">
+                            <button title="Código de barras" type="button" class="bar-code modal-open margin-auto bg-purple-400 hover:bg-purple-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
+                                <p class="fas fa-barcode text-gray-200"></p>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
 
-            <!--Modal-->
+                <!--Modal-->
 
-            <div class="flex-1 flex overflow-hidden">
-                <div class="flex-1 overflow-y-scroll">
-                    <!--Modal de hacer pedido-->
+                <div class="flex-1 flex overflow-hidden">
+                    <div class="flex-1 overflow-y-scroll">
 
-                    <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-10">
-                        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-                        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                        <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+                            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+                            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
 
-                            <div class="modal-content py-4 text-left px-6">
-                                <!--Title
-                                <div class="flex justify-between items-center pb-3">
-                                    <p class="text-2xl font-bold">Añadir producto</p>
-                                    <div class="modal-close cursor-pointer z-50">
-                                        <span title="Cerrar" class="fas fa-times fill-current text-grey hover:text-purple-300"></span>
-                                    </div>
+                                <div class="modal-content py-4 text-left px-6">
+                                    <!--Contenido del modal-->
                                 </div>
-
-                                <p class="p-modal">Coloque el código de barras del producto frente al lector del frigorífico o introduzca el código a mano.</p>
-                                <div class="flex">
-                                    <input type="number" placeholder="ej.: 1234 5678 9123" class="border-2 border-gray-300 rounded-lg p-2 w-full my-2">
-                                    <span title="Añadir" onclick="addElement();" class="p-6 cursor-pointer fas fa-plus fill-current text-grey hover:text-purple-300"></span>
-                                </div>
-
-                                <div class="tags flex">
-                                    <div onclick="deleteElement(this);" class="m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full">
-                                        <p>Huevos</p>
-                                        <span title="Eliminar" class="fas fa-times cursor-pointer px-1 py-2 fill-current text-grey"></span>
-                                    </div>
-            
-                                    <div onclick="deleteElement(this);" class="m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full">
-                                        <p>Leche</p>
-                                        <span title="Eliminar" class="fas fa-times cursor-pointer px-1 py-2 fill-current text-grey"></span>
-                                    </div>
-
-                                    <div onclick="deleteElement(this);" class="new-tag">
-
-                                    </div>
-                                </div>
-
-                                <div class="flex justify-end pt-2">
-                                    <button title="Cancelar" class="px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2">Cancelar</button>
-                                    <button title="Hecho" class="modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300">Hecho</button>
-                                </div>  --> 
                             </div>
                         </div>
-                    </div>
 
-                    <div class="principal p-8 pt-16 md:pt-2 w-full overflow-y-auto">
-                        <!-- AQUI VA EL CONTENIDO PRINCIPAL DE CADA PESTAÑA -->
-                        
+                        <div class="principal p-8 pt-16 md:pt-2 w-full overflow-y-auto">
+                            <!-- AQUI VA EL CONTENIDO PRINCIPAL DE CADA PESTAÑA -->
+                            
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="fixed z-10 right-0 bottom-0 flex m-6 mr-48 text-lg hidden lg:flex">
-                <button title="Modo cuadrícula" class="grid bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-large p-2 cursor-pointer hover:text-purple-400"></span></button>
-                <button title="Modo lista" class="list bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-list p-2 cursor-pointer hover:text-purple-400"></span></button>
-            </div>
+                <div class="fixed z-10 right-0 bottom-0 flex m-6 mr-48 text-lg hidden lg:flex">
+                    <button title="Modo cuadrícula" class="grid bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-large p-2 cursor-pointer hover:text-purple-400"></span></button>
+                    <button title="Modo lista" class="list bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-list p-2 cursor-pointer text-purple-500 hover:text-purple-400"></span></button>
+                </div>
 
-            <div class="order fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg cursor-pointer modal-open">                
-                <h3 class="font-bold rounded-l-lg bg-purple-400 p-2 px-3">Total:</h3>
-                <h3 class="total-price font-bold rounded-r-lg bg-gray-300 p-2"></h3>
-            </div>
-        </main>
+                <div class="order fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg cursor-pointer modal-open">                
+                    <h3 class="font-bold rounded-l-lg bg-purple-400 p-2 px-3 hover:bg-purple-300">Total:</h3>
+                    <h3 class="total-price font-bold rounded-r-lg bg-gray-300 p-2"></h3>
+                </div>
+            </main>
 
-    </div>
+        </div>
 
-    <script>
-        switchGridList();
-        recalculateTotal();
-        checkGrid();
-        checkPrevPage();
-        /* MENSAJE MODAL */
-        var openmodal = document.querySelectorAll('.modal-open')
-        for (var i = 0; i < openmodal.length; i++) {
-            openmodal[i].addEventListener('click', function(event){
-            event.preventDefault()
-            toggleModal()
-            })
-        }
-            
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
-
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-            closemodal[i].addEventListener('click', toggleModal)
-        }
-
-        document.onkeydown = function(evt) {
-            evt = evt || window.event
-            var isEscape = false
-            if ("key" in evt) {
-            isEscape = (evt.key === "Escape" || evt.key === "Esc")
-            } else {
-            isEscape = (evt.keyCode === 27)
-            }
-            if (isEscape && document.body.classList.contains('modal-active')) {
-            toggleModal()
-            }
-        };
-
-
-        function toggleModal () {
-            const body = document.querySelector('body')
-            const modal = document.querySelector('.modal')
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
-        }
-        /*****************/
-    </script>
-</body>
+        <script>
+            switchGridList();
+            recalculateTotal();
+            checkGrid();
+            checkPrevPage();
+        </script>
+    </body>
 
 </html>

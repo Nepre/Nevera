@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 	<meta charset="utf8">
 	<title>Luces</title>
@@ -7,6 +7,7 @@
 	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 	<script src="../electro.js"></script>
 	<script src="functions.js"></script>
 </head>
@@ -38,8 +39,9 @@
                         <span class="xxl-font fas fa-lightbulb text-gray-200"></span>
                     </button>
                     <div class="flex flex-wrap md:flex-no-wrap md:flex-col justify-center">
-                        <button type="button" onclick="return alternarLuzRefrigerador();" class="bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6" onclick="alternarLuzRefrigerador()">
-                            <p class="text-gray-200 text-xl">Refrigerador</p>
+                        <button type="button" onclick="return alternarLuzRefrigerador();" class="flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6" onclick="alternarLuzRefrigerador()">
+                            <p class="text-white text-2xl">Refrigerador</p>
+                            <p class="text-white text-4xl">ON</p>
                         </button>
                         <button type="button" onclick="return alternarLuzCongelador();" class="bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 md:ml-24" onclick="alternarLuzRefrigerador()">
                             <p class="text-gray-200 text-xl">Congelador</p>
@@ -52,9 +54,10 @@
                 </div>
             </div>
 		</div>
-        
-
     </div>
+    <script>
+        init();
+    </script>
 </body>
 
 </html>

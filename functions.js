@@ -14,26 +14,33 @@ window.setInterval(function(){
 		small = true;
 		$(".burger").hide();
 	} 
+
+	var closemodal = document.querySelectorAll('.modal-close');
+	for (var i = 0; i < closemodal.length; i++) {
+		closemodal[i].addEventListener('click', toggleModal);
+	}
+	
+	if($(".shopping").is(":visible")){
+		$(".left-arrow").removeClass("w-10/12").addClass("w-8/12");
+	} else{
+		$(".left-arrow").removeClass("w-8/12").addClass("w-10/12");
+	}
 }, 50);
 
 function init(){
+	checkLights();
+	checkMotores();
 	frigo.on("connect", function () {
 		console.log("Ya estoy conectado con el frigorifico!!!")
 		console.log("Con este hay " + frigo.clientes + " clientes conectados");
 
 
 		// Activar la luz del refrigerador cuando se abre la puerta
-		frigo.on("refrigeradorPuerta", function (abierta) {
+		/*frigo.on("refrigeradorPuerta", function (abierta) {
 			console.log("Puerta:", abierta);
 			frigo.refrigeradorLuz = abierta;
-		});
+		});*/
 	});
-}
-
-function encenderLuzRefrigerador() {
-	frigo.refrigeradorLuz = true;
-	console.log(frigo.refrigeradorLuz);
-	
 }
 
 function cambiarHora() {
@@ -42,22 +49,98 @@ function cambiarHora() {
 	
 }
 
-function apagarLuzRefrigerador() {
-	frigo.refrigeradorLuz = false;
-	console.log(frigo.refrigeradorLuz);
-}
-
 function alternarLuzRefrigerador() {
 	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
+	if(frigo.refrigeradorLuz == true)
+		Cookies.set('fridgelight', 1);
+	else
+		Cookies.set('fridgelight', 0);
+	return false;
 }
 
 function alternarLuzCongelador() {
 	frigo.congeladorLuz = !frigo.congeladorLuz;
+	if(frigo.congeladorLuz == true)
+		Cookies.set('freezerlight', 1);
+	else
+		Cookies.set('freexerlight', 0);
 }
 
-function alternarAmbasLuces() {
-	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
-	frigo.congeladorLuz = !frigo.congeladorLuz;
+function alternarAmbasLuces() { // Esto luce feote pero no sabia como hacerlo de otra forma
+	if(frigo.refrigeradorLuz == true && frigo.congeladorLuz == false){
+		frigo.refrigeradorLuz = true;
+		frigo.congeladorLuz = true;
+	}
+	else if(frigo.congeladorLuz == true && frigo.refrigeradorLuz == false){
+		frigo.refrigeradorLuz = false;
+		frigo.congeladorLuz = false;
+	} else if(frigo.congeladorLuz == true && frigo.refrigeradorLuz == true){
+		frigo.refrigeradorLuz = false;
+		frigo.congeladorLuz = false;
+	} else if(frigo.congeladorLuz == false && frigo.refrigeradorLuz == false){
+		frigo.refrigeradorLuz = true;
+		frigo.congeladorLuz = true;
+	}
+	return false;
+}
+
+function alternarMotorRefrigerador() {	
+	frigo.refrigeradorMotor = !frigo.refrigeradorMotor;
+	if(frigo.refrigeradorMotor == 1)
+		Cookies.set('fridgemotor', 1);
+	else
+		Cookies.set('fridgemotor', 0);
+	return false;
+}
+
+function alternarMotorCongelador() {
+	frigo.congeladorMotor = !frigo.congeladorMotor;
+	if(frigo.congeladorMotor == 1)
+		Cookies.set('freezermotor', 1);
+	else
+		Cookies.set('freezermotor', 0);
+}
+
+function alternarAmbosMotores() { // Esto luce feote pero no sabia como hacerlo de otra forma
+	if(frigo.refrigeradorMotor == 1 && frigo.congeladorMotor == 0){
+		frigo.refrigeradorMotor = 1;
+		frigo.congeladorMotor = 0;
+	}
+	else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 0){
+		frigo.refrigeradorMotor = 0;
+		frigo.congeladorMotor = 0;
+	} else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 1){
+		frigo.refrigeradorMotor = 0;
+		frigo.congeladorMotor = 0;
+	} else if(frigo.congeladorMotor == 0 && frigo.refrigeradorMotor == 0){
+		frigo.refrigeradorMotor = 1;
+		frigo.congeladorMotor = 1;
+	}
+	return false;
+}
+
+function checkLights(){	
+	if(Cookies.get('fridgelight') == 1) // ON
+		frigo.refrigeradorLuz = true;
+	else if(Cookies.get('fridgelight') == 0) // OFF
+		frigo.refrigeradorLuz = false;	
+	if(Cookies.get('freezerlight') == 1) // ON
+		frigo.congeladorLuz = true;
+	else if(Cookies.get('freezerlight') == 0)// OFF
+		frigo.congeladorLuz = false;	
+	return false;
+}
+
+function checkMotores(){	
+	if(Cookies.get('fridgemotor') == 1) // ON
+		frigo.refrigeradorMotor = 1;
+	else if(Cookies.get('fridgemotor') == 0) // OFF
+		frigo.refrigeradorMotor = 0;	
+	if(Cookies.get('freezermotor') == 1) // ON
+		frigo.congeladorMotor = 1;
+	else if(Cookies.get('freezermotor') == 0)// OFF
+		frigo.congeladorMotor = 0;	
+	return false;
 }
 
 function deleteElement(id){
@@ -95,7 +178,49 @@ $(document).ready(function(){
 });
 
 /* SETTINGS & SHOPPING LIST */
+$(document).ready(function(){
+	var current_title = $(document).attr('title');
+	if (current_title == "Compra") {
+		var openmodal = document.querySelectorAll('.modal-open')
+		for (var i = 0; i < openmodal.length; i++) {
+			openmodal[i].addEventListener('click', function(event){
+			event.preventDefault()
+			toggleModal()
+			})
+		}
+			
+		const overlay = document.querySelector('.modal-overlay')
+		overlay.addEventListener('click', toggleModal)
 
+
+		document.onkeydown = function(evt) {
+			evt = evt || window.event
+			var isEscape = false
+			if ("key" in evt) {
+			isEscape = (evt.key === "Escape" || evt.key === "Esc")
+			} else {
+			isEscape = (evt.keyCode === 27)
+			}
+			if (isEscape && document.body.classList.contains('modal-active')) {
+				toggleModal()
+			}
+		};
+	}
+	if (current_title == "Inicio") {
+		document.onkeydown = function(evt) {
+			evt = evt || window.event
+			var isEscape = false
+			if ("key" in evt) {
+			isEscape = (evt.key === "Escape" || evt.key === "Esc")
+			} else {
+			isEscape = (evt.keyCode === 27)
+			}
+			if (isEscape) {
+				initialIndex();
+			}
+		};
+	}
+});
 // Para cambiar el titulo de los settings dependiendo de donde pinches
 $(document).ready(function(){
 	$("li").click(function(){
@@ -105,29 +230,29 @@ $(document).ready(function(){
 
 /* ITEMS*/
 // Items de la lista de compra
-var items = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1}, 
-	{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"fish.png", "alt":"Dorada", "title":"Dorada", "price":"6.50", "quantity":1}, 
-	{"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1}];
+var items = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1, "id":12}, {"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1, "id":9}, 
+{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1, "id":0}, {"file":"fish.png", "alt":"Dorada", "title":"Dorada", "price":"6.50", "quantity":1, "id":14}, 
+{"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1, "id":25}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1, "id":4}];
 // Items de la lista de carne
-var meat = [{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1}, {"file":"burger.png", "alt":"Hamburguesa", "title":"Hamburguesa de ternera y cerdo", "price":"2.05", "quantity":1},
-{"file":"chicken-breast.png", "alt":"Pollo", "title":"Pechuga de pollo", "price":"5.27", "quantity":1}];
+var meat = [{"file":"meat.png", "alt":"Carne", "title":"Carne de ternera", "price":"9.75", "quantity":1, "id":0}, {"file":"burger.png", "alt":"Hamburguesa", "title":"Hamburguesa de ternera y cerdo", "price":"2.05", "quantity":1, "id":1},
+{"file":"chicken-breast.png", "alt":"Pollo", "title":"Pechuga de pollo", "price":"5.27", "quantity":1, "id":2}];
 // Items de la lista de fruta
-var fruit = [{"file":"strawberries.png", "alt":"Fresas", "title":"Fresas", "price":"3.75", "quantity":1}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1},
-{"file":"peaches.png", "alt":"Melocotones", "title":"Melocotones", "price":"1.14", "quantity":1}, {"file":"pear.png", "alt":"Peras", "title":"Peras", "price":"2.35", "quantity":1},
-{"file":"bananas.png", "alt":"Plátanos", "title":"Plátanos", "price":"3.15", "quantity":1}, {"file":"watermelon.png", "alt":"Sandía", "title":"Sandía entera", "price":"7.16", "quantity":1}];
+var fruit = [{"file":"strawberries.png", "alt":"Fresas", "title":"Fresas", "price":"3.75", "quantity":1, "id":3}, {"file":"apples.png", "alt":"Manzanas", "title":"Manzanas rojas", "price":"1.23", "quantity":1, "id":4},
+{"file":"peaches.png", "alt":"Melocotones", "title":"Melocotones", "price":"1.14", "quantity":1, "id":5}, {"file":"pear.png", "alt":"Peras", "title":"Peras", "price":"2.35", "quantity":1, "id":6},
+{"file":"bananas.png", "alt":"Plátanos", "title":"Plátanos", "price":"3.15", "quantity":1, "id":7}, {"file":"watermelon.png", "alt":"Sandía", "title":"Sandía entera", "price":"7.16", "quantity":1, "id":8}];
 // Items de la lista de ovolácteos
-var eggmilk = [{"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1}, {"file":"milk.png", "alt":"Leche", "title":"Leche de vaca entera", "price":"0.79", "quantity":1},
-{"file":"cheese.png", "alt":"Mozzarella", "title":"Queso mozarella", "price":"0.80", "quantity":1}];
+var eggmilk = [{"file":"egg.png", "alt":"Huevos", "title":"Docena de huevos", "price":"0.95", "quantity":1, "id":9}, {"file":"milk.png", "alt":"Leche", "title":"Leche de vaca entera", "price":"0.79", "quantity":1, "id":10},
+{"file":"cheese.png", "alt":"Mozzarella", "title":"Queso mozarella", "price":"0.80", "quantity":1, "id":11}];
 // Items de la lista de pan
-var bread = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1}, {"file":"sandwichbread.png", "alt":"Pan de molde", "title":"Pan de molde", "price":"1.99", "quantity":1}];
+var bread = [{"file":"bread.png", "alt":"Pan", "title":"Hogaza de pan de leña", "price":"1.10", "quantity":1, "id":12}, {"file":"sandwichbread.png", "alt":"Pan de molde", "title":"Pan de molde", "price":"1.99", "quantity":1, "id":13}];
 // Items de la lista de pescado
-var fish = [{"file":"fish.png", "alt":"Dorada", "title":"Dorada", "price":"6.50", "quantity":1}, {"file":"seabass.png", "alt":"Lubina", "title":"Lubina salvaje", "price":"40.60", "quantity":1}, 
-{"file":"hake.png", "alt":"Merluza", "title":"Merluza", "price":"4.25", "quantity":1}, {"file":"salmon.png", "alt":"Salmón", "title":"Salmón noruego", "price":"13.90", "quantity":1}, 
-{"file":"sardine.png", "alt":"Sardinas", "title":"Sardinas", "price":"4.96", "quantity":1}];
+var fish = [{"file":"fish.png", "alt":"Dorada", "title":"Dorada", "price":"6.50", "quantity":1, "id":14}, {"file":"seabass.png", "alt":"Lubina", "title":"Lubina salvaje", "price":"40.60", "quantity":1, "id":15}, 
+{"file":"hake.png", "alt":"Merluza", "title":"Merluza", "price":"4.25", "quantity":1, "id":16}, {"file":"salmon.png", "alt":"Salmón", "title":"Salmón noruego", "price":"13.90", "quantity":1, "id":17}, 
+{"file":"sardine.png", "alt":"Sardinas", "title":"Sardinas", "price":"4.96", "quantity":1, "id":18}];
 // Items de la lista de verduras
-var veggies = [{"file":"eggplant.png", "alt":"Berenjena", "title":"Berenjena", "price":"0.54", "quantity":1}, {"file":"broccoli.png", "alt":"Brócoli", "title":"Brócoli", "price":"1.45", "quantity":1},
-{"file":"zucchini.png", "alt":"Calabacín", "title":"Calabacín", "price":"0.49", "quantity":1}, {"file":"potatoes.png", "alt":"Patatas", "title":"Patata nueva", "price":"1.34", "quantity":1}, 
-{"file":"peppers.png", "alt":"Pimientos", "title":"Trío de pimientos tricolor", "price":"1.19", "quantity":1}, {"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1}];
+var veggies = [{"file":"eggplant.png", "alt":"Berenjena", "title":"Berenjena", "price":"0.54", "quantity":1, "id":20}, {"file":"broccoli.png", "alt":"Brócoli", "title":"Brócoli", "price":"1.45", "quantity":1, "id":21},
+{"file":"zucchini.png", "alt":"Calabacín", "title":"Calabacín", "price":"0.49", "quantity":1, "id":22}, {"file":"potatoes.png", "alt":"Patatas", "title":"Patata nueva", "price":"1.34", "quantity":1, "id":23}, 
+{"file":"peppers.png", "alt":"Pimientos", "title":"Trío de pimientos tricolor", "price":"1.19", "quantity":1, "id":24}, {"file":"carrots.png", "alt":"Zanahorias", "title":"Zanahorias", "price":"0.64", "quantity":1, "id":25}];
 // Array de la lista en la que estoy actualmente
 var array = 0;
 /********/
@@ -178,57 +303,50 @@ function recalc(id, item){
 	return false;
 }
 
-function removeItem(id){ // No funciona porque necesitamos actualizar los id's de los items cada vez que eliminamos 1
-	let tam = items.length - 1;
-	let aux = [];
-
-	console.log(id);
-
-	for(let i = id; i < items.length; i++){
-		items[i] = items[i + 1];
-	}
-
-	for(let i = 0; i < tam; i++){
-		aux.push(items[i]);
-	}
-
-	items = aux;
-	console.log(items);
+// Función para eliminar los elementos del array de items
+function removeItem(id){ 
+	items.splice(id, 1);
+	showShoppingList();
+	return false;
 }
-
 
 // Función para mostrar los elementos de la lista de la compra
 function showShoppingList(){
-	if(screen.width < 768)
-		$('.burger').hide();
-	let title = "<h2 class='text-4xl w-full mb-2 z-40'>Lista de la compra</h2>";
 	let totalPrice = 0;
-	let id = 0;
-	for(let i = 0; i < items.length; i++){
-		let price = (items[i].price * items[i].quantity).toFixed(2);
-		let shoppingItems = "<div id='" + id + "' class='shopping-list flex flex-col w-auto'>" +
-			"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
-				"<div class='relative h-32 w-40'>" + 
-					"<span onclick='$(this).parent().parent().parent().remove(); removeItem(" + i + ");' title='Eliminar' class='fas fa-times absolute bg-purple-300 hover:bg-purple-200 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
-					"<img src='resources/" + items[i].file + "' alt='" + items[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
-				"</div>" +
-				"<div class='data flex-col w-full'>" + 
-					"<h3 class='px-4 py-2 text-2xl'>" + items[i].title + "</h3>" +
-					"<h4 class='price font-bold px-4'>Precio: " + price + "€</h4>" +
-				"</div>" +
-				"<div class='selector flex flex-col justify-center rounded-r-lg w-12 bg-purple-100'>" +
-					"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='my-auto w-full h-full mb-2 bg-purple-300 hover:bg-purple-200 rounded-tr-lg'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
-					"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 text-center font-bold'>" +
-					"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='my-auto w-full h-full mt-2 bg-purple-300 hover:bg-purple-200 rounded-br-lg'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
-				"</div>" +
-			"</div>" +
+	let innerHTML = "<h2 class='text-4xl w-full mb-2 z-40'>Lista de la compra</h2>";
+	if(items.length == 0){
+		innerHTML += "<div class='flex flex-wrap justify-center items-center'>" +
+			"<h4 class='bg-purple-100 p-2 rounded-sm mt-4'>¡Oops, parece que tu lista de la compra está vacía! Selecciona los productos desde la lista o introdúcelos por código de barras a mano o con el lector.</h4>" +
 		"</div>";
-		title += shoppingItems;
-		id++;
-		totalPrice += Number(price);
+		$('.principal').html(innerHTML);
+	} else{
+		let id = 0;
+		for(let i = 0; i < items.length; i++){
+			let price = (items[i].price * items[i].quantity).toFixed(2);
+			let shoppingItems = "<div id='" + id + "' class='shopping-list flex flex-col w-auto'>" +
+				"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
+					"<div class='relative h-32 w-40'>" + 
+						"<span onclick='removeItem(" + i + ");' title='Eliminar' class='fas fa-times absolute bg-purple-300 hover:bg-purple-200 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
+						"<img src='resources/" + items[i].file + "' alt='" + items[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
+					"</div>" +
+					"<div class='data flex-col w-full'>" + 
+						"<h3 class='px-4 py-2 text-2xl'>" + items[i].title + "</h3>" +
+						"<h4 class='price font-bold px-4'>Precio: " + price + "€</h4>" +
+					"</div>" +
+					"<div class='selector flex flex-col justify-center rounded-r-lg w-12 bg-purple-100'>" +
+						"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='my-auto w-full h-full mb-2 bg-purple-300 hover:bg-purple-200 rounded-tr-lg'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
+						"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 text-center font-bold'>" +
+						"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='my-auto w-full h-full mt-2 bg-purple-300 hover:bg-purple-200 rounded-br-lg'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
+					"</div>" +
+				"</div>" +
+			"</div>";
+			innerHTML += shoppingItems;
+			id++;
+			totalPrice += Number(price);
+		}
+		
+		$(".principal").html(innerHTML);
 	}
-	
-	$(".principal").html(title);
 	$(".total-price").html(totalPrice + "€"); // Hay que mostrar el precio total constantemente, pero ahora mismo no sé cómo hacerlo
 	checkGrid();
 	
@@ -237,9 +355,10 @@ function showShoppingList(){
 
 // Función para mostrar los elementos de cada apartado de la "tienda"
 function showFoodItems(a){
-	if(screen.width < 768)
-		$('.burger').hide();
-
+	if(window.innerWidth <= widthChange){
+		small = true;
+		$(".burger").hide();
+	}
 	let total = "<h2 class='text-4xl w-full mb-2 z-40'>" + $(this).text() + "</h2>";
 	array = a;
 
@@ -303,10 +422,15 @@ function recalculateTotal(){
 function checkGrid(){
 	if (Cookies.get("grid") == 1) {
 		$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
+		$('.fa-th-large').removeClass('text-gray-900').addClass('text-purple-500');
+		$('.fa-th-list').removeClass('text-purple-500').addClass('text-gray-900');
 	}
 	else{
+		$('.fa-th-large').removeClass('text-purple-500').addClass('text-gray-900');
+		$('.fa-th-list').removeClass('text-gray-900').addClass('text-purple-500');
 		$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
 	}
+	return false;
 }
 
 // Función para cambiar el modo de visualización de grid a lista y viceversa
@@ -315,11 +439,15 @@ function switchGridList(){
 		if ($(this).hasClass('grid')) {
 			console.log("Grid");
 			Cookies.set('grid', 1);
+			$('.fa-th-large').removeClass('text-gray-900').addClass('text-purple-500');
+			$('.fa-th-list').removeClass('text-purple-500').addClass('text-gray-900');
 			$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
 		}
 		else if($(this).hasClass('list')) {
 			console.log("List");
 			Cookies.set('grid', 2);
+			$('.fa-th-large').removeClass('text-purple-500').addClass('text-gray-900');
+			$('.fa-th-list').removeClass('text-gray-900').addClass('text-purple-500');
 			$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
 		}
 	});
@@ -363,7 +491,7 @@ $(document).ready(function(){
 	"</div>" +
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
+		"<button title='Cancelar' class='modal-close px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
 	"</div>";
 
@@ -380,24 +508,58 @@ $(document).ready(function(){
 		"</div>" +
 	"</div>" +
 
-	"<p class='p-modal'>Pulsa 'Hecho' para recibir la siguiente compra en tu domicilio.</p>" +
+	"<p class='p-modal'>Pulsa 'Continuar' para confirmar el envío a tu domicilio de la siguiente compra.</p>" +
 	
-	"<ul class='mt-2'>";
+	"<ul class='order-list mt-3'>";
 	
 	for(let i = 0; i < items.length; i++){
-		innerHTML += "<li><span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4 cursor-pointer'></span>" + items[i].title + "</li>";
+		innerHTML += "<li class='bg-purple-200 p-1 rounded-sm m-2 ml-0'><span title='Eliminar' onclick='removeFinalItem(" + i + ");' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4 cursor-pointer'></span>" + items[i].title + " <b>x" + items[i].quantity + "</b></li>";
 	}
 
 	innerHTML += "</ul>" + 
 
+	"<p class='order-price mt-3 font-bold bg-purple-300 mr-2 px-3 py-1 rounded-sm'>Total: " + $('.total-price').text() + "</p>" +
+
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
-		"<button title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+		"<button title='Cancelar' class='modal-close px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
+		"<button onclick='showFinalModal();' title='Continuar' class='px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Continuar</button>" +
 	"</div>";
 
 	$(".modal-content").html(innerHTML);
 	});
 });
+
+function showFinalModal(){
+	let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
+		"<p class='text-2xl font-bold'>¡Su pedido se ha realizado con éxito!</p>" +
+		"<div class='modal-close cursor-pointer z-50 -mt-8'>" +
+			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
+		"</div>" +
+	"</div>" +
+
+	"<p class='p-modal'>Pulsa 'Hecho' para finalizar.</p>" +
+
+	"<div class='flex justify-end pt-2'>" +
+		"<button onclick='items.splice(0, items.length); showShoppingList();' title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+	"</div>";
+
+	$(".modal-content").html(innerHTML);
+}
+
+function removeFinalItem(id){
+	removeItem(id);
+
+	console.log($('.total-price').text());
+	
+	let innerHTML = "";
+	for(let i = 0; i < items.length; i++){
+		innerHTML += "<li class='bg-purple-200 p-1 rounded-sm m-2 ml-0'><span title='Eliminar' onclick='removeFinalItem(" + i + ");' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4 cursor-pointer'></span>" + items[i].title + " x" + items[i].quantity + "</li>";
+	}
+	$('.order-list').html(innerHTML);
+	$('.order-price').html("Total: " + $('.total-price').text());
+
+	return false;
+}
 
 function checkShoppingList(){
 	if(items.length > 0){
@@ -405,5 +567,94 @@ function checkShoppingList(){
 	} else if(items.length <= 0){
 		$(".fa-circle").hide();
 	}
+	return false;
+}
+
+function toggleModal () {
+	const body = document.querySelector('body')
+	const modal = document.querySelector('.modal')
+	modal.classList.toggle('opacity-0')
+	modal.classList.toggle('pointer-events-none')
+	body.classList.toggle('modal-active')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EXPERIMENTOS INDEX */
+
+function initialIndex(){
+	$('.back').hide();
+	$('.shopping').hide();
+	let innerHTML = "<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
+		"<button onclick='selectPage(0);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+			"<span class='fas fa-power-off text-gray-200'></span>" +
+		"</button>" +
+
+		"<button onclick='selectPage(1);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+			"<span class='far fa-lightbulb text-gray-200'></span>" +
+		"</button>" +
+	"</div>" +
+
+	"<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
+		"<button onclick='location.href=\"shopping.html\"' type='button' class='shop bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+			"<span class='fas fa-shopping-basket text-gray-200'></span>" +
+		"</button>" +
+
+		"<button onclick='selectPage(2);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+			"<span class='fas fa-charging-station text-gray-200 pl-3'></span>" +
+		"</button>" +
+	"</div>";
+
+	$('.index-content').html(innerHTML);
+	return false;
+}
+
+var page = [{"title":"On/Off", "bigbtn":"power-off", "function1":"alternarMotorRefrigerador()", "function2":"alternarMotorCongelador()", "function3":"alternarAmbosMotores()"}, 
+{"title":"Luces", "bigbtn":"lightbulb", "function1":"alternarLuzRefrigerador()", "function2":"alternarLuzCongelador()", "function3":"alternarAmbasLuces()"},
+{"title":"Consumo energético", "bigbtn":"charging-station", "function1":"", "function2":"", "function3":""}];
+
+function selectPage(id){
+	$('.back').show();
+	$('.shopping').show();
+
+	let innerHTML = "<h1 class='text-4xl'>" + page[id].title + "</h1>" +
+	"<div class='flex flex-wrap justify-center lg:flex-no-wrap lg:items-center'>" +
+		"<button type='button' class='hidden lg:block bg-purple-500 cursor-default text-6xl big-btn rounded-full ml-10'>" +
+			"<span class='xxl-font fas fa-" + page[id].bigbtn + " text-gray-200'></span>" +
+		"</button>" +
+	"<div class='flex flex-wrap md:flex-no-wrap md:flex-col justify-center'>";
+
+	if(id != 2){
+		innerHTML += "<button type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+				"<p class='text-gray-200 text-xl'>Refrigerador</p>" +
+			"</button>" +
+			"<button type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 lg:ml-24' onclick='alternarLuzRefrigerador()'>" +
+				"<p class='text-gray-200 text-xl'>Congelador</p>" +
+			"</button>" +
+			"<button type='button' onclick='return " + page[id].function3 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+				"<p class='text-gray-200 text-xl'>Ambos</p>" +
+			"</button>";
+	} else{
+		innerHTML += "<button type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+				"<p class='fas fa-leaf text-gray-200'></p>" +
+			"</button>" +
+			"<button type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+				"<p class='fas fa-snowflake text-gray-200'></p>" +
+			"</button>";
+	}
+	innerHTML += "</div></div>";
+
+	$('.index-content').html(innerHTML);
 	return false;
 }

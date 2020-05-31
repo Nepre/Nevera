@@ -228,6 +228,9 @@ $(document).ready(function(){
 		};
 	}
 });
+
+// ---- Settings ----
+
 // Para cambiar el titulo de los settings dependiendo de donde pinches
 $(document).ready(function(){
 	$("li").click(function(){
@@ -235,18 +238,17 @@ $(document).ready(function(){
 	});
 });
 
+
+
 function setSetting(text){
 
 	switch(text){
-		case "Ajustes generales":
-			AjustesGenerales();
-			break;
-
 		case "Idioma":
 			console.log("Idioma");
 			break;
 
 		default:
+			$("#contenido").html(ajustesGenerales);
 			console.log("Ajustes generales");		
 	}
 
@@ -287,7 +289,6 @@ function changeScreen(set){
 	Cookies.set("inputPantalla", (set)? 1:0);
 }
 
-function AjustesGenerales(){}
 
 function Idioma(){
 	

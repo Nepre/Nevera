@@ -1,5 +1,5 @@
 var ajustesGenerales = `
-<!--Deteccion automatica-->
+                            <!--Deteccion automatica-->
                             <div class="flex pt-1"> 
                                 <div class="pr-3 pt-2">
                                     <label for="checked" class="inline-flex items-center cursor-pointer">

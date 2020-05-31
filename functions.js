@@ -85,28 +85,35 @@ function alternarAmbasLuces() { // Esto luce feote pero no sabia como hacerlo de
 }
 
 function alternarMotorRefrigerador() {	
-	frigo.refrigeradorMotor = !frigo.refrigeradorMotor;
-	if(frigo.refrigeradorMotor == 1)
-		Cookies.set('fridgemotor', 1);
-	else
+	console.log(Cookies.get('fridgemotor'));
+
+	if(frigo.refrigeradorMotor == 1){
+		frigo.refrigeradorMotor = 0;
 		Cookies.set('fridgemotor', 0);
+	}
+	else{
+		frigo.refrigeradorMotor = 1;
+		Cookies.set('fridgemotor', 1);
+	}
 	return false;
 }
 
 function alternarMotorCongelador() {
-	frigo.congeladorMotor = !frigo.congeladorMotor;
-	if(frigo.congeladorMotor == 1)
-		Cookies.set('freezermotor', 1);
-	else
+	if(frigo.congeladorMotor == 1){
+		frigo.congeladorMotor = 0;
 		Cookies.set('freezermotor', 0);
+	}
+	else{
+		frigo.congeladorMotor = 1;
+		Cookies.set('freezermotor', 1);
+	}
 }
 
 function alternarAmbosMotores() { // Esto luce feote pero no sabia como hacerlo de otra forma
 	if(frigo.refrigeradorMotor == 1 && frigo.congeladorMotor == 0){
 		frigo.refrigeradorMotor = 1;
 		frigo.congeladorMotor = 0;
-	}
-	else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 0){
+	} else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 0){
 		frigo.refrigeradorMotor = 0;
 		frigo.congeladorMotor = 0;
 	} else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 1){

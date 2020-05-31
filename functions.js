@@ -231,9 +231,67 @@ $(document).ready(function(){
 // Para cambiar el titulo de los settings dependiendo de donde pinches
 $(document).ready(function(){
 	$("li").click(function(){
-		$("h2").html($(this).text());
+		setSetting($(this).text());
 	});
 });
+
+function setSetting(text){
+
+	switch(text){
+		case "Ajustes generales":
+			AjustesGenerales();
+			break;
+
+		case "Idioma":
+			console.log("Idioma");
+			break;
+
+		default:
+			console.log("Ajustes generales");		
+	}
+
+}
+
+function changeInput(idInput, checkedIn){	
+	if(!checkedIn){
+		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
+	}
+	else{
+		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full"
+	}
+}
+
+function changeDetection(set){
+	Cookies.set("automaticDetection", (set)? 1:0);
+	if(!set){
+		changeInput('inputLuz', false);
+		$('#checked2').prop('disabled', true);
+
+		changeInput('inputPantalla', false);
+		$('#checked3').prop('disabled', true);
+	}
+	else{
+		changeInput('inputLuz', true);
+		$('#checked2').prop('disabled', false);
+
+		changeInput('inputPantalla', true);
+		$('#checked3').prop('disabled', false);
+	}
+}
+
+function changeLight(set){
+	Cookies.set("automaticLight", (set)? 1:0);
+}
+
+function changeScreen(set){
+	Cookies.set("inputPantalla", (set)? 1:0);
+}
+
+function AjustesGenerales(){}
+
+function Idioma(){
+	
+}
 
 /* ITEMS*/
 // Items de la lista de compra

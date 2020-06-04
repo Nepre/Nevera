@@ -414,14 +414,18 @@ $(document).ready(function(){
 // Para cambiar el titulo de los settings dependiendo de donde pinches
 $(document).ready(function(){
 	$("li").click(function(){
+		setShopping($(this).text());
 		setSetting($(this).text());
 	});
 });
 
-
+function setShopping(text){
+	if(window.location.pathname != ("/interfaz/shopping.html")) return;
+	$("h2").html(text);
+}
 
 function setSetting(text){
-
+	if(window.location.pathname != ("/interfaz/settings.html")) return;
 	switch(text){
 		case "Idioma":
 			console.log("Idioma");
@@ -699,9 +703,7 @@ function switchGridList(){
 	});
 }
 
-function checkPrevPage(){
-	console.log(window.location.pathname);
-	
+function checkPrevPage(){	
 	if(Cookies.get("prevPlace") == undefined || window.location.pathname == ("/interfaz/"+Cookies.get("prevPlace"))){
 		$("#atras").attr("onclick", "location.href='index.html'");
 	}
@@ -890,13 +892,13 @@ function selectPage(id){
 
 	if(id != 2){
 		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='text-gray-200 text-xl'>Refrigerador</p>" +
+				"<p class='text-gray-200 text-xl'>Refrigerador <span>Off</span></p>" +
 			"</button>" +
 			"<button id='button2' type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 lg:ml-24'>" +
-				"<p class='text-gray-200 text-xl'>Congelador</p>" +
+				"<p class='text-gray-200 text-xl'>Congelador <span>On</span></p>" +
 			"</button>" +
 			"<button id='button3' type='button' onclick='return " + page[id].function3 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='text-gray-200 text-xl'>Ambos</p>" +
+				"<p class='text-gray-200 text-xl'>Ambos <span>On</span></p>" +
 			"</button>";
 	} else{
 		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +

@@ -89,7 +89,7 @@ function fetchOnline(){
 // Click anywhere and move to the next page
 function initWelcome(){
     $('body').click(function(){
-        window.location.href = "setup-date.html";
+        window.location.href = "hey.html";
     });
 }
 

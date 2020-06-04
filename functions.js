@@ -49,40 +49,122 @@ function cambiarHora() {
 	
 }
 
+// Luces
+
 function alternarLuzRefrigerador() {
+	var value = !frigo.refrigeradorLuz;
 	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
-	if(frigo.refrigeradorLuz == true)
+	if(value){
 		Cookies.set('fridgelight', 1);
-	else
+		turnOnOffButton(true, 1);
+		console.log("ENcendida1");
+
+	}
+	else{
 		Cookies.set('fridgelight', 0);
+		turnOnOffButton(false, 1);
+	}
 	return false;
 }
 
 function alternarLuzCongelador() {
+	var value = !frigo.congeladorLuz;
 	frigo.congeladorLuz = !frigo.congeladorLuz;
-	if(frigo.congeladorLuz == true)
-		Cookies.set('freezerlight', 1);
-	else
-		Cookies.set('freexerlight', 0);
+	if(value){
+		Cookies.set('fridgelight', 1);
+		turnOnOffButton(true, 2);
+		console.log("ENcendida2");
+		
+	}
+	else{
+		Cookies.set('fridgelight', 0);
+		turnOnOffButton(false, 2);
+	}
+	return false;
 }
 
 function alternarAmbasLuces() { // Esto luce feote pero no sabia como hacerlo de otra forma
 	if(frigo.refrigeradorLuz == true && frigo.congeladorLuz == false){
 		frigo.refrigeradorLuz = true;
 		frigo.congeladorLuz = true;
+		turnOnOffButton(true, 1);
+		turnOnOffButton(true, 2);
+		turnOnOffButton(true, 3);
 	}
 	else if(frigo.congeladorLuz == true && frigo.refrigeradorLuz == false){
 		frigo.refrigeradorLuz = false;
 		frigo.congeladorLuz = false;
+		turnOnOffButton(false, 1);
+		turnOnOffButton(false, 2);
+		turnOnOffButton(false, 3);
 	} else if(frigo.congeladorLuz == true && frigo.refrigeradorLuz == true){
 		frigo.refrigeradorLuz = false;
 		frigo.congeladorLuz = false;
+		turnOnOffButton(false, 1);
+		turnOnOffButton(false, 2);
+		turnOnOffButton(false, 3);
 	} else if(frigo.congeladorLuz == false && frigo.refrigeradorLuz == false){
 		frigo.refrigeradorLuz = true;
 		frigo.congeladorLuz = true;
+		turnOnOffButton(true, 1);
+		turnOnOffButton(true, 2);
+		turnOnOffButton(true, 3);
 	}
+
 	return false;
 }
+
+function checkLightButtons(){
+
+	if(frigo.refrigeradorLuz){
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else{
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+
+	if(frigo.congeladorLuz){
+		
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else{
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+
+	if(frigo.congeladorLuz && frigo.refrigeradorLuz){
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else{
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	
+}
+
+function turnOnOffButton(onoff, button){
+
+	if(onoff && button==1){
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else if(button==1){
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+
+	if(onoff && button==2){
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else if(button==2){
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	
+	if(onoff && button==3){
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else if(button==3){
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	
+}
+
 
 function alternarMotorRefrigerador() {	
 	console.log(Cookies.get('fridgemotor'));
@@ -150,6 +232,43 @@ function checkMotores(){
 	return false;
 }
 
+// TODO:: Falta añadir temperatura target y comprobar que cuando llegue a esa temperatura se ponga en modo normal
+// Hacer en settings poner temperatura objetivo de cada una de las opciones
+// Hacer que si vuelvas a pulsar vuelva al modo normal (cuando tengamos uno)
+
+function ecoMode(){
+
+	frigo.refrigeradorMotor = 1;
+	frigo.congeladorMotor = 1;
+	document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+	document.getElementById("button2").className = 	"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+	Cookies.set('powerMode', 1);
+	//"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	//"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+}
+
+function ultraCoolHyperExtraFreezingMode(){
+	frigo.refrigeradorMotor = 2;
+	frigo.congeladorMotor = 2;
+	Cookies.set('powerMode', 2);
+	document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+	document.getElementById("button2").className = 	"bg-blue-400 hover:bg-blue-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+
+}
+
+// TODO:: toquetear esto para que el modo eco solo se quede a una temperatura x que puede ser 6 grados arriba, 0 abajo
+// Mientras que el modo normal sea otra temperatura
+// Y el super sea una aún más baja
+function checkFrideMode(){
+
+	if(Cookies.get('powerMode') == 2){
+		ultraCoolHyperExtraFreezingMode();
+	}
+	else{
+		ecoMode();
+	}
+}
+
 function deleteElement(id){
 	$(id).hide();
 }
@@ -167,12 +286,12 @@ function setHora(){
 }
 
 function setTime(dateobj){
-		var hours = ("0" + dateobj.getHours()).slice(-2);
-		var minutes = ("0" + dateobj.getMinutes()).slice(-2);
-		var converted_date = "";
+	var hours = ("0" + dateobj.getHours()).slice(-2);
+	var minutes = ("0" + dateobj.getMinutes()).slice(-2);
+	var converted_date = "";
 
-		converted_date = hours + ":" + minutes;
-		document.getElementById("hour").innerHTML = converted_date;
+	converted_date = hours + ":" + minutes;
+	document.getElementById("hour").innerHTML = converted_date;
 }
 
 /*** JQUERY ***/
@@ -228,12 +347,71 @@ $(document).ready(function(){
 		};
 	}
 });
+
+// ---- Settings ----
+
 // Para cambiar el titulo de los settings dependiendo de donde pinches
 $(document).ready(function(){
 	$("li").click(function(){
-		$("h2").html($(this).text());
+		setSetting($(this).text());
 	});
 });
+
+
+
+function setSetting(text){
+
+	switch(text){
+		case "Idioma":
+			console.log("Idioma");
+			break;
+
+		default:
+			$("#contenido").html(ajustesGenerales);
+			console.log("Ajustes generales");		
+	}
+
+}
+
+function changeInput(idInput, checkedIn){	
+	if(!checkedIn){
+		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
+	}
+	else{
+		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full"
+	}
+}
+
+function changeDetection(set){
+	Cookies.set("automaticDetection", (set)? 1:0);
+	if(!set){
+		changeInput('inputLuz', false);
+		$('#checked2').prop('disabled', true);
+
+		changeInput('inputPantalla', false);
+		$('#checked3').prop('disabled', true);
+	}
+	else{
+		changeInput('inputLuz', true);
+		$('#checked2').prop('disabled', false);
+
+		changeInput('inputPantalla', true);
+		$('#checked3').prop('disabled', false);
+	}
+}
+
+function changeLight(set){
+	Cookies.set("automaticLight", (set)? 1:0);
+}
+
+function changeScreen(set){
+	Cookies.set("inputPantalla", (set)? 1:0);
+}
+
+
+function Idioma(){
+	
+}
 
 /* ITEMS*/
 // Items de la lista de compra
@@ -461,7 +639,14 @@ function switchGridList(){
 }
 
 function checkPrevPage(){
-	$("#atras").attr("onclick", "location.href='"+ Cookies.get("prevPlace") +"'");
+	console.log(window.location.pathname);
+	
+	if(Cookies.get("prevPlace") == undefined || window.location.pathname == ("/interfaz/"+Cookies.get("prevPlace"))){
+		$("#atras").attr("onclick", "location.href='index.html'");
+	}
+	else{
+		$("#atras").attr("onclick", "location.href='"+ Cookies.get("prevPlace") +"'");
+	}
 }
 
 /************/
@@ -614,7 +799,7 @@ function initialIndex(){
 	"</div>" +
 
 	"<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
-		"<button onclick='location.href=\"shopping.html\"' type='button' class='shop bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+		"<button onclick='location.href=\"shopping.html\"; Cookies.set(\"prevPlace\", \"index.html\");' type='button' class='shop bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
 			"<span class='fas fa-shopping-basket text-gray-200'></span>" +
 		"</button>" +
 
@@ -629,13 +814,13 @@ function initialIndex(){
 
 var page = [{"title":"On/Off", "bigbtn":"power-off", "function1":"alternarMotorRefrigerador()", "function2":"alternarMotorCongelador()", "function3":"alternarAmbosMotores()"}, 
 {"title":"Luces", "bigbtn":"lightbulb", "function1":"alternarLuzRefrigerador()", "function2":"alternarLuzCongelador()", "function3":"alternarAmbasLuces()"},
-{"title":"Consumo energético", "bigbtn":"charging-station", "function1":"", "function2":"", "function3":""}];
+{"title":"Consumo energético", "bigbtn":"charging-station", "function1":"ecoMode();", "function2":"ultraCoolHyperExtraFreezingMode()", "function3":""}];
 
 function selectPage(id){
 	$('.back').show();
 	$('.shopping').show();
 
-	let innerHTML = "<h1 class='text-4xl'>" + page[id].title + "</h1>" +
+	let innerHTML = "<h1 id='titlePage' class='text-4xl'>" + page[id].title + "</h1>" +
 	"<div class='flex flex-wrap justify-center lg:flex-no-wrap lg:items-center'>" +
 		"<button type='button' class='hidden lg:block bg-purple-500 cursor-default text-6xl big-btn rounded-full ml-10'>" +
 			"<span class='xxl-font fas fa-" + page[id].bigbtn + " text-gray-200'></span>" +
@@ -643,25 +828,27 @@ function selectPage(id){
 	"<div class='flex flex-wrap md:flex-no-wrap md:flex-col justify-center'>";
 
 	if(id != 2){
-		innerHTML += "<button type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
 				"<p class='text-gray-200 text-xl'>Refrigerador</p>" +
 			"</button>" +
-			"<button type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 lg:ml-24' onclick='alternarLuzRefrigerador()'>" +
+			"<button id='button2' type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 lg:ml-24'>" +
 				"<p class='text-gray-200 text-xl'>Congelador</p>" +
 			"</button>" +
-			"<button type='button' onclick='return " + page[id].function3 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+			"<button id='button3' type='button' onclick='return " + page[id].function3 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
 				"<p class='text-gray-200 text-xl'>Ambos</p>" +
 			"</button>";
 	} else{
-		innerHTML += "<button type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
 				"<p class='fas fa-leaf text-gray-200'></p>" +
 			"</button>" +
-			"<button type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' onclick='alternarLuzRefrigerador()'>" +
+			"<button id='button2' type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' >" +
 				"<p class='fas fa-snowflake text-gray-200'></p>" +
 			"</button>";
 	}
 	innerHTML += "</div></div>";
 
 	$('.index-content').html(innerHTML);
-	return false;
+	if(page[id].title == "Luces") checkLightButtons();
+	if(page[id].title == "Consumo energético") checkFrideMode();
+ 	return false;
 }

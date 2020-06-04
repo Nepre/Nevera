@@ -10,15 +10,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 	<script src="../electro.js"></script>
-	<script src="functions.js"></script>
+    <script src="functions.js"></script>
+    <script src="html4settings.js"></script>
 </head>
 
-<body class="text-gray-800" onload="showShoppingList();">	 
+<body class="text-gray-800">	 
 	<div class="w-full flex flex-wrap">
       
         <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
             <div class="w-2/12 md:w-1/12 flex justify-start pl-5">
-                <button title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
+                <button id="atras" title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
                     <span class="fas fa-arrow-left hover:text-gray-500"></span>
                 </button>
             </div>
@@ -54,16 +55,13 @@
                 <nav class="w-full">
                     <ul class="mt-20 cursor-pointer">
                         <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes generales</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Ajustes avanzados</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes adicionales</a></li>
                         <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Idioma</a></li>
                         <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Fecha y hora</a></li>
                         <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Modo energético</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Pantalla</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Rendimiento</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Sobre el dispositivo</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Temas</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Wi-fi</a></li> 
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Rendimiento</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Sobre el dispositivo</a></li>
+                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Temas</a></li>
+                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Wi-fi</a></li> 
                     </ul>
                 </nav>
             </div>
@@ -72,14 +70,43 @@
             <div class="flex-1 flex overflow-hidden">
                 <div class="flex-1 overflow-y-scroll">
                     <div class="p-8 pt-16 md:pt-2 w-full overflow-y-auto">
-                        <h2 class='text-4xl w-full mb-2 z-40'>Ajustes generales</h2>
+                        <h2 class='text-4xl w-full mb-2 z-40'>Ajustes generalesz</h2>
                         <!--AQUI VA EL CONTENIDO PRINCIPAL-->
+                        <div id="contenido">
+                             <!--Deteccion automatica-->
+                             <div class="flex pt-1"> 
+                                <div class="pr-3 pt-2">
+                                    <label for="checked" class="inline-flex items-center cursor-pointer">
+                                        <span class="relative">
+                                          <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
+                                          <span id="inputDetect" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
+                                            <input id="checked" onclick="changeInput('inputDetect', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                                          </span>
+                                        </span> 
+                                    </label>
+                                </div>
+                                <h4 class="text-2xl">
+                                    <span class="mb-16">Obtener fecha y hora de Internet</span>
+                                </h4>
+                                <br>
+
+                                <div>
+                                    <input id="timeInput" type="time" class="border-2 border-gray-300 rounded-lg p-2 w-full my-2">
+                                    <input id="dateInput" class="justify-start border-2 border-gray-300 rounded-lg p-2 w-full my-2" type="date">
+                                </div>
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
     </div>
+    <script>
+        checkPrevPage();
+        //setSetting("Ajustes generales");
+    </script>
 </body>
 
 </html>

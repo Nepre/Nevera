@@ -25,6 +25,8 @@ window.setInterval(function(){
 	} else{
 		$(".left-arrow").removeClass("w-8/12").addClass("w-10/12");
 	}
+
+	temperatureManager();
 }, 50);
 
 function init(){
@@ -232,14 +234,62 @@ function checkMotores(){
 	return false;
 }
 
-// TODO:: Falta añadir temperatura target y comprobar que cuando llegue a esa temperatura se ponga en modo normal
 // Hacer en settings poner temperatura objetivo de cada una de las opciones
 // Hacer que si vuelvas a pulsar vuelva al modo normal (cuando tengamos uno)
 
-function ecoMode(){
 
-	frigo.refrigeradorMotor = 1;
-	frigo.congeladorMotor = 1;
+var modesAndTarget = [
+	{"mode":"eco", "targetFridge":6, "targetFreezer":-3}, 
+	{"mode":"normal", "targetFridge":4, "targetFreezer":-4}, 
+	{"mode":"boost", "targetFridge":3, "targetFreezer":-5}, 
+	{"mode":"off", "targetFridge":0, "targetFreezer":0}, 
+];
+
+
+function temperatureManager(){
+
+	
+	var mode = Cookies.get('powerMode');
+	if(mode == undefined) mode = 1;
+
+	if(mode == 4) return; // Todo apagado
+	
+
+	if(frigo.refrigeradorTemperatura < modesAndTarget[mode-1].targetFridge){ // Si la temperatura es menor que el target apagamos el motor
+		frigo.refrigeradorMotor = 0;
+	}
+	else{ // Sino ponemos el modo que toca, normal si estamos en modo normal o eco y super si estamos en el modo boost 3
+		if(mode == 3) frigo.refrigeradorMotor = 2;
+		else frigo.refrigeradorMotor = 1;
+	}
+
+	if(frigo.congeladorTemperatura < modesAndTarget[mode-1].targetFreezer){ // Si la temperatura es menor que el target apagamos el motor
+		frigo.congeladorMotor = 0;
+	}
+	else{ // Sino ponemos el modo que toca, normal si estamos en modo normal o eco y super si estamos en el modo boost 3
+		if(mode == 3) frigo.congeladorMotor = 2;
+		else frigo.congeladorMotor = 1;
+	}
+
+}
+
+function normalMode(){
+	Cookies.set('powerMode', 2);
+	document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+	document.getElementById("button2").className = 	"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+}
+
+function ecoMode(direct){
+
+	if(direct == undefined) direct = false;
+	// frigo.refrigeradorMotor = 1;
+	// frigo.congeladorMotor = 1;
+	if(Cookies.get('powerMode') == 1 && !direct){
+		Cookies.set('powerMode', 2);
+		document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+		document.getElementById("button2").className = 	"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+		return;
+	}
 	document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
 	document.getElementById("button2").className = 	"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
 	Cookies.set('powerMode', 1);
@@ -247,10 +297,17 @@ function ecoMode(){
 	//"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 }
 
-function ultraCoolHyperExtraFreezingMode(){
-	frigo.refrigeradorMotor = 2;
-	frigo.congeladorMotor = 2;
-	Cookies.set('powerMode', 2);
+function ultraCoolHyperExtraFreezingMode(direct){
+	if(direct == undefined) direct = false;
+	// frigo.refrigeradorMotor = 2;
+	// frigo.congeladorMotor = 2;
+	if(Cookies.get('powerMode') == 3 && !direct){
+		Cookies.set('powerMode', 2);
+		document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+		document.getElementById("button2").className = 	"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
+		return;
+	}
+	Cookies.set('powerMode', 3);
 	document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
 	document.getElementById("button2").className = 	"bg-blue-400 hover:bg-blue-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
 
@@ -260,12 +317,16 @@ function ultraCoolHyperExtraFreezingMode(){
 // Mientras que el modo normal sea otra temperatura
 // Y el super sea una aún más baja
 function checkFrideMode(){
-
-	if(Cookies.get('powerMode') == 2){
-		ultraCoolHyperExtraFreezingMode();
+	console.log(Cookies.get('powerMode'));
+	
+	if(Cookies.get('powerMode') == 3){
+		ultraCoolHyperExtraFreezingMode(true);
+	}
+	else if(Cookies.get('powerMode') == 1){
+		ecoMode(true);
 	}
 	else{
-		ecoMode();
+		normalMode();
 	}
 }
 

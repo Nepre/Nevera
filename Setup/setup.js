@@ -117,3 +117,12 @@ function changeLanguage(){
         $("#subtitle").fadeIn();
     }, 1200);
 }
+
+function changeInput(idInput, checkedIn){
+    if(!checkedIn){
+        document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
+    }
+    else{
+        document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full"
+    }
+}

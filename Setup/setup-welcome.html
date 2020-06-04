@@ -13,22 +13,21 @@
 	<script src="setup.js"></script>
 </head>
 
-<body>	 
-	<script>
-		initWelcome();
-		window.setInterval(function(){
-			changeLanguage();
-		}, 5000);
-	</script>
+<body class="text-gray-800" onclick="location.href='setup-language.html'">	 
+
 	<div class = "flex items-center justify-center w-full h-screen">
 		<div class="flex  items-center text-center justify-center w-full bg-gray-300" style="height: 40%;">
-			<div class="">
+			<div class="cursor-pointer">
 				<h2 id= "title" class="text-4xl md:text-5xl">Hola!</h2>
 				<p  id= "subtitle" class="text-5xl md:text-6xl" >Pulse para continuar</p>	
 			</div>
 		</div>
 	</div>
-	
+	<script>
+		window.setInterval(function(){
+			changeLanguage();
+		}, 5000);
+	</script>
 </body>
 
 </html>

@@ -850,12 +850,12 @@ function initialIndex(){
 	$('.back').hide();
 	$('.shopping').hide();
 	let innerHTML = "<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
-		"<button onclick='selectPage(0);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-			"<span class='fas fa-power-off text-gray-200'></span>" +
+		"<button onclick='selectPage(0);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+			"<span class='fas fa-power-off text-white'></span>" +
 		"</button>" +
 
-		"<button onclick='selectPage(1);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-			"<span class='far fa-lightbulb text-gray-200'></span>" +
+		"<button onclick='selectPage(1);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+			"<span class='far fa-lightbulb text-white'></span>" +
 		"</button>" +
 	"</div>" +
 
@@ -864,8 +864,8 @@ function initialIndex(){
 			"<span class='fas fa-shopping-basket text-gray-200'></span>" +
 		"</button>" +
 
-		"<button onclick='selectPage(2);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-			"<span class='fas fa-charging-station text-gray-200 pl-3'></span>" +
+		"<button onclick='selectPage(2);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+			"<span class='fas fa-charging-station text-white pl-3'></span>" +
 		"</button>" +
 	"</div>";
 
@@ -884,7 +884,7 @@ function selectPage(id){
 	let innerHTML = "<h1 id='titlePage' class='text-4xl'>" + page[id].title + "</h1>" +
 	"<div class='flex flex-wrap justify-center lg:flex-no-wrap lg:items-center'>" +
 		"<button type='button' class='hidden lg:block bg-purple-500 cursor-default text-6xl big-btn rounded-full ml-10'>" +
-			"<span class='xxl-font fas fa-" + page[id].bigbtn + " text-gray-200'></span>" +
+			"<span class='xxl-font fas fa-" + page[id].bigbtn + " text-white'></span>" +
 		"</button>" +
 	"<div class='flex flex-wrap md:flex-no-wrap md:flex-col justify-center'>";
 

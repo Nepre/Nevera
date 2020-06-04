@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf8">
+	<title>Interfaz de Frigorífico</title>
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../index.css">
+	<link rel="stylesheet" href="setup.css">
+	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="../../electro.js"></script>
+	<script src="setup.js"></script>
+</head>
+
+<body class="text-gray-800">
+	
+	<header class="w-full flex flex-wrap -mb-16 z-10">
+		<div class="w-2/12 md:w-1/12 pl-5">
+			<button id="atras" title="Volver a atrás" onclick="location.href='setup-welcome.html'" type="button" class="text-4xl">
+				<span class="fas fa-arrow-left hover:text-gray-500"></span>
+			</button>
+		</div>
+		<div class="w-9/12 md:w-10/12 pl-5">
+			<h1 class="text-3xl mt-1">Tema</h1>
+		</div>
+		<div class="w-1/12 flex justify-end pr-5">
+			<button title="Siguiente" onclick="location.href='setup-date.html'" type="button" class="text-4xl">
+				<span class="fas fa-arrow-right hover:text-gray-500"></span>
+			</button>
+		</div>
+	</header>
+
+	<main class="flex flex-col items-center justify-center w-full h-screen">
+        <div class='flex flex-col sm:flex-row justify-center items-center'>
+            <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4 mt-20 sm:-mt-10">
+                <p class="font-bold text-gray-600">Modo noche</p>
+                <img src="../resources/night.png" alt="Modo noche" class="hover:shadow-outline cursor-pointer">
+            </div>
+            <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
+                <p class="font-bold text-gray-600">Modo día</p>
+                <img id="color-theme" src="../resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline cursor-pointer">
+                <div class="colors p-2">
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-purple.png');" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-blue.png');" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-pink.png');" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-orange.png');" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="flex pl-6 pt-1"> 
+            <div class="pr-3 pt-2">
+                <label for="checked2" class="inline-flex items-center cursor-pointer">
+                    <span class="relative">
+                      <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
+                      <span id="inputNightMode" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
+                        <input id="checked2" onclick="changeLanguage(); changeInput('inputNightMode', this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                      </span>
+                    </span> 
+                </label>
+            </div>
+            <h4 class="text-2xl">
+                <span class="mb-16" name="screenOptions">Activar modo noche automáticamente a partir de</span>
+            </h4> 
+        </div>
+    </main>
+
+
+	<script>
+
+	</script>
+	
+</body>
+
+</html>

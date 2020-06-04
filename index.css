@@ -6,6 +6,10 @@
     font-size: 100px;
 }
 
+.text-big{
+  font-size: 8rem;
+}
+
 .big-btn{
     width: 18rem;
     height: 18rem;
@@ -71,3 +75,8 @@ input.cool-switch:checked:after {
   left: 20px;
   box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
   }
+
+#language > button:hover {
+  -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(50%);
+}

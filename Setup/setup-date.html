@@ -13,15 +13,38 @@
 	<script src="setup.js"></script>
 </head>
 
-<body>	 
+<body class="text-gray-800">
+	
+	<header class="w-full flex flex-wrap -mb-16 z-10">
+		<div class="w-2/12 md:w-1/12 pl-5">
+			<button id="atras" title="Volver a atrás" onclick="location.href='setup-language.html'" type="button" class="text-4xl">
+				<span class="fas fa-arrow-left hover:text-gray-500"></span>
+			</button>
+		</div>
+		<div class="w-9/12 md:w-10/12 pl-5">
+			<h1 class="text-3xl mt-1">Fecha y hora</h1>
+		</div>
+		<div class="w-1/12 flex justify-end pr-5">
+			<button title="Siguiente" onclick="location.href='setup-theme.html'" type="button" class="text-4xl">
+				<span class="fas fa-arrow-right hover:text-gray-500"></span>
+			</button>
+		</div>
+	</header>
 
 	<div class = "flex items-center justify-center w-full h-screen">
 		<div class="flex  items-center text-center justify-center w-full" style="height: 80%;">
 			<div class="">
-				<h2 id="dateH" onclick="changeWhat(0);" class="text-4xl md:text-5xl z-50 modal-open" style="font-size: 3em;">Error fetching date </h2>
-				<p  id="time" onclick="changeWhat(1);" class="flex items-center  justify-center modal-open text-5xl md:text-6xl" style="font-size: 10em;"></p>	
+				<div class="flex flex-col md:flex-row justify-center z-50 modal-open cursor-pointer hover:text-gray-700 transition ease-in-out duration-500">
+					<h2 id="dateH" onclick="changeWhat(0);" class="text-4xl md:text-5xl" style="font-size: 3em;">Error fetching date </h2>
+					<p class="fas fa-edit pt-4 md:pt-10 pl-3"></p>
+				</div>
+				
+				<div class="flex justify-center modal-open cursor-pointer hover:text-gray-700 transition ease-in-out duration-500">
+					<p  id="time" onclick="changeWhat(1);" class="flex items-center justify-center text-big"></p>	
+					<p class="fas fa-edit pl-3" style="padding-top:8.5rem;"></p>
+				</div>
 				<br>
-				<input id="fetchOnline" onclick= "fetchOnline();" class="mr-2 leading-tight" type="checkbox" checked>
+				<input id="fetchOnline" onclick= "fetchOnline();" class="mr-2 leading-tight rounded-lg" type="checkbox" checked>
 				<span class="text-sm">
 					Fetch Online
 				</span>

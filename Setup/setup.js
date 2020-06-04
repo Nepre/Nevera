@@ -126,3 +126,30 @@ function changeInput(idInput, checkedIn){
         document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full"
     }
 }
+
+$(document).ready(function(){
+	$("#temperatureRangeId").mousemove(function(){
+        $("#temperatureOutputId").html($("#temperatureRangeId").val() + "ºC");
+    });
+    $("#temperaturaConRangeId").mousemove(function(){
+        $("#temperatureConOutputId").html($("#temperaturaConRangeId").val() + "ºC");        
+	});
+});
+
+$(document).ready(function(){
+	$(".eco").click(function(){
+        $(".eco").removeClass("bg-gray-500").addClass("bg-purple-400");
+        $(".speed").removeClass("bg-purple-400").addClass("bg-gray-500");
+        $('.alert-eco').removeClass("hidden").addClass("block");
+        if($('.alert-speed').hasClass("block"))
+            $('.alert-speed').removeClass("block").addClass("hidden");
+    });
+
+    $(".speed").click(function(){
+        $(".speed").removeClass("bg-gray-500").addClass("bg-purple-400");
+        $(".eco").removeClass("bg-purple-400").addClass("bg-gray-500");
+        $('.alert-speed').removeClass("hidden").addClass("block");
+        if($('.alert-eco').hasClass("block"))
+            $('.alert-eco').removeClass("block").addClass("hidden");
+	}); 
+});

@@ -13,11 +13,11 @@
 	<script src="setup.js"></script>
 </head>
 
-<body class="text-gray-800">
+<body class="text-gray-800 md:overflow-hidden">
 	
-	<header class="w-full flex flex-wrap -mb-16 z-10">
+	<header class="w-full flex flex-wrap -mb-16 z-10 pb-10 sm:pb-4">
 		<div class="w-2/12 md:w-1/12 pl-5">
-			<button id="atras" title="Volver a atrás" onclick="location.href='setup-welcome.html'" type="button" class="text-4xl">
+			<button id="atras" title="Volver a atrás" onclick="location.href='setup-date.html'" type="button" class="text-4xl">
 				<span class="fas fa-arrow-left hover:text-gray-500"></span>
 			</button>
 		</div>
@@ -25,7 +25,7 @@
 			<h1 class="text-3xl mt-1">Tema</h1>
 		</div>
 		<div class="w-1/12 flex justify-end pr-5">
-			<button title="Siguiente" onclick="location.href='setup-date.html'" type="button" class="text-4xl">
+			<button title="Siguiente" onclick="location.href='setup-temperature.html'" type="button" class="text-4xl">
 				<span class="fas fa-arrow-right hover:text-gray-500"></span>
 			</button>
 		</div>
@@ -35,22 +35,22 @@
         <div class='flex flex-col sm:flex-row justify-center items-center'>
             <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4 mt-20 sm:-mt-10">
                 <p class="font-bold text-gray-600">Modo noche</p>
-                <img src="../resources/night.png" alt="Modo noche" class="hover:shadow-outline cursor-pointer">
+                <img src="../resources/night.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
             </div>
             <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
                 <p class="font-bold text-gray-600">Modo día</p>
-                <img id="color-theme" src="../resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline cursor-pointer">
+                <img id="color-theme" src="../resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
                 <div class="colors p-2">
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-purple.png');" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-blue.png');" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-pink.png');" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-orange.png');" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-purple.png');" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-blue.png');" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-pink.png');" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-orange.png');" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
                 </div>
             </div>
             
         </div>
-        <div class="flex pl-6 pt-1"> 
-            <div class="pr-3 pt-2">
+        <div class="flex p-2 px-6"> 
+            <div class="pr-3 pt-2 md:pt-4">
                 <label for="checked2" class="inline-flex items-center cursor-pointer">
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
@@ -62,6 +62,9 @@
             </div>
             <h4 class="text-2xl">
                 <span class="mb-16" name="screenOptions">Activar modo noche automáticamente a partir de</span>
+                <input type="time" value="20:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
+                <span>hasta </span>
+                <input type="time" value="07:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
             </h4> 
         </div>
     </main>

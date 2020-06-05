@@ -1,5 +1,6 @@
 var frigo = new Electro();
 var small = false;
+var automatic = false;
 const widthChange = 767; 
 
 window.setInterval(function(){
@@ -27,6 +28,7 @@ window.setInterval(function(){
 	}
 
 	temperatureManager();
+	checkProximity();
 }, 50);
 
 function init(){
@@ -45,9 +47,22 @@ function init(){
 	});
 }
 
+function checkProximity(){
+	if(frigo.frigorificoPresencia){
+		frigo.congeladorLuz = true;
+		frigo.refrigeradorLuz = true;
+	}
+	else{
+		if(Cookies.get('fridgelight') != 1) 
+			frigo.refrigeradorLuz = false;
+		
+		if(Cookies.get('freezerlight') != 1) 
+			frigo.congeladorLuz = false;
+	}
+}
+
 function cambiarHora() {
 	frigo.refrigeradorLuz = true;
-	console.log(frigo.refrigeradorLuz);
 	
 }
 
@@ -57,14 +72,15 @@ function alternarLuzRefrigerador() {
 	var value = !frigo.refrigeradorLuz;
 	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
 	if(value){
+		if(frigo.congeladorLuz == 1 || frigo.congeladorLuz == 2) turnOnOffButton(true, 3, "orange");
 		Cookies.set('fridgelight', 1);
-		turnOnOffButton(true, 1);
-		console.log("ENcendida1");
+		turnOnOffButton(true, 1, "orange");
 
 	}
 	else{
 		Cookies.set('fridgelight', 0);
-		turnOnOffButton(false, 1);
+		turnOnOffButton(false, 1, "orange");
+		turnOnOffButton(false, 3, "orange");
 	}
 	return false;
 }
@@ -73,14 +89,16 @@ function alternarLuzCongelador() {
 	var value = !frigo.congeladorLuz;
 	frigo.congeladorLuz = !frigo.congeladorLuz;
 	if(value){
-		Cookies.set('fridgelight', 1);
-		turnOnOffButton(true, 2);
+		Cookies.set('freezerlight', 1);
+		if(frigo.refrigeradorLuz == 1 || frigo.refrigeradorLuz == 2) turnOnOffButton(true, 3, "orange");
+		turnOnOffButton(true, 2, "orange");
 		console.log("ENcendida2");
 		
 	}
 	else{
-		Cookies.set('fridgelight', 0);
-		turnOnOffButton(false, 2);
+		Cookies.set('freezerlight', 0);
+		turnOnOffButton(false, 2, "orange");
+		turnOnOffButton(false, 3, "orange");
 	}
 	return false;
 }
@@ -89,79 +107,121 @@ function alternarAmbasLuces() { // Esto luce feote pero no sabia como hacerlo de
 	if(frigo.refrigeradorLuz == true && frigo.congeladorLuz == false){
 		frigo.refrigeradorLuz = true;
 		frigo.congeladorLuz = true;
-		turnOnOffButton(true, 1);
-		turnOnOffButton(true, 2);
-		turnOnOffButton(true, 3);
+		turnOnOffButton(true, 1, "orange");
+		turnOnOffButton(true, 2, "orange");
+		turnOnOffButton(true, 3, "orange");
 	}
 	else if(frigo.congeladorLuz == true && frigo.refrigeradorLuz == false){
 		frigo.refrigeradorLuz = false;
 		frigo.congeladorLuz = false;
-		turnOnOffButton(false, 1);
-		turnOnOffButton(false, 2);
-		turnOnOffButton(false, 3);
+		turnOnOffButton(false, 1, "orange");
+		turnOnOffButton(false, 2, "orange");
+		turnOnOffButton(false, 3, "orange");
 	} else if(frigo.congeladorLuz == true && frigo.refrigeradorLuz == true){
 		frigo.refrigeradorLuz = false;
 		frigo.congeladorLuz = false;
-		turnOnOffButton(false, 1);
-		turnOnOffButton(false, 2);
-		turnOnOffButton(false, 3);
+		turnOnOffButton(false, 1, "orange");
+		turnOnOffButton(false, 2, "orange");
+		turnOnOffButton(false, 3, "orange");
 	} else if(frigo.congeladorLuz == false && frigo.refrigeradorLuz == false){
 		frigo.refrigeradorLuz = true;
 		frigo.congeladorLuz = true;
-		turnOnOffButton(true, 1);
-		turnOnOffButton(true, 2);
-		turnOnOffButton(true, 3);
+		turnOnOffButton(true, 1, "orange");
+		turnOnOffButton(true, 2, "orange");
+		turnOnOffButton(true, 3, "orange");
 	}
 
 	return false;
 }
 
-function checkLightButtons(){
+function checkLightButtons(color){
 
 	if(frigo.refrigeradorLuz){
-		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+		document.getElementById("span1").innerHTML = "On"; 
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	else{
+		document.getElementById("span1").innerHTML = "Off"; 
 		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 
 	if(frigo.congeladorLuz){
-		
-		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+		document.getElementById("span2").innerHTML = "On";
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	else{
+		document.getElementById("span2").innerHTML = "Off"; 
 		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
-
+	
 	if(frigo.congeladorLuz && frigo.refrigeradorLuz){
-		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+		document.getElementById("span3").innerHTML = "On"; 
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	else{
+		document.getElementById("span3").innerHTML = "Off"; 
 		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	
 }
 
-function turnOnOffButton(onoff, button){
+function checkMotorButtons(color){
+
+	if(Cookies.get('fridgemotor') == 1 || Cookies.get('fridgemotor') == 2){
+		document.getElementById("span1").innerHTML = "On"; 
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else{
+		document.getElementById("span1").innerHTML = "Off"; 
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+
+	if(Cookies.get('freezermotor') == 1 || Cookies.get('freezermotor') == 2){
+		document.getElementById("span2").innerHTML = "On";
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else{
+		document.getElementById("span2").innerHTML = "Off"; 
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	
+	if((Cookies.get('fridgemotor') == 1 || Cookies.get('fridgemotor') == 2) && (Cookies.get('freezermotor') == 1 || Cookies.get('freezermotor') == 2)){
+		document.getElementById("span3").innerHTML = "On"; 
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	else{
+		document.getElementById("span3").innerHTML = "Off"; 
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+	}
+	
+}
+
+function turnOnOffButton(onoff, button, color){
 
 	if(onoff && button==1){
-		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+		document.getElementById("span1").innerHTML = "On"; 
+		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	else if(button==1){
+		document.getElementById("span1").innerHTML = "Off"; 
 		document.getElementById("button1").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 
 	if(onoff && button==2){
-		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+		document.getElementById("span2").innerHTML = "On"; 
+		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300  focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	else if(button==2){
+		document.getElementById("span2").innerHTML = "Off"; 
 		document.getElementById("button2").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none lg:ml-24 focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	
 	if(onoff && button==3){
-		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-orange-400 hover:bg-orange-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
+		document.getElementById("span3").innerHTML = "On"; 
+		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-"+ color +"-400 hover:bg-"+ color +"-300  focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	else if(button==3){
+		document.getElementById("span3").innerHTML = "Off"; 
 		document.getElementById("button3").className =  "flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6"
 	}
 	
@@ -169,43 +229,73 @@ function turnOnOffButton(onoff, button){
 
 
 function alternarMotorRefrigerador() {	
-	console.log(Cookies.get('fridgemotor'));
 
-	if(frigo.refrigeradorMotor == 1){
-		frigo.refrigeradorMotor = 0;
-		Cookies.set('fridgemotor', 0);
+	if(Cookies.get('fridgemotor') == 0){
+		turnOnOffButton(true, 1, "blue");
+		if(Cookies.get('freezermotor') == 1 || Cookies.get('freezermotor') == 2) turnOnOffButton(true, 3, "blue");
+
+		if(Cookies.get('powerMode') == 2)		
+			Cookies.set('fridgemotor', 2);
+		else
+			Cookies.set('fridgemotor', 1);
 	}
 	else{
-		frigo.refrigeradorMotor = 1;
-		Cookies.set('fridgemotor', 1);
+		turnOnOffButton(false, 1, "blue");
+		turnOnOffButton(false, 3, "blue");
+		Cookies.set('fridgemotor', 0);
 	}
 	return false;
 }
 
 function alternarMotorCongelador() {
-	if(frigo.congeladorMotor == 1){
-		frigo.congeladorMotor = 0;
-		Cookies.set('freezermotor', 0);
+	console.log("alternando1");
+	
+	if(Cookies.get('freezermotor') == 0){
+		turnOnOffButton(true, 2, "blue");
+		console.log("alternando2");
+		if(Cookies.get('fridgemotor') == 1 || Cookies.get('fridgemotor') == 2){
+			console.log("alternando3");
+			turnOnOffButton(true, 3, "blue");
+		} 
+
+		if(Cookies.get('powerMode') == 2){
+			Cookies.set('freezermotor', 2);
+		}
+		else
+		Cookies.set('freezermotor', 1);
 	}
 	else{
-		frigo.congeladorMotor = 1;
-		Cookies.set('freezermotor', 1);
+		turnOnOffButton(false, 2, "blue");
+		turnOnOffButton(false, 3, "blue");
+		Cookies.set('freezermotor', 0);
 	}
 }
 
 function alternarAmbosMotores() { // Esto luce feote pero no sabia como hacerlo de otra forma
-	if(frigo.refrigeradorMotor == 1 && frigo.congeladorMotor == 0){
-		frigo.refrigeradorMotor = 1;
-		frigo.congeladorMotor = 0;
-	} else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 0){
-		frigo.refrigeradorMotor = 0;
-		frigo.congeladorMotor = 0;
-	} else if(frigo.congeladorMotor == 1 && frigo.refrigeradorMotor == 1){
-		frigo.refrigeradorMotor = 0;
-		frigo.congeladorMotor = 0;
-	} else if(frigo.congeladorMotor == 0 && frigo.refrigeradorMotor == 0){
-		frigo.refrigeradorMotor = 1;
-		frigo.congeladorMotor = 1;
+	if((Cookies.get('fridgemotor') == 1 || Cookies.get('fridgemotor') == 2) && Cookies.get('freezermotor') == 0){
+		Cookies.set('fridgemotor', 1);
+		Cookies.set('freezermotor', 1);
+		turnOnOffButton(true, 1, "blue");
+		turnOnOffButton(true, 2, "blue");
+		turnOnOffButton(true, 3, "blue");
+	} else if((Cookies.get('freezermotor') == 1 || Cookies.get('freezermotor') == 2) && Cookies.get('fridgemotor') == 0){
+		Cookies.set('fridgemotor', 0);
+		Cookies.set('freezermotor', 0);
+		turnOnOffButton(false, 1, "blue");
+		turnOnOffButton(false, 2, "blue");
+		turnOnOffButton(false, 3, "blue");
+	} else if((Cookies.get('freezermotor') == 1 || Cookies.get('freezermotor') == 2) && (Cookies.get('fridgemotor') == 1 || Cookies.get('fridgemotor') == 2)){
+		Cookies.set('fridgemotor', 0);
+		Cookies.set('freezermotor', 0);
+		turnOnOffButton(false, 1, "blue");
+		turnOnOffButton(false, 2, "blue");
+		turnOnOffButton(false, 3, "blue");
+	} else if(Cookies.get('freezermotor') == 0 && Cookies.get('fridgemotor') == 0){
+		Cookies.set('fridgemotor', 1);
+		Cookies.set('freezermotor', 1);
+		turnOnOffButton(true, 1, "blue");
+		turnOnOffButton(true, 2, "blue");
+		turnOnOffButton(true, 3, "blue");
 	}
 	return false;
 }
@@ -225,11 +315,15 @@ function checkLights(){
 function checkMotores(){	
 	if(Cookies.get('fridgemotor') == 1) // ON
 		frigo.refrigeradorMotor = 1;
-	else if(Cookies.get('fridgemotor') == 0) // OFF
+	else if(Cookies.get('fridgemotor') == 2)
+		frigo.refrigeradorMotor = 2;
+	else // OFF
 		frigo.refrigeradorMotor = 0;	
 	if(Cookies.get('freezermotor') == 1) // ON
 		frigo.congeladorMotor = 1;
-	else if(Cookies.get('freezermotor') == 0)// OFF
+	else if(Cookies.get('freezermotor') == 2)
+		frigo.congeladorMotor = 2;
+	else // OFF
 		frigo.congeladorMotor = 0;	
 	return false;
 }
@@ -250,27 +344,39 @@ function temperatureManager(){
 
 	
 	var mode = Cookies.get('powerMode');
-	if(mode == undefined) mode = 1;
+	var freezer = (Cookies.get('freezermotor') == 0)? false:true;
+	var fridge = (Cookies.get('fridgemotor') == 0)? false:true;
 
-	if(mode == 4) return; // Todo apagado
+	//console.log("freezer " + freezer);
+	//console.log("fridge " + Cookies.get('fridgemotor'));
 	
-
-	if(frigo.refrigeradorTemperatura < modesAndTarget[mode-1].targetFridge){ // Si la temperatura es menor que el target apagamos el motor
+	if(mode == undefined) mode = 1;
+	
+	if(fridge){
+		if(frigo.refrigeradorTemperatura < modesAndTarget[mode-1].targetFridge){ // Si la temperatura es menor que el target apagamos el motor
+			frigo.refrigeradorMotor = 0;
+		}
+		else{ // Sino ponemos el modo que toca, normal si estamos en modo normal o eco y super si estamos en el modo boost 3
+			if(mode == 3) frigo.refrigeradorMotor = 2;
+			else frigo.refrigeradorMotor = 1;
+		}
+	}
+	else{
 		frigo.refrigeradorMotor = 0;
 	}
-	else{ // Sino ponemos el modo que toca, normal si estamos en modo normal o eco y super si estamos en el modo boost 3
-		if(mode == 3) frigo.refrigeradorMotor = 2;
-		else frigo.refrigeradorMotor = 1;
+	
+	if(freezer){
+		if(frigo.congeladorTemperatura < modesAndTarget[mode-1].targetFreezer){ // Si la temperatura es menor que el target apagamos el motor
+			frigo.congeladorMotor = 0;
+		}
+		else{ // Sino ponemos el modo que toca, normal si estamos en modo normal o eco y super si estamos en el modo boost 3
+			if(mode == 3) frigo.congeladorMotor = 2;
+			else frigo.congeladorMotor = 1;
+		}
 	}
-
-	if(frigo.congeladorTemperatura < modesAndTarget[mode-1].targetFreezer){ // Si la temperatura es menor que el target apagamos el motor
+	else{
 		frigo.congeladorMotor = 0;
 	}
-	else{ // Sino ponemos el modo que toca, normal si estamos en modo normal o eco y super si estamos en el modo boost 3
-		if(mode == 3) frigo.congeladorMotor = 2;
-		else frigo.congeladorMotor = 1;
-	}
-
 }
 
 function normalMode(){
@@ -835,17 +941,6 @@ function toggleModal () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* EXPERIMENTOS INDEX */
 
 function initialIndex(){
@@ -892,13 +987,13 @@ function selectPage(id){
 
 	if(id != 2){
 		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='text-gray-200 text-xl'>Refrigerador <span>Off</span></p>" +
+				"<p class='text-gray-200 text-xl'>Refrigerador <span id='span1'>Off</span></p>" +
 			"</button>" +
 			"<button id='button2' type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 lg:ml-24'>" +
-				"<p class='text-gray-200 text-xl'>Congelador <span>On</span></p>" +
+				"<p class='text-gray-200 text-xl'>Congelador <span id='span2'>On</span></p>" +
 			"</button>" +
 			"<button id='button3' type='button' onclick='return " + page[id].function3 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='text-gray-200 text-xl'>Ambos <span>On</span></p>" +
+				"<p class='text-gray-200 text-xl'>Ambos <span id='span3'>On</span></p>" +
 			"</button>";
 	} else{
 		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
@@ -911,7 +1006,8 @@ function selectPage(id){
 	innerHTML += "</div></div>";
 
 	$('.index-content').html(innerHTML);
-	if(page[id].title == "Luces") checkLightButtons();
+	if(page[id].title == "Luces") checkLightButtons("orange");
 	if(page[id].title == "Consumo energético") checkFrideMode();
+	if(page[id].title == "On/Off") checkMotorButtons("blue");
  	return false;
 }

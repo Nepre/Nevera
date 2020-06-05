@@ -75,7 +75,44 @@
                         <h2 class='text-4xl w-full mb-2 z-40'>Ajustes generales</h2>
                         <!--AQUI VA EL CONTENIDO PRINCIPAL-->
                         <div id="contenido">
-                            <div class="ct-chart ct-perfect-fourth"></div>
+                            <div class="flex flex-col">
+                                <div class="flex">
+                                    <h3 class="text-center text-2xl pl-4">Modo ECO</h3>
+                                    <p class='fas fa-leaf p-2 text-lg'></p>
+                                </div>
+                                <div class="flex flex-col lg:flex-row">
+                                    <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
+                                        <label for="temperaturaRangeId" class="text-2xl text-center">Temperatura frigorífico</label>
+                                        <output id="temperatureOutputId" class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">4ºC</output>
+                                        <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="4" oninput="temperatureOutputId.value = temperatureRangeId.value">
+                                    </div>
+                                    <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
+                                        <label for="temperaturaConRangeId" class="text-2xl text-center">Temperatura congelador</label>
+                                        <output id="temperatureConOutputId" class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">-22ºC</output>
+                                        <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="-22" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
+                                    </div>
+                                </div>
+                            <div>
+                                <div class="flex flex-col">
+                                    <div class="flex">
+                                        <h3 class="text-center text-2xl pl-4">Modo SPEED</h3>
+                                        <p class='fas fa-snowflake p-2 text-lg'></p>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row">
+                                        <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
+                                            <label for="temperaturaRangeIdS" class="text-2xl text-center">Temperatura frigorífico</label>
+                                            <output id="temperatureOutputIdS" class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">2ºC</output>
+                                            <input id="temperatureRangeIdS" type="range" min="2" max="8" step="2" value="2" oninput="temperatureOutputIdS.value = temperatureRangeIdS.value">
+                                        </div>
+                                        <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
+                                            <label for="temperaturaConRangeIdS" class="text-2xl text-center">Temperatura congelador</label>
+                                            <output id="temperatureConOutputIdS" class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">-24ºC</output>
+                                            <input id="temperaturaConRangeIdS" type="range" min="-24" max="-16" step="2" value="-24" oninput="temperatureConOutputIdS.value = temperaturaConRangeIdS.value">
+                                        </div>
+                                    </div>
+                                <div>
+                            
+
                         </div>
                     </div>
                 </div>

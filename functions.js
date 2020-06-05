@@ -61,11 +61,6 @@ function checkProximity(){
 	}
 }
 
-function cambiarHora() {
-	frigo.refrigeradorLuz = true;
-	
-}
-
 // Luces
 
 function alternarLuzRefrigerador() {
@@ -537,6 +532,10 @@ function setSetting(text){
 			console.log("Idioma");
 			break;
 
+		case "Modo energético":
+			
+			break;
+
 		default:
 			$("#contenido").html(ajustesGenerales);
 			console.log("Ajustes generales");		
@@ -997,10 +996,10 @@ function selectPage(id){
 				"<p class='text-gray-200 text-xl'>Ambos <span id='span3'>On</span></p>" +
 			"</button>";
 	} else{
-		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + "; selectMode();' class='alert-eco flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+		innerHTML += "<button id='button1' type='button' onclick='selectMode(1); return " + page[id].function1 + ";' class='alert-eco flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
 				"<p class='fas fa-leaf text-gray-200'></p>" +
 			"</button>" +
-			"<button id='button2' type='button' onclick='return " + page[id].function2 + "; selectMode();' class='alert-speed bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' >" +
+			"<button id='button2' type='button' onclick='selectMode(2); return " + page[id].function2 + ";' class='alert-speed bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' >" +
 				"<p class='fas fa-snowflake text-gray-200'></p>" +
 			"</button>";
 	}
@@ -1013,9 +1012,43 @@ function selectPage(id){
  	return false;
 }
 
-function selectMode(){
-	$("#button1").click(function(){
-		console.log("HEY");
+function selectMode(id){
+	if(id == 1){
+		$('.alert-eco').removeClass("hidden").addClass("block");
+        if($('.alert-speed').hasClass("block"))
+            $('.alert-speed').removeClass("block").addClass("hidden");
+	} else if(id == 2){
+		$('.alert-speed').removeClass("hidden").addClass("block");
+        if($('.alert-eco').hasClass("block"))
+            $('.alert-eco').removeClass("block").addClass("hidden");
+	}
+}
+
+function selectModoAhorro(id){ 
+    if($(id).is(':checked')){
+        Cookies.set('modoAhorro', 1); 
+        frigo.frigorificoPantalla = 1; // Atenuada     
+    } else{
+        Cookies.set('modoAhorro', 2); 
+        frigo.frigorificoPantalla = 2; // Encendida
+	}
+	console.log(Cookies.get('modoAhorro'));
+	
+}
+
+
+$(document).ready(function(){
+	$("#temperatureRangeId").mousemove(function(){
+        $("#temperatureOutputId").html($("#temperatureRangeId").val() + "ºC");
+    });
+    $("#temperaturaConRangeId").mousemove(function(){
+        $("#temperatureConOutputId").html($("#temperaturaConRangeId").val() + "ºC");        
 	});
 
-}
+	$("#temperatureRangeIdS").mousemove(function(){
+        $("#temperatureOutputIdS").html($("#temperatureRangeIdS").val() + "ºC");
+    });
+    $("#temperaturaConRangeIdS").mousemove(function(){
+        $("#temperatureConOutputIdS").html($("#temperaturaConRangeIdS").val() + "ºC");        
+	});
+});

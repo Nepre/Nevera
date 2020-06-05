@@ -77,3 +77,7 @@ var timedate = `
    
 </div>
 `
+
+var consumption = `
+
+`

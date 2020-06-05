@@ -136,34 +136,6 @@ $(document).ready(function(){
 	});
 });
 
-$(document).ready(function(){
-	$(".eco").click(function(){
-        $(".eco").removeClass("bg-gray-500").addClass("bg-purple-400");
-        $(".speed").removeClass("bg-purple-400").addClass("bg-gray-500");
-        $('.alert-eco').removeClass("hidden").addClass("block");
-        if($('.alert-speed').hasClass("block"))
-            $('.alert-speed').removeClass("block").addClass("hidden");
-        $("#temperatureOutputId").html("4ºC");
-        $("#temperatureRangeId").val(4);
-        $("#temperatureConOutputId").html("-18ºC");
-        $("#temperaturaConRangeId").val(-18);
-
-    });
-
-    $(".speed").click(function(){
-        $(".speed").removeClass("bg-gray-500").addClass("bg-purple-400");
-        $(".eco").removeClass("bg-purple-400").addClass("bg-gray-500");
-        $('.alert-speed').removeClass("hidden").addClass("block");
-        if($('.alert-eco').hasClass("block"))
-            $('.alert-eco').removeClass("block").addClass("hidden");
-        $("#temperatureOutputId").html("2ºC");
-        $("#temperatureRangeId").val(2);
-        $("#temperatureConOutputId").html("-24ºC");
-        $("#temperaturaConRangeId").val(-24);
-	}); 
-});
-
-
 function changeInput(idInput, checkedIn){
 		
 	if(!checkedIn){

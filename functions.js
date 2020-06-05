@@ -544,7 +544,8 @@ function setSetting(text){
 
 }
 
-function changeInput(idInput, checkedIn){	
+function changeInput(idInput, checkedIn){
+		
 	if(!checkedIn){
 		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
 	}
@@ -996,10 +997,10 @@ function selectPage(id){
 				"<p class='text-gray-200 text-xl'>Ambos <span id='span3'>On</span></p>" +
 			"</button>";
 	} else{
-		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + "; selectMode();' class='alert-eco flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
 				"<p class='fas fa-leaf text-gray-200'></p>" +
 			"</button>" +
-			"<button id='button2' type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' >" +
+			"<button id='button2' type='button' onclick='return " + page[id].function2 + "; selectMode();' class='alert-speed bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' >" +
 				"<p class='fas fa-snowflake text-gray-200'></p>" +
 			"</button>";
 	}
@@ -1010,4 +1011,11 @@ function selectPage(id){
 	if(page[id].title == "Consumo energético") checkFrideMode();
 	if(page[id].title == "On/Off") checkMotorButtons("blue");
  	return false;
+}
+
+function selectMode(){
+	$("#button1").click(function(){
+		console.log("HEY");
+	});
+
 }

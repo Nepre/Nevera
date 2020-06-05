@@ -143,6 +143,11 @@ $(document).ready(function(){
         $('.alert-eco').removeClass("hidden").addClass("block");
         if($('.alert-speed').hasClass("block"))
             $('.alert-speed').removeClass("block").addClass("hidden");
+        $("#temperatureOutputId").html("4ºC");
+        $("#temperatureRangeId").val(4);
+        $("#temperatureConOutputId").html("-18ºC");
+        $("#temperaturaConRangeId").val(-18);
+
     });
 
     $(".speed").click(function(){
@@ -151,5 +156,38 @@ $(document).ready(function(){
         $('.alert-speed').removeClass("hidden").addClass("block");
         if($('.alert-eco').hasClass("block"))
             $('.alert-eco').removeClass("block").addClass("hidden");
+        $("#temperatureOutputId").html("2ºC");
+        $("#temperatureRangeId").val(2);
+        $("#temperatureConOutputId").html("-24ºC");
+        $("#temperaturaConRangeId").val(-24);
 	}); 
 });
+
+
+function changeInput(idInput, checkedIn){
+		
+	if(!checkedIn){
+		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
+	}
+	else{
+		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full"
+	}
+}
+
+function changeDetection(set){
+	//Cookies.set("automaticDetection", (set)? 1:0);
+	if(!set){
+		changeInput('inputLuz', false);
+		$('#checked2').prop('disabled', true);
+
+		changeInput('inputPantalla', false);
+		$('#checked3').prop('disabled', true);
+	}
+	else{
+		changeInput('inputLuz', true);
+		$('#checked2').prop('disabled', false);
+
+		changeInput('inputPantalla', true);
+		$('#checked3').prop('disabled', false);
+	}
+}

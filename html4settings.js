@@ -268,3 +268,24 @@ var consumption = `
   <button title='Guardar cambios' class='focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
   </div>
 `
+
+var optionsChart = {
+  // X-Axis specific configuration
+  axisX: {
+      // We can disable the grid for this axis
+      showGrid: false,
+  },
+  width: '400px',
+  height: '250px',
+  // Y-Axis specific configuration
+  axisY: {
+      // Lets offset the chart a bit from the labels
+      offset: 60,
+      // The label interpolation function enables you to modify the values
+      // used for the labels on each axis. Here we are converting the
+      // values into million pound.
+      labelInterpolationFnc: function(value) {
+         return value + 'ºC';
+      }
+  }
+  };

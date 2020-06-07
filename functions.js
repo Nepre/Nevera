@@ -527,6 +527,7 @@ function setShopping(text){
 
 function setSetting(text){
 	if(window.location.pathname != ("/interfaz/settings.html")) return;
+	$("h2").html(text);
 	switch(text){
 		case "Idioma":
 			console.log("Idioma");
@@ -534,6 +535,7 @@ function setSetting(text){
 
 		case "Modo energético":
 			
+			$("#contenido").html(consumption);
 			break;
 
 		default:
@@ -543,8 +545,7 @@ function setSetting(text){
 
 }
 
-function changeInput(idInput, checkedIn){
-		
+function changeInput(idInput, checkedIn){	
 	if(!checkedIn){
 		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
 	}
@@ -1050,5 +1051,29 @@ $(document).ready(function(){
     });
     $("#temperaturaConRangeIdS").mousemove(function(){
         $("#temperatureConOutputIdS").html($("#temperaturaConRangeIdS").val() + "ºC");        
+	});
+
+	// Reestablecer Modo ECO
+	$("#reset-eco").click(function(){
+		$("#temperatureOutputId").html(4 + "ºC");
+		$("#temperatureRangeId").val(4);
+		$("#temperatureConOutputId").html(-22 + "ºC");
+		$("#temperaturaConRangeId").val(-22);
+		changeInput('inputDetect', false);
+		changeInput('inputLuz', false);
+		changeInput('inputPantalla', false);
+		changeInput('inputPantallaAhorro', true);
+
+	});
+	// Reestablecer Modo SPEED
+	$("#reset-speed").click(function(){
+		$("#temperatureOutputIdS").html(2 + "ºC");
+		$("#temperatureRangeIdS").val(2);
+		$("#temperatureConOutputIdS").html(-24 + "ºC");
+		$("#temperaturaConRangeIdS").val(-24);
+		changeInput('inputDetect2', true);
+		changeInput('inputLuz2', true);
+		changeInput('inputPantalla2', true);
+		changeInput('inputPantallaAhorro2', false);
 	});
 });

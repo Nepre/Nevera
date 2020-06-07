@@ -92,6 +92,7 @@ input[type="range"] {
   margin: 0 auto;
   outline: 0;
 }
+
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background-color: #9f7aea;

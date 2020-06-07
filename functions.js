@@ -2,6 +2,7 @@ var frigo = new Electro();
 var small = false;
 var automatic = false;
 const widthChange = 767; 
+const second = 1000;
 
 window.setInterval(function(){
 	recalculateTotal();
@@ -28,8 +29,67 @@ window.setInterval(function(){
 	}
 
 	temperatureManager();
+	//checkDoa();
 	checkProximity();
-}, 50);
+}, 10);
+
+function getCookiesChart(nameCookie){
+
+	if( Cookies.get(nameCookie) == undefined) return [0,0,0,0,0,0];
+	var data = Cookies.get(nameCookie).split(",");
+	for (let i = 0; i < data.length; i++) {
+		data[i] = parseFloat(data[i]);
+	}
+	return data;
+}
+
+var dataChartFrigo = [0,0,0,0,0,0];
+var dataChartCongelador = [0,0,0,0,0,0];
+
+window.setInterval(function(){
+	addToChart();
+	setChart();
+}, 20*second);
+
+var cont = 1;
+var media = 0;
+
+
+function addToChart(){
+
+	dataChartFrigo = getCookiesChart("dataChartFrigo");
+	dataChartFrigo.shift();
+	dataChartFrigo.push(frigo.refrigeradorTemperatura);
+	Cookies.set("dataChartFrigo", dataChartFrigo);
+
+	dataChartCongelador = getCookiesChart("dataChartCongelador");
+	dataChartCongelador.shift();
+	dataChartCongelador.push(frigo.congeladorTemperatura);	
+	Cookies.set("dataChartCongelador", dataChartCongelador);
+}
+
+function setChart(){
+	dataChartFrigo = getCookiesChart("dataChartFrigo");
+	dataChartCongelador = getCookiesChart("dataChartCongelador");
+	
+	setTimeout(() => {
+
+		if(window.location.pathname != ("/interfaz/settings.html")) return;
+		var data = {
+			labels: ['Hace 25min', 'Hace 20min', 'Hace 15min', 'Hace 10min', 'Hace 5min', 'Ahora'],
+			series: [
+				dataChartFrigo,
+				dataChartCongelador
+			]
+			};
+	
+		new Chartist.Line('.ct-chart', data, optionsChart);
+
+	}, 100);
+
+
+}
+
 
 function init(){
 	checkLights();
@@ -37,8 +97,8 @@ function init(){
 	frigo.on("connect", function () {
 		console.log("Ya estoy conectado con el frigorifico!!!")
 		console.log("Con este hay " + frigo.clientes + " clientes conectados");
-
-
+		
+		
 		// Activar la luz del refrigerador cuando se abre la puerta
 		/*frigo.on("refrigeradorPuerta", function (abierta) {
 			console.log("Puerta:", abierta);
@@ -47,23 +107,36 @@ function init(){
 	});
 }
 
+function checkDoa(){
+	if(frigo.refrigeradorPuerta){
+		frigo.refrigeradorLuz = true;
+	}
+	else{
+		if(Cookies.get('fridgelight') != 1) 
+			frigo.refrigeradorLuz = false;
+	}
+	
+	if(frigo.congeladorPuerta){
+		frigo.congeladorLuz = true;
+	}
+	else{
+		if(Cookies.get('freezerlight') != 1) 
+			frigo.congeladorLuz = false;
+	}
+}
+
 function checkProximity(){
 	if(frigo.frigorificoPresencia){
 		frigo.congeladorLuz = true;
 		frigo.refrigeradorLuz = true;
 	}
 	else{
-		if(Cookies.get('fridgelight') != 1) 
-			frigo.refrigeradorLuz = false;
-		
-		if(Cookies.get('freezerlight') != 1) 
-			frigo.congeladorLuz = false;
+		checkDoa();
 	}
 }
 
 function cambiarHora() {
-	frigo.refrigeradorLuz = true;
-	
+	frigo.refrigeradorLuz = true;	
 }
 
 // Luces

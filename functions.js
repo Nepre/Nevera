@@ -543,10 +543,24 @@ $(document).ready(function(){
 	});
 });
 
+$(".burger").hide();
+
+function smallBg(){
+	if(window.innerWidth <= widthChange){
+		console.log("YEY");
+		
+		$("li").click(function(){
+			$(".burger").hide();
+			small = true;
+		});
+	}
+}
+
 /* SETTINGS & SHOPPING LIST */
 $(document).ready(function(){
 	var current_title = $(document).attr('title');
-	if (current_title == "Compra") {
+	if (current_title == "Compra" || current_title == "Ajustes - Interfaz de Frigorífico") {
+		
 		var openmodal = document.querySelectorAll('.modal-open')
 		for (var i = 0; i < openmodal.length; i++) {
 			openmodal[i].addEventListener('click', function(event){
@@ -608,22 +622,60 @@ function setSetting(text){
 	$("h2").html(text);
 	switch(text){
 		case "Idioma":
-			console.log("Idioma");
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(language);
 			break;
 
 		case "Modo energético":
-			
-			$("#contenido").html(consumption);
+			$("#contenido2").html(consumption);
+			break;
+
+		case "Temperatura":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(temperature);
+			break;
+
+		case "Fecha y hora":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(timeDate);
+			break;
+		
+		case "Apariencia":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(theme);
+			break;
+
+		case "Detección de proximidad":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(ajustesGenerales);
+			break;
+
+		case "Luces":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(lights);
+			break;
+
+		case "Pantalla":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(pantalla);
+			break;
+
+		case "Estadísticas":
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
+			$("#contenido").html(stats);
 			break;
 
 		default:
+			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
 			$("#contenido").html(ajustesGenerales);
 			console.log("Ajustes generales");		
 	}
 
 }
 
-function changeInput(idInput, checkedIn){	
+function changeInput(idInput, checkedIn){
+	console.log(idInput);
+	
 	if(!checkedIn){
 		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
 	}
@@ -647,6 +699,24 @@ function changeDetection(set){
 
 		changeInput('inputPantalla', true);
 		$('#checked3').prop('disabled', false);
+	}
+}
+
+function changeDetection2(set){
+	//Cookies.set("automaticDetection", (set)? 1:0);
+	if(!set){
+		changeInput('inputLuz2', false);
+		$('#checked6').prop('disabled', true);
+
+		changeInput('inputPantalla2', false);
+		$('#checked7').prop('disabled', true);
+	}
+	else{
+		changeInput('inputLuz2', true);
+		$('#checked6').prop('disabled', false);
+
+		changeInput('inputPantalla2', true);
+		$('#checked7').prop('disabled', false);
 	}
 }
 
@@ -969,6 +1039,79 @@ $(document).ready(function(){
 	});
 });
 
+function openModal(){
+	var openmodal = document.querySelectorAll('.modal-open')
+	for (var i = 0; i < openmodal.length; i++) {
+		openmodal[i].addEventListener('click', function(event){
+		event.preventDefault()
+		toggleModal()
+		})
+	}
+		
+	const overlay = document.querySelector('.modal-overlay')
+	overlay.addEventListener('click', toggleModal)
+
+
+	document.onkeydown = function(evt) {
+		evt = evt || window.event
+		var isEscape = false
+		if ("key" in evt) {
+		isEscape = (evt.key === "Escape" || evt.key === "Esc")
+		} else {
+		isEscape = (evt.keyCode === 27)
+		}
+		if (isEscape && document.body.classList.contains('modal-active')) {
+			toggleModal()
+		}
+	};
+}
+
+function showDateModal(){		
+	let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
+		"<p class='text-2xl font-bold'>Cambiar la fecha</p>" +
+		"<div class='modal-close cursor-pointer z-50'>" +
+			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
+		"</div>" +
+	"</div>" +
+
+	"<p class='p-modal'>Selecciona una nueva fecha para tu frigorífico, puedes cambiarla en cualquier momento.</p>" +
+
+	"<div class='flex'>" +
+		"<input id='dateInput' class='text-center justify-start border-2 border-gray-300 rounded-lg p-2 w-full my-2' type='date'>" +
+	"</div>" +
+
+	"<div class='flex justify-end pt-2'>" +
+		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
+		"<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>" +
+	"</div>";
+
+	$(".modal-content").html(innerHTML);
+}
+
+function showTimeModal(){
+
+	let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
+		"<p class='text-2xl font-bold'>Cambiar la hora</p>" +
+		"<div class='modal-close cursor-pointer z-50'>" +
+			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
+		"</div>" +
+	"</div>" +
+
+	"<p class='p-modal'>Selecciona una nueva hora para tu frigorífico, puedes cambiarla en cualquier momento.</p>" +
+
+	"<div class='flex'>" +
+		"<input id='timeInput' type='time' class='text-center border-2 border-gray-300 rounded-lg p-2 w-full my-2' type='date'>" +
+	"</div>" +
+
+
+	"<div class='flex justify-end pt-2'>" +
+		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
+		"<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>" +
+	"</div>";
+
+	$(".modal-content").html(innerHTML);
+}
+
 function showFinalModal(){
 	let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
 		"<p class='text-2xl font-bold'>¡Su pedido se ha realizado con éxito!</p>" +
@@ -1130,31 +1273,29 @@ $(document).ready(function(){
     $("#temperaturaConRangeIdS").mousemove(function(){
         $("#temperatureConOutputIdS").html($("#temperaturaConRangeIdS").val() + "ºC");        
 	});
+});
 
-	// Reestablecer Modo ECO
-	$("#reset-eco").click(function(){
-		$("#temperatureOutputId").html(4 + "ºC");
+function resetModo(id){
+	if(id == 1){ // Reestablecer Modo ECO
+		$("#temperatureOutputId").html(4);
 		$("#temperatureRangeId").val(4);
-		$("#temperatureConOutputId").html(-22 + "ºC");
+		$("#temperatureConOutputId").html(-22);
 		$("#temperaturaConRangeId").val(-22);
 		changeInput('inputDetect', false);
 		changeInput('inputLuz', false);
 		changeInput('inputPantalla', false);
 		changeInput('inputPantallaAhorro', true);
-
-	});
-	// Reestablecer Modo SPEED
-	$("#reset-speed").click(function(){
-		$("#temperatureOutputIdS").html(2 + "ºC");
+	} else if(id == 2){ // Reestablecer Modo SPEED
+		$("#temperatureOutputIdS").html(2);
 		$("#temperatureRangeIdS").val(2);
-		$("#temperatureConOutputIdS").html(-24 + "ºC");
+		$("#temperatureConOutputIdS").html(-24);
 		$("#temperaturaConRangeIdS").val(-24);
 		changeInput('inputDetect2', true);
 		changeInput('inputLuz2', true);
 		changeInput('inputPantalla2', true);
 		changeInput('inputPantallaAhorro2', false);
-	});
-});
+	}
+}
 
 
 function theme(){
@@ -1163,4 +1304,85 @@ function theme(){
 	$(".bgColor").removeClass("bgColorDefault");
 	$(".bgColor").addClass("bgColorDark");
 	
+}
+
+/* Fecha y hora */
+function checkTime(){
+    if($("#fetchOnline").is(":checked")) initDate();
+}
+
+function changeWhat(time){
+    
+    if(time){
+        $("#dateTime").html("Set current time");
+        $("#dateTimeTitle").html("Time");
+        var date = new Date();
+        var currentTime = date.getHours() + ':' + date.getMinutes()
+        $('#timeInput').val(currentTime);
+        $("#timeInput").css('visibility', 'visible');
+        $("#dateInput").css('visibility', 'hidden');
+        $("#valueModal").text("0");
+    }
+    else{
+        $("#dateTime").html("Set current date");
+        $("#dateTimeTitle").html("Date");
+        var today = new Date();
+        $('#dateInput').val(today.toISOString().substr(0, 10));
+        $("#dateInput").css('visibility', 'visible');
+        $("#timeInput").css('visibility', 'hidden');
+        $("#valueModal").text("1");
+    }
+    
+}
+
+function setTimeDate(){
+    if($("#valueModal").text() = "0"){
+
+    }
+    else{
+        
+    }
+}
+
+// Function credits to Salman A on stackoverflow
+// Add nth to number
+function ordinal_suffix_of(i) {
+    var j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}
+
+var weekDaysEnglish = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+var monthEnglish = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+   
+
+function initDate(){
+    var d = new Date();
+    var str  = weekDaysEnglish[d.getDay()] + ", " + monthEnglish[d.getMonth()] + " " + ordinal_suffix_of(d.getDate()) + ", " + d.getFullYear();
+    var min = d.getMinutes();
+    if(min == 0) min = "00";
+    else if(min < 10) min = "0"+min
+    var str2 = d.getHours() + ":" + min;
+    
+    $("#dateH").html(str);
+    $("#time").html(str2);
+}
+
+function fetchOnline(){
+    if(!$("#fetchOnline").is(":checked")){
+
+    }
+    else
+        $("#dateInput").css('visibility', 'hidden');
+    
+    //if($("#fetchOnline").prop)
 }

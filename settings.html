@@ -52,33 +52,33 @@
         </header>
 
         <main class="w-full h-screen flex">
-            <!--QUIERO PODER CERRAR EL MENU DE HAMBURGUESA CUANDO HAGO CLICK EN ALGUN ELEMENTO DE LA LISTA-->
             <div class="burger bg-gray-400 w-full md:w-3/12 hidden md:block">
                 <nav class="w-full">
                     <ul class="mt-20 cursor-pointer">
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Ajustes generales</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Idioma</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Fecha y hora</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Modo energético</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Rendimiento</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Sobre el dispositivo</a></li>
-                        <li class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Temas</a></li>
-                        <li class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Wi-fi</a></li> 
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Apariencia</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Detección de proximidad</a></li>
+                        <li onclick="setChart();smallBg();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Estadísticas</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Fecha y hora</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Idioma</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Luces</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Modo energético</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#">Pantalla</a></li>
+                        <li onclick="smallBg();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#">Temperatura</a></li>
                     </ul>
                 </nav>
             </div>
 
-            <!--Modal-->
             <div class="flex-1 flex overflow-hidden">
-                <div class="flex-1 overflow-y-scroll">
-                    <div class="p-8 pt-16 md:pt-2 w-full overflow-y-auto">
-                        <h2 class='text-4xl w-full mb-2 z-40'>Ajustes generales</h2>
-                        <!--AQUI VA EL CONTENIDO PRINCIPAL-->
-                        <div id="contenido">
-                            <div class="chart">
-                                <div class="ct-chart ct-golden-section"></div>
+                <div class="flex-1">
+                    <div class="h-full p-8 pt-16 md:pt-2 w-full overflow-y-auto flex flex-col">
+                        <div>
+                            <h2 class='text-4xl'>Apariencia</h2>
+                        </div>
+                        <div id="contenido2" class="flex justify-center h-full">
+                            <div id="contenido" class="flex items-center justify-center">
+                                                                                      
+            
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -88,9 +88,13 @@
     </div>
 
     <script>
+        initDate();
+		window.setInterval(function(){
+			checkTime();
+		}, 100);
         checkPrevPage();
         setChart();
-        //setSetting("Ajustes generales");
+        setSetting("Apariencia");
     </script>
 </body>
 

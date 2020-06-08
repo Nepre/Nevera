@@ -28,6 +28,18 @@ window.setInterval(function(){
 		$(".left-arrow").removeClass("w-8/12").addClass("w-10/12");
 	}
 
+	$("#temp-frigo").html(Math.round(frigo.refrigeradorTemperatura));
+	$("#temp-conge").html(Math.round(frigo.congeladorTemperatura));
+
+	var min = frigo.frigorificoHora.getMinutes();
+    if(min == 0) min = "00";
+    else if(min < 10) min = "0"+min
+    var str2 = frigo.frigorificoHora.getHours() + ":" + min;
+	
+	$("#hour").html(str2);
+
+	checkOpenDoor();
+
 	temperatureManager();
 	//checkDoa();
 	checkProximity();
@@ -43,6 +55,10 @@ function getCookiesChart(nameCookie){
 	return data;
 }
 
+function checkOpenDoor(){
+
+}
+
 var dataChartFrigo = [0,0,0,0,0,0];
 var dataChartCongelador = [0,0,0,0,0,0];
 
@@ -53,6 +69,8 @@ window.setInterval(function(){
 
 var cont = 1;
 var media = 0;
+
+
 
 
 function addToChart(){
@@ -92,12 +110,12 @@ function setChart(){
 
 
 function init(){
+	$('.alert-high').hide();
 	checkLights();
 	checkMotores();
 	frigo.on("connect", function () {
 		console.log("Ya estoy conectado con el frigorifico!!!")
 		console.log("Con este hay " + frigo.clientes + " clientes conectados");
-		
 		
 		// Activar la luz del refrigerador cuando se abre la puerta
 		/*frigo.on("refrigeradorPuerta", function (abierta) {
@@ -105,6 +123,7 @@ function init(){
 			frigo.refrigeradorLuz = abierta;
 		});*/
 	});
+	
 }
 
 function checkDoa(){
@@ -404,14 +423,28 @@ function checkMotores(){
 // Hacer en settings poner temperatura objetivo de cada una de las opciones
 // Hacer que si vuelvas a pulsar vuelva al modo normal (cuando tengamos uno)
 
+function guardarCambiosTemp(){
+    Cookies.set('normal-nevera', parseInt($("#temperatureOutputId").text()));
+    Cookies.set('normal-conge', parseInt($("#temperatureConOutputId").text()));
+}
+
+function guardarCambiosTempECOSPEED(){
+	Cookies.set('eco-nevera', parseInt($("#temperatureOutputId").text()));
+	Cookies.set('eco-conge', parseInt($("#temperatureConOutputId").text()));
+	
+	Cookies.set('speed-nevera', parseInt($("#temperatureOutputIdS").text()));
+	Cookies.set('speed-conge', parseInt($("#temperatureConOutputIdS").text()));
+	
+	console.log(Cookies.get('eco-nevera'));
+	
+}
 
 var modesAndTarget = [
-	{"mode":"eco", "targetFridge":6, "targetFreezer":-3}, 
-	{"mode":"normal", "targetFridge":4, "targetFreezer":-4}, 
-	{"mode":"boost", "targetFridge":3, "targetFreezer":-5}, 
+	{"mode":"eco", "targetFridge":4, "targetFreezer":-22}, 
+	{"mode":"normal", "targetFridge":6, "targetFreezer":-20}, 
+	{"mode":"boost", "targetFridge":2, "targetFreezer":-24}, 
 	{"mode":"off", "targetFridge":0, "targetFreezer":0}, 
 ];
-
 
 function temperatureManager(){
 
@@ -518,6 +551,7 @@ function addElement(){
 	$(".new-tag").html("<div class='new-tag m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'><p>Pan</p><span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span></div>");
 }
 
+/*
 function setHora(){
 	setInterval(function(){
 		var date = new Date();
@@ -532,7 +566,7 @@ function setTime(dateobj){
 
 	converted_date = hours + ":" + minutes;
 	document.getElementById("hour").innerHTML = converted_date;
-}
+}*/
 
 /*** JQUERY ***/
 
@@ -1309,39 +1343,6 @@ function theme(){
 /* Fecha y hora */
 function checkTime(){
     if($("#fetchOnline").is(":checked")) initDate();
-}
-
-function changeWhat(time){
-    
-    if(time){
-        $("#dateTime").html("Set current time");
-        $("#dateTimeTitle").html("Time");
-        var date = new Date();
-        var currentTime = date.getHours() + ':' + date.getMinutes()
-        $('#timeInput').val(currentTime);
-        $("#timeInput").css('visibility', 'visible');
-        $("#dateInput").css('visibility', 'hidden');
-        $("#valueModal").text("0");
-    }
-    else{
-        $("#dateTime").html("Set current date");
-        $("#dateTimeTitle").html("Date");
-        var today = new Date();
-        $('#dateInput').val(today.toISOString().substr(0, 10));
-        $("#dateInput").css('visibility', 'visible');
-        $("#timeInput").css('visibility', 'hidden');
-        $("#valueModal").text("1");
-    }
-    
-}
-
-function setTimeDate(){
-    if($("#valueModal").text() = "0"){
-
-    }
-    else{
-        
-    }
 }
 
 // Function credits to Salman A on stackoverflow

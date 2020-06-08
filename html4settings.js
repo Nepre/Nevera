@@ -231,16 +231,16 @@ var consumption = `
       <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
           <label for="temperaturaRangeId" class="text-2xl text-center">Temperatura frigorífico</label>
           <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
-            <output id="temperatureOutputId">4</output>ºC
+            <output id="temperatureOutputId">` + modesAndTarget[0].targetFridge + `</output>ºC
           </output>
-          <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="4" oninput="temperatureOutputId.value = temperatureRangeId.value">
+          <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="` + modesAndTarget[0].targetFridge + `" oninput="temperatureOutputId.value = temperatureRangeId.value">
       </div>
       <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
           <label for="temperaturaConRangeId" class="text-2xl text-center">Temperatura congelador</label>
           <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
-            <output id="temperatureConOutputId">-22</output>ºC
+            <output id="temperatureConOutputId">` + modesAndTarget[0].targetFreezer + `</output>ºC
           </output>
-          <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="-22" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
+          <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[0].targetFreezer + `" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
       </div>
   </div>
   <div class="flex justify-center flex-col md:flex-row">
@@ -327,16 +327,16 @@ var consumption = `
           <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
               <label for="temperaturaRangeIdS" class="text-2xl text-center">Temperatura frigorífico</label>
                 <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
-                    <output id="temperatureOutputIdS">2</output>ºC
+                    <output id="temperatureOutputIdS">` + modesAndTarget[2].targetFridge + `</output>ºC
                 </output>
-              <input id="temperatureRangeIdS" type="range" min="2" max="8" step="2" value="2" oninput="temperatureOutputIdS.value = temperatureRangeIdS.value">
+              <input id="temperatureRangeIdS" type="range" min="2" max="8" step="2" value="` + modesAndTarget[2].targetFridge + `" oninput="temperatureOutputIdS.value = temperatureRangeIdS.value">
           </div>
           <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
               <label for="temperaturaConRangeIdS" class="text-2xl text-center">Temperatura congelador</label>
                 <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
-                    <output id="temperatureConOutputIdS">-24</output>ºC
+                    <output id="temperatureConOutputIdS">` + modesAndTarget[2].targetFreezer + `</output>ºC
                 </output>
-              <input id="temperaturaConRangeIdS" type="range" min="-24" max="-16" step="2" value="-24" oninput="temperatureConOutputIdS.value = temperaturaConRangeIdS.value">
+              <input id="temperaturaConRangeIdS" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[2].targetFreezer + `" oninput="temperatureConOutputIdS.value = temperaturaConRangeIdS.value">
           </div>
       </div>
       <div class="flex justify-center flex-col md:flex-row">
@@ -415,7 +415,7 @@ var consumption = `
   <div>
                               
   <div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-  <button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
+  <button onclick="guardarCambiosTempECOSPEED();" title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
   </div>
 `
 
@@ -423,15 +423,19 @@ var temperature = `<div class="">
 <div class="flex flex-col lg:flex-row w-full md:w-auto justify-center text-center">
     <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4">
         <label for="temperaturaRangeId" class="text-2xl">Temperatura frigorífico</label>
-        <output id="temperatureOutputId" class="value text-4xl text-gray-800 font-bold my-4 w-11/12">4ºC</output>
-        <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="4" oninput="temperatureOutputId.value = temperatureRangeId.value">
+        <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
+            <output id="temperatureOutputId">` + modesAndTarget[1].targetFridge + `</output>ºC
+          </output>
+        <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="` + modesAndTarget[1].targetFridge + `" oninput="temperatureOutputId.value = temperatureRangeId.value">
     </div>
     
 
     <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4">
         <label for="temperaturaConRangeId" class="text-2xl">Temperatura congelador</label>
-        <output id="temperatureConOutputId" class="value text-4xl text-gray-800 font-bold my-4 w-11/12">-22ºC</output>
-        <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="-22" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
+        <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
+            <output id="temperatureConOutputId">` + modesAndTarget[1].targetFreezer + `</output>ºC
+          </output>
+        <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[1].targetFreezer + `" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
     </div>
 </div>
 <div class="flex pt-1 flex justify-center mt-3"> 
@@ -450,8 +454,9 @@ var temperature = `<div class="">
 </h4>
 </div>
 <div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-<button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
+<button onclick="guardarCambiosTemp();" title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
 </div>`
+
 
 var language = `<div id='language' class='flex flex-wrap md:flex-no-wrap justify-center'>
 <button title="Español" class="flex rounded-full border-gray-700 m-4 shadow-lg focus:outline-none focus:shadow-outline">

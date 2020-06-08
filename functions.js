@@ -31,12 +31,20 @@ window.setInterval(function(){
 	$("#temp-frigo").html(Math.round(frigo.refrigeradorTemperatura));
 	$("#temp-conge").html(Math.round(frigo.congeladorTemperatura));
 
-	var min = frigo.frigorificoHora.getMinutes();
+	var date = new Date();
+	var min = date.getMinutes();
+
+	if(frigo.frigorificoHora != undefined && typeof frigo.frigorificoHora.getMinutes === 'function') min = frigo.frigorificoHora.getMinutes();
+
     if(min == 0) min = "00";
-    else if(min < 10) min = "0"+min
-    var str2 = frigo.frigorificoHora.getHours() + ":" + min;
+	else if(min < 10) min = "0"+min
 	
-	$("#hour").html(str2);
+
+	var hours =  date.getHours();
+	
+	if(frigo.frigorificoHora != undefined && typeof frigo.frigorificoHora.getHours === 'function') hours = frigo.frigorificoHora.getHours() + ":" + min;
+	
+	$("#hour").html(hours);
 
 	checkOpenDoor();
 
@@ -446,14 +454,19 @@ var modesAndTarget = [
 ];
 
 function temperatureManager(){
-
 	
 	var mode = Cookies.get('powerMode');
 	var freezer = (Cookies.get('freezermotor') == 0)? false:true;
 	var fridge = (Cookies.get('fridgemotor') == 0)? false:true;
+	
+	if(Cookies.get('eco-nevera') != undefined) modesAndTarget[0].targetFridge = Cookies.get('eco-nevera');
+	if(Cookies.get('eco-conge') != undefined) modesAndTarget[0].targetFreezer = Cookies.get('eco-conge');
+	
+	if(Cookies.get('normal-nevera') != undefined) modesAndTarget[1].targetFridge = Cookies.get('normal-nevera');
+	if(Cookies.get('normal-conge') != undefined) modesAndTarget[1].targetFreezer = Cookies.get('normal-conge');
 
-	//console.log("freezer " + freezer);
-	//console.log("fridge " + Cookies.get('fridgemotor'));
+	if(Cookies.get('speed-nevera') != undefined) modesAndTarget[2].targetFridge = Cookies.get('speed-nevera');
+	if(Cookies.get('speed-conge') != undefined) modesAndTarget[2].targetFreezer = Cookies.get('speed-conge');
 	
 	if(mode == undefined) mode = 1;
 	
@@ -867,7 +880,7 @@ function showShoppingList(){
 						"<span onclick='removeItem(" + i + ");' title='Eliminar' class='fontColor fontDefault buttonsSS buttonsSSDefault fas fa-times absolute p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
 						"<img src='resources/" + items[i].file + "' alt='" + items[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
 					"</div>" +
-					"<div class='data flex-col w-full bdDarkerColor bgDarkerDefault fontColor fontDefault'>" + 
+					"<div class='data flex-col w-full bgDarkerColor bgDarkerDefault fontColor fontDefault'>" + 
 						"<h3 class='px-4 py-2 text-2xl'>" + items[i].title + "</h3>" +
 						"<h4 class='price font-bold px-4'>Precio: " + price + "€</h4>" +
 					"</div>" +
@@ -906,7 +919,7 @@ function showFoodItems(a){
 				"<div class='relative h-32 w-40'>" + 
 					"<img src='resources/" + array[i].file + "' alt='" + array[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
 				"</div>" +
-				"<div class='data flex-col w-full bdDarkerColor bgDarkerDefault'>" + 
+				"<div class='data flex-col w-full bgDarkerColor bgDarkerDefault'>" + 
 					"<h3 class='px-4 py-2 text-2xl'>" + array[i].title + "</h3>" +
 					"<h4 class='price font-bold px-4'>Precio: " + array[i].price + "€</h4>" +
 				"</div>" +
@@ -1338,7 +1351,7 @@ function resetModo(id){
 // 		- bgColorLight
 //      - bgColorDefault
 //
-// bdDarkerColor - Fondo izq
+// bgDarkerColor - Fondo izq
 // 		- bgDarkerLight
 //		- bgDarkerDefault
 //
@@ -1362,12 +1375,19 @@ function theme(){
 
 }
 
+function darkTheme(){
+	// Es el default así que
+}
+
 function lightTheme(color){
 	$(".bgColor").removeClass("bgColorDefault");
 	$(".bgColor").addClass("bgColorLight");
+
+	$(".bgDarkerMMColor").removeClass("bgDarkerMMDefaul");
+	$(".bgDarkerMMColor").addClass("bgDarkerMMLight");
 	
-	$(".bdDarkerColor").removeClass("bgDarkerDefault");
-	$(".bdDarkerColor").addClass("bgDarkerLight");
+	$(".bgDarkerColor").removeClass("bgDarkerDefault");
+	$(".bgDarkerColor").addClass("bgDarkerLight");
 
 	$(".fontColor").removeClass("fontDefault");
 	$(".fontColor").addClass("fontLight");

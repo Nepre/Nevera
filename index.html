@@ -17,7 +17,7 @@
 	<div class="w-full flex flex-wrap">
         
 		<header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
-			<div class="left-arrow w-8/12 md:w-3/12 flex justify-start pl-5 bdDarkerColor bgDarkerDefault md:bg-transparent">
+			<div class="left-arrow w-8/12 md:w-3/12 flex justify-start pl-5 bgDarkerColor bgDarkerDefault md:bg-transparent">
 				<button id="atras" title="Volver a atrás" onclick="initialIndex();" type="button" class="back hidden text-4xl">
 					<span class="fas fa-arrow-left hover:text-gray-500 fontColor fontDefault"></span>
 				</button>
@@ -38,7 +38,7 @@
 		</header>
 
 
-		<div class="mt-4 md:m-0 md:h-screen p-8 w-full md:w-5/12 flex flex-col justify-center items-center bdDarkerColor bgDarkerDefault fontColor fontDefault">
+		<div class="mt-4 md:m-0 md:h-screen p-8 w-full md:w-5/12 flex flex-col justify-center items-center bgDarkerMMColor bgDarkerMMDefault fontColor fontDefault">
 			<h2 class="xxl-font hidden md:block">Hola!</h2>
 			<h3 id="hour" class="text-6xl"></h3>
 			<div class="flex text-2xl justify-center items-center text-center">
@@ -81,7 +81,6 @@
 	<script>
 		initialIndex();
 		init();
-		setHora();
 		theme();
 	</script>
 </body>

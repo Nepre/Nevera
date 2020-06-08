@@ -21,6 +21,15 @@
   background-color: white;
 }
 
+/* bg left main menu*/
+.bgDarkerMMDefault{
+  background-color: #2d3748;
+}
+
+.bgDarkerMMLight{
+  background-color: #cbd5e0
+}
+
 /* bg left */
 .bgDarkerDefault{
   background-color: #2d3748;

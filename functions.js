@@ -1,6 +1,8 @@
 var frigo = new Electro();
 var small = false;
 var automatic = false;
+var alerthigh = false;
+var alertopen = false;
 const widthChange = 767; 
 const second = 1000;
 
@@ -49,7 +51,41 @@ window.setInterval(function(){
 
 	temperatureManager();
 	checkProximity();
+
+	if(!alerthigh && (frigo.refrigeradorTemperatura > 15 || frigo.congeladorTemperatura > 2)){
+		$(".alert-high").show();
+		//frigo.frigorificoAlarma = true;
+	} else{
+		//frigo.frigorificoAlarma = false;
+		$(".alert-high").hide();
+	}
+	
 }, 10);
+
+window.setInterval(function(){
+    var secondsOpen = 0;
+    if(frigo.refrigeradorPuerta == true || frigo.congeladorPuerta == true){
+        if(Cookies.get('secondsOpen') != undefined){
+            secondsOpen = parseInt(Cookies.get('secondsOpen'));
+            secondsOpen++;
+            Cookies.set('secondsOpen', secondsOpen);
+        }else{
+            Cookies.set('secondsOpen', 0);
+        }
+    }
+    else{
+        Cookies.set('secondsOpen', 0);
+    }
+    if(secondsOpen > 60) {
+		$(".alert-open").show();
+		frigo.frigorificoAlarma = true;
+	} else {
+		$(".alert-open").hide();
+		frigo.frigorificoAlarma = false;
+	}
+	console.log(secondsOpen);
+	
+}, second);
 
 function getCookiesChart(nameCookie){
 
@@ -117,6 +153,7 @@ function setChart(){
 
 function init(){
 	$('.alert-high').hide();
+	$(".alert-open").hide();
 	checkLights();
 	checkMotores();
 	frigo.on("connect", function () {
@@ -489,14 +526,17 @@ function temperatureManager(){
 	}
 }
 
+var eco = false;
+
 function normalMode(){
+	eco = false;
 	Cookies.set('powerMode', 2);
 	document.getElementById("button1").className = 	"flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
 	document.getElementById("button2").className = 	"bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6";
 }
 
 function ecoMode(direct){
-
+	eco = true;
 	if(direct == undefined) direct = false;
 	// frigo.refrigeradorMotor = 1;
 	// frigo.congeladorMotor = 1;
@@ -656,6 +696,7 @@ function setShopping(text){
 function setSetting(text){
 	if(window.location.pathname != ("/interfaz/settings.html")) return;
 	$("h2").html(text);
+	
 	switch(text){
 		case "Idioma":
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
@@ -707,6 +748,8 @@ function setSetting(text){
 	}
 
 }
+
+
 
 function changeInput(idInput, checkedIn){
 	
@@ -1268,11 +1311,13 @@ function selectPage(id){
 
 function selectMode(id){
 	if(id == 1){
-		$('.alert-eco').removeClass("hidden").addClass("block");
+		if($('#button1').hasClass("bg-gray-500"))
+			$('.alert-eco').removeClass("hidden").addClass("block");
         if($('.alert-speed').hasClass("block"))
             $('.alert-speed').removeClass("block").addClass("hidden");
 	} else if(id == 2){
-		$('.alert-speed').removeClass("hidden").addClass("block");
+		if($('#button2').hasClass("bg-gray-500"))
+			$('.alert-speed').removeClass("hidden").addClass("block");
         if($('.alert-eco').hasClass("block"))
             $('.alert-eco').removeClass("block").addClass("hidden");
 	}

@@ -37,8 +37,7 @@ window.setInterval(function(){
 	if(frigo.frigorificoHora != undefined && typeof frigo.frigorificoHora.getMinutes === 'function') min = frigo.frigorificoHora.getMinutes();
 
     if(min == 0) min = "00";
-	else if(min < 10) min = "0"+min
-	
+	else if(min < 10) min = "0"+min;
 
 	var hours =  date.getHours();
 	
@@ -185,8 +184,6 @@ function alternarLuzCongelador() {
 		Cookies.set('freezerlight', 1);
 		if(frigo.refrigeradorLuz == 1 || frigo.refrigeradorLuz == 2) turnOnOffButton(true, 3, "orange");
 		turnOnOffButton(true, 2, "orange");
-		console.log("ENcendida2");
-		
 	}
 	else{
 		Cookies.set('freezerlight', 0);
@@ -347,13 +344,10 @@ function alternarMotorRefrigerador() {
 }
 
 function alternarMotorCongelador() {
-	console.log("alternando1");
 	
 	if(Cookies.get('freezermotor') == 0){
 		turnOnOffButton(true, 2, "blue");
-		console.log("alternando2");
 		if(Cookies.get('fridgemotor') == 1 || Cookies.get('fridgemotor') == 2){
-			console.log("alternando3");
 			turnOnOffButton(true, 3, "blue");
 		} 
 
@@ -442,8 +436,6 @@ function guardarCambiosTempECOSPEED(){
 	Cookies.set('speed-nevera', parseInt($("#temperatureOutputIdS").text()));
 	Cookies.set('speed-conge', parseInt($("#temperatureConOutputIdS").text()));
 	
-	console.log(Cookies.get('eco-nevera'));
-	
 }
 
 var modesAndTarget = [
@@ -454,7 +446,7 @@ var modesAndTarget = [
 ];
 
 function temperatureManager(){
-	
+
 	var mode = Cookies.get('powerMode');
 	var freezer = (Cookies.get('freezermotor') == 0)? false:true;
 	var fridge = (Cookies.get('fridgemotor') == 0)? false:true;
@@ -541,7 +533,6 @@ function ultraCoolHyperExtraFreezingMode(direct){
 // Mientras que el modo normal sea otra temperatura
 // Y el super sea una aún más baja
 function checkFrideMode(){
-	console.log(Cookies.get('powerMode'));
 	
 	if(Cookies.get('powerMode') == 3){
 		ultraCoolHyperExtraFreezingMode(true);
@@ -593,7 +584,6 @@ $(".burger").hide();
 
 function smallBg(){
 	if(window.innerWidth <= widthChange){
-		console.log("YEY");
 		
 		$("li").click(function(){
 			$(".burger").hide();
@@ -714,13 +704,11 @@ function setSetting(text){
 		default:
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
 			$("#contenido").html(ajustesGenerales);
-			console.log("Ajustes generales");		
 	}
 
 }
 
 function changeInput(idInput, checkedIn){
-	console.log(idInput);
 	
 	if(!checkedIn){
 		document.getElementById(idInput).className = "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
@@ -988,14 +976,12 @@ function checkGrid(){
 function switchGridList(){
 	$('button').click(function(e) {
 		if ($(this).hasClass('grid')) {
-			console.log("Grid");
 			Cookies.set('grid', 1);
 			$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
 			$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
 			$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
 		}
 		else if($(this).hasClass('list')) {
-			console.log("List");
 			Cookies.set('grid', 2);
 			$('.fa-th-large').removeClass('text-gray-900').addClass('text-gray-600');
 			$('.fa-th-list').removeClass('text-gray-600').addClass('text-gray-900');
@@ -1177,8 +1163,6 @@ function showFinalModal(){
 
 function removeFinalItem(id){
 	removeItem(id);
-
-	console.log($('.total-price').text());
 	
 	let innerHTML = "";
 	for(let i = 0; i < items.length; i++){
@@ -1302,8 +1286,6 @@ function selectModoAhorro(id){
         Cookies.set('modoAhorro', 2); 
         frigo.frigorificoPantalla = 2; // Encendida
 	}
-	console.log(Cookies.get('modoAhorro'));
-	
 }
 
 

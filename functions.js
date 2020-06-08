@@ -1155,3 +1155,12 @@ $(document).ready(function(){
 		changeInput('inputPantallaAhorro2', false);
 	});
 });
+
+
+function theme(){
+	console.log($(".bgColor"));
+	
+	$(".bgColor").removeClass("bgColorDefault");
+	$(".bgColor").addClass("bgColorDark");
+	
+}

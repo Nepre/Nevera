@@ -13,32 +13,32 @@
 	<script src="functions.js"></script>
 </head>
 
-<body class="text-gray-800 md:overflow-hidden bgColor"> 	 
+<body class="text-gray-800 md:overflow-hidden bgColor bgColorDefault">	 
 	<div class="w-full flex flex-wrap">
         
 		<header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
-			<div class="left-arrow w-8/12 md:w-3/12 flex justify-start pl-5">
-				<button id="atras" title="Volver a atrás" onclick="location.href='index.html'" type="button" class="back hidden text-4xl">
-					<span class="fas fa-arrow-left hover:text-gray-500"></span>
+			<div class="left-arrow w-8/12 md:w-3/12 flex justify-start pl-5 bdDarkerColor bgDarkerDefault md:bg-transparent">
+				<button id="atras" title="Volver a atrás" onclick="initialIndex();" type="button" class="back hidden text-4xl">
+					<span class="fas fa-arrow-left hover:text-gray-500 fontColor fontDefault"></span>
 				</button>
 			</div>
 
-			<div class="shopping w-2/12 flex w-2/12 justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
+			<div class="shopping buttonsSS buttonsSSDefault w-2/12 flex w-2/12 justify-center md:fixed md:top-0 md:right-0 md:w-16 md:text-center md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
 				<button onclick="location.href='shopping.html'; Cookies.set('prevPlace', 'index.html');" type="button" class="flex flex-wrap justify-center h-14 order modal-open text-4xl">
-					<span class="pr-1 pt-4 md:pt-2 fas fa-shopping-basket hover:text-gray-500"></span>
-					<span class="fas fa-circle bg-transparent text-red-500 text-sm mt-10 -ml-4 md:ml-0 md:-mt-2 md:pl-8 z-50" style="display:none"></span>
+					<span class="pr-1 pt-4 md:pt-2 fas fa-shopping-basket fontColor fontDefault"></span>
+					<span class="fas fa-circle bg-transparent text-red-400 text-sm mt-10 -ml-4 md:ml-0 md:-mt-2 md:pl-8 z-50" style="display:none"></span>
 				</button>
 			</div>
 
-			<div class="settings w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
+			<div class="settings buttonsSS buttonsSSDefault w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:w-16 md:text-center md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
 				<button onclick="location.href='settings.html'" type="button" class="text-4xl">
-					<span class="fas fa-cog hover:text-gray-500"></span>
+					<span class="fas fa-cog fontColor fontDefault "></span>
 				</button>
 			</div>
 		</header>
 
 
-		<div class="mt-4 md:m-0 md:h-screen bg-gray-400 p-8 w-full md:w-5/12 flex flex-col justify-center items-center">
+		<div class="mt-4 md:m-0 md:h-screen p-8 w-full md:w-5/12 flex flex-col justify-center items-center bdDarkerColor bgDarkerDefault fontColor fontDefault">
 			<h2 class="xxl-font hidden md:block">Hola!</h2>
 			<h3 id="hour" class="text-6xl"></h3>
 			<div class="flex text-2xl justify-center items-center text-center">
@@ -82,7 +82,7 @@
 		initialIndex();
 		init();
 		setHora();
-		//theme();
+		theme();
 	</script>
 </body>
 

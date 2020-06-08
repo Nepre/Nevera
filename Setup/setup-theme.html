@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="../index.css">
 	<link rel="stylesheet" href="setup.css">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 	<script src="../../electro.js"></script>
 	<script src="setup.js"></script>
 </head>
@@ -33,18 +34,18 @@
 
 	<main class="flex flex-col items-center justify-center w-full h-screen">
         <div class='flex flex-col sm:flex-row justify-center items-center'>
-            <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4 mt-20 sm:-mt-10">
+            <div onclick="Cookies.set('theme', 0); $('#darkImg').css('outline-style', 'solid'); $('#darkImg').css('outline-color', '#a1cef1'); $('#color-theme').css('outline-style', 'none');" class="w-3/4 sm:w-2/4 md:w-5/12 m-4 mt-20 sm:-mt-10">
                 <p class="font-bold text-gray-600">Modo noche</p>
-                <img src="../resources/night.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
+                <img id = "darkImg" src="../resources/night.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
             </div>
-            <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
+            <div onclick="Cookies.set('theme', 1); $('#color-theme').css('outline-style', 'solid'); $('#color-theme').css('outline-color', '#a1cef1'); $('#darkImg').css('outline-style', 'none');" class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
                 <p class="font-bold text-gray-600">Modo día</p>
                 <img id="color-theme" src="../resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
                 <div class="colors p-2">
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-purple.png');" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-blue.png');" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-pink.png');" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
-                    <button onclick="$('#color-theme').attr('src', '../resources/day-orange.png');" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-purple.png'); Cookies.set('color', 0);" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-blue.png'); Cookies.set('color', 1);" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-pink.png'); Cookies.set('color', 2);" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+                    <button onclick="$('#color-theme').attr('src', '../resources/day-orange.png'); Cookies.set('color', 3);" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
                 </div>
             </div>
             

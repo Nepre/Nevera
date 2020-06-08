@@ -10,13 +10,139 @@
   font-size: 8rem;
 }
 
+/* Theme settings */
+
+/* bg */
 .bgColorDefault{
+  background-color: #4a5568;
+}
+
+.bgColorLight{
   background-color: white;
 }
 
-.bgColorDark{
+/* bg left */
+.bgDarkerDefault{
+  background-color: #2d3748;
+}
+
+.bgDarkerLight{
+  background-color: #edf2f7
+}
+
+/* font */
+.fontDefault{
+  color: #edf2f7;
+}
+
+.fontLight{
+  color: #2d3748;
+}
+
+/* buttons */
+.buttonsColorDefault{
+  background-color: #2d3748;
+}
+
+.buttonsColorDefault:hover{
+  background-color: #262f3d;
+}
+
+.buttonsColorPurple{
+  background-color: #9f7aea;
+}
+
+.buttonsColorPurple:hover{
+  background-color: #b794f4;
+}
+
+.buttonsColorBlue{
+  background-color: #90cdf4;
+}
+
+.buttonsColorBlue:hover{
+  background-color: #bee3f8;
+}
+
+.buttonsColorPink{
+  background-color: #fbb6ce;
+}
+.buttonsColorPink:hover{
+  background-color: #fed7e2;
+}
+
+.buttonsColorOrange{
+  background-color: #fbd38d;
+}
+.buttonsColorOrange:hover{
+  background-color: #feebc8;
+}
+
+/* button shop / settings */
+.buttonsSSDefault{
+  background-color: #2d3748;
+}
+.buttonsSSDefault:hover{
+  background-color: #262f3d;
+}
+
+.buttonsSSPurple{
+  background-color: #d6bcfa;
+}
+.buttonsSSPurple:hover{
+  background-color: #e9d8fd;
+}
+
+.buttonsSSBlue{
+  background-color: #bee3f8;
+}
+.buttonsSSBlue:hover{
+  background-color: #ebf8ff;
+}
+
+.buttonsSSPink{
+  background-color: #fed7e2;
+}
+.buttonsSSPink:hover{
+  background-color: #fff5f7;
+}
+
+.buttonsSSOrange{
+  background-color: #feebc8;
+}
+.buttonsSSBlue:hover{
+  background-color: #fffaf0;
+}
+
+/* lighter shop and settigns buttons */
+
+.buttonsHamburguerDefault{
   background-color: #4a5568;
 }
+
+.buttonsHamburguerDefault:hover{
+  background-color: #718096;
+}
+
+.buttonsHamburguerLight{
+  background-color: #edf2f7;
+}
+
+.buttonsHamburguerLight:hover{
+  background-color: #e2e8f0;
+}
+
+/* Fat button code bar */
+
+.buttonFatCodeDefault{
+  background-color: #4a5568;
+}
+
+.buttonFatCodeDefault:hover{
+  background-color: #718096;
+}
+
+/* ---------------*/
 
 .big-btn{
     width: 18rem;

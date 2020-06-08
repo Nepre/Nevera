@@ -14,18 +14,18 @@
         <script src="functions.js"></script>
     </head>
 
-    <body class="text-gray-800" onload="showShoppingList();">	 
+    <body class="text-gray-800  bgColor bgColorDefault" onload="showShoppingList();">	 
         <div class="w-full flex flex-wrap">
         
             <header class="w-full flex flex-wrap -mb-16 z-10 bg-gray-400 md:bg-transparent">
-                <div class="w-2/12 md:w-1/12 flex justify-start pl-5">
+                <div class="w-2/12 md:w-1/12 flex justify-start pl-5  bdDarkerColor bgDarkerDefault">
                     <button id="atras" title="Volver a atrás" onclick="location.href='index.html'" type="button" class="text-4xl">
-                        <span class="fas fa-arrow-left hover:text-gray-500"></span>
+                        <span class="fas fa-arrow-left hover:text-gray-500 fontColor fontDefault"></span>
                     </button>
                 </div>
 
-                <div class="w-4/12 md:w-2/12 p-2">
-                    <input class="w-full h-10 bg-white border-2 border-gray-300 rounded-lg px-5 text-sm mt-2"
+                <div class="w-4/12 md:w-2/12 p-2  bdDarkerColor bgDarkerDefault">
+                    <input class="w-full h-10 bg-white border-2 border-gray-300 rounded-lg px-5 text-sm mt-2 "
                     type="search" name="search" placeholder="Buscar...">
                 </div>
 
@@ -35,36 +35,36 @@
                     </button>
                 </div>
 
-                <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
+                <div class="w-2/12 buttonsSS buttonsSSDefault flex justify-center md:fixed md:top-0 md:right-0 md:w-16 md:text-center md:p-2 md:mr-20 md:pin-t md:rounded-b-lg">
                     <button type="button" class="flex flex-wrap justify-center h-14 order modal-open text-4xl">
-                        <span class="pr-1 pt-4 md:pt-2 fas fa-shopping-basket hover:text-gray-500"></span>
+                        <span class="pr-1 pt-4 md:pt-2 fas fa-shopping-basket fontColor fontDefault "></span>
                         <span class="fas fa-circle bg-transparent text-red-500 text-sm mt-10 -ml-4 md:ml-0 md:-mt-2 md:pl-8 z-50" style="display:none"></span>
                     </button>
                 </div>
 
-                <div class="w-2/12 flex justify-center md:fixed md:top-0 md:right-0 md:bg-purple-200 md:border-gray-400 md:shadow md:w-16 md:text-center md:border-b md:border-grey md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
+                <div class="w-2/12 buttonsSS buttonsSSDefault flex justify-center md:fixed md:top-0 md:right-0 md:w-16 md:text-center md:p-2 md:mr-4 md:pin-t md:rounded-b-lg">
                     <button onclick="location.href='settings.html'; Cookies.set('prevPlace', 'shopping.html');" type="button" class="text-4xl">
-                        <span class="fas fa-cog hover:text-gray-500"></span>
+                        <span class="fas fa-cog fontColor fontDefault"></span>
                     </button>
                 </div>
             </header>
 
             <main class="w-full h-screen flex">
                 <!--QUIERO PODER CERRAR EL MENU DE HAMBURGUESA CUANDO HAGO CLICK EN ALGUN ELEMENTO DE LA LISTA-->
-                <div class="burger bg-gray-400 w-full md:w-3/12 hidden md:block">
-                    <nav class="w-full">
+                <div class="burger w-full md:w-3/12 hidden md:block bdDarkerColor bgDarkerDefault">
+                    <nav class="w-full fontColor fontDefault">
                         <ul class="mt-20 cursor-pointer">
-                            <li onclick="return showShoppingList();" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-shopping-basket w-10 -ml-2 text-center"></span>Lista de la compra</a></li>
-                            <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-drumstick-bite w-10 -ml-2 text-center"></span>Carne</a></li>
-                            <li onclick="return showFoodItems(fruit);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-apple-alt w-10 -ml-2 text-center"></span>Fruta</a></li>
-                            <li onclick="return showFoodItems(eggmilk);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-egg w-10 -ml-2 text-center"></span>Ovolácteos</a></li>
-                            <li onclick="return showFoodItems(bread);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-bread-slice w-10 -ml-2 text-center"></span>Pan</a></li>
-                            <li onclick="return showFoodItems(fish);" class="p-2 text-xl pl-6 hover:bg-purple-300"><a href="#"><span class="fas fa-fish w-10 -ml-2 text-center"></span>Pescado</a></li>
-                            <li onclick="return showFoodItems(veggies);" class="p-2 text-xl pl-6 bg-purple-400 hover:bg-purple-300"><a href="#"><span class="fas fa-carrot w-10 -ml-2 text-center"></span>Verdura</a></li>   
+                            <li onclick="return showShoppingList();" class="p-2 text-xl pl-6 buttonsColor buttonsColorDefault"><a href="#"><span class="fas fa-shopping-basket w-10 -ml-2 text-center"></span>Lista de la compra</a></li>
+                            <li onclick="return showFoodItems(meat);" class="p-2 text-xl pl-6 buttonsHamburger buttonsHamburguerDefault"><a href="#"><span class="fas fa-drumstick-bite w-10 -ml-2 text-center"></span>Carne</a></li>
+                            <li onclick="return showFoodItems(fruit);" class="p-2 text-xl pl-6 buttonsColor buttonsColorDefault"><a href="#"><span class="fas fa-apple-alt w-10 -ml-2 text-center"></span>Fruta</a></li>
+                            <li onclick="return showFoodItems(eggmilk);" class="p-2 text-xl pl-6 buttonsHamburger buttonsHamburguerDefault"><a href="#"><span class="fas fa-egg w-10 -ml-2 text-center"></span>Ovolácteos</a></li>
+                            <li onclick="return showFoodItems(bread);" class="p-2 text-xl pl-6 buttonsColor buttonsColorDefault"><a href="#"><span class="fas fa-bread-slice w-10 -ml-2 text-center"></span>Pan</a></li>
+                            <li onclick="return showFoodItems(fish);" class="p-2 text-xl pl-6 buttonsHamburger buttonsHamburguerDefault"><a href="#"><span class="fas fa-fish w-10 -ml-2 text-center"></span>Pescado</a></li>
+                            <li onclick="return showFoodItems(veggies);" class="p-2 text-xl pl-6 buttonsColor buttonsColorDefault"><a href="#"><span class="fas fa-carrot w-10 -ml-2 text-center"></span>Verdura</a></li>   
                         </ul>
                         <div class="flex items-center">
-                            <button title="Código de barras" type="button" class="bar-code modal-open margin-auto bg-purple-400 hover:bg-purple-300 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
-                                <p class="fas fa-barcode text-gray-200"></p>
+                            <button title="Código de barras" type="button" class="bar-code modal-open margin-auto buttonFat buttonFatCodeDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full">
+                                <p class="fas fa-barcode fontColor fontDefault"></p>
                             </button>
                         </div>
                     </nav>
@@ -93,12 +93,12 @@
                 </div>
 
                 <div class="fixed z-10 right-0 bottom-0 flex m-6 mr-48 text-lg hidden lg:flex">
-                    <button title="Modo cuadrícula" class="grid bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-large p-2 cursor-pointer hover:text-purple-400"></span></button>
-                    <button title="Modo lista" class="list bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-list p-2 cursor-pointer text-purple-500 hover:text-purple-400"></span></button>
+                    <button title="Modo cuadrícula" class="grid bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-large p-2 cursor-pointer hover:text-gray-700"></span></button>
+                    <button title="Modo lista" class="list bg-gray-300 rounded-lg m-1 shadow-sm"><span class="fas fa-th-list p-2 cursor-pointer text-gray-600 hover:text-gray-700"></span></button>
                 </div>
 
                 <div class="order fixed z-10 right-0 bottom-0 flex m-6 shadow-sm text-lg cursor-pointer modal-open">                
-                    <h3 class="font-bold rounded-l-lg bg-purple-400 p-2 px-3 hover:bg-purple-300">Total:</h3>
+                    <h3 class="font-bold rounded-l-lg p-2 px-3 buttonFat buttonFatCodeDefault fontColor fontDefault">Total:</h3>
                     <h3 class="total-price font-bold rounded-r-lg bg-gray-300 p-2"></h3>
                 </div>
             </main>
@@ -110,6 +110,7 @@
             recalculateTotal();
             checkGrid();
             checkPrevPage();
+            theme();
         </script>
     </body>
 

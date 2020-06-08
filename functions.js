@@ -41,7 +41,6 @@ window.setInterval(function(){
 	checkOpenDoor();
 
 	temperatureManager();
-	//checkDoa();
 	checkProximity();
 }, 10);
 
@@ -65,7 +64,7 @@ var dataChartCongelador = [0,0,0,0,0,0];
 window.setInterval(function(){
 	addToChart();
 	setChart();
-}, 20*second);
+}, 30*second);
 
 var cont = 1;
 var media = 0;
@@ -94,7 +93,7 @@ function setChart(){
 
 		if(window.location.pathname != ("/interfaz/settings.html")) return;
 		var data = {
-			labels: ['Hace 25min', 'Hace 20min', 'Hace 15min', 'Hace 10min', 'Hace 5min', 'Ahora'],
+			labels: ['Hace 2min 30s', 'Hace 2min', 'Hace 1min 30s', 'Hace 1min', 'Hace 30s', 'Ahora'],
 			series: [
 				dataChartFrigo,
 				dataChartCongelador
@@ -852,7 +851,7 @@ function removeItem(id){
 // Función para mostrar los elementos de la lista de la compra
 function showShoppingList(){
 	let totalPrice = 0;
-	let innerHTML = "<h2 class='text-4xl w-full mb-2 z-40'>Lista de la compra</h2>";
+	let innerHTML = "<h2 class='text-4xl w-full mb-2 z-40 fontColor fontDefault'>Lista de la compra</h2>";
 	if(items.length == 0){
 		innerHTML += "<div class='flex flex-wrap justify-center items-center'>" +
 			"<h4 class='bg-purple-100 p-2 rounded-sm mt-4'>¡Oops, parece que tu lista de la compra está vacía! Selecciona los productos desde la lista o introdúcelos por código de barras a mano o con el lector.</h4>" +
@@ -865,17 +864,17 @@ function showShoppingList(){
 			let shoppingItems = "<div id='" + id + "' class='shopping-list flex flex-col w-auto'>" +
 				"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
 					"<div class='relative h-32 w-40'>" + 
-						"<span onclick='removeItem(" + i + ");' title='Eliminar' class='fas fa-times absolute bg-purple-300 hover:bg-purple-200 p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
+						"<span onclick='removeItem(" + i + ");' title='Eliminar' class='fontColor fontDefault buttonsSS buttonsSSDefault fas fa-times absolute p-2 hover:text-gray-600 rounded-tl-lg rounded-br-lg cursor-pointer'></span>" +
 						"<img src='resources/" + items[i].file + "' alt='" + items[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
 					"</div>" +
-					"<div class='data flex-col w-full'>" + 
+					"<div class='data flex-col w-full bdDarkerColor bgDarkerDefault fontColor fontDefault'>" + 
 						"<h3 class='px-4 py-2 text-2xl'>" + items[i].title + "</h3>" +
 						"<h4 class='price font-bold px-4'>Precio: " + price + "€</h4>" +
 					"</div>" +
-					"<div class='selector flex flex-col justify-center rounded-r-lg w-12 bg-purple-100'>" +
-						"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='my-auto w-full h-full mb-2 bg-purple-300 hover:bg-purple-200 rounded-tr-lg'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
+					"<div class='selector flex flex-col justify-center rounded-r-lg w-12'>" +
+						"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='fontColor fontDefault buttonsSS buttonsSSDefault my-auto w-full h-full mb-2 rounded-tr-lg'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
 						"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 text-center font-bold'>" +
-						"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='my-auto w-full h-full mt-2 bg-purple-300 hover:bg-purple-200 rounded-br-lg'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
+						"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='fontColor fontDefault buttonsSS buttonsSSDefault my-auto w-full h-full mt-2 rounded-br-lg'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
 					"</div>" +
 				"</div>" +
 			"</div>";
@@ -888,7 +887,7 @@ function showShoppingList(){
 	}
 	$(".total-price").html(totalPrice + "€"); // Hay que mostrar el precio total constantemente, pero ahora mismo no sé cómo hacerlo
 	checkGrid();
-	
+	theme();
 	return false;
 }
 
@@ -898,20 +897,20 @@ function showFoodItems(a){
 		small = true;
 		$(".burger").hide();
 	}
-	let total = "<h2 class='text-4xl w-full mb-2 z-40'>" + $(this).text() + "</h2>";
+	let total = "<h2 class='fontColor fontDefault text-4xl w-full mb-2 z-40'>" + $(this).text() + "</h2>";
 	array = a;
 
 	for(let i = 0; i < array.length; i++){
 		let divItems = "<div class='shopping-list flex flex-col w-auto'>" +
-			"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm'>" +
+			"<div class='rounded-lg flex bg-gray-200 my-2 shadow-sm fontColor fontDefault'>" +
 				"<div class='relative h-32 w-40'>" + 
 					"<img src='resources/" + array[i].file + "' alt='" + array[i].alt + "' class='static w-full h-full rounded-l-lg object-cover'>" +
 				"</div>" +
-				"<div class='data flex-col w-full'>" + 
+				"<div class='data flex-col w-full bdDarkerColor bgDarkerDefault'>" + 
 					"<h3 class='px-4 py-2 text-2xl'>" + array[i].title + "</h3>" +
 					"<h4 class='price font-bold px-4'>Precio: " + array[i].price + "€</h4>" +
 				"</div>" +
-				"<button onclick='addToItems(array, " + i + ");' title='Añadir' class='hover:bg-purple-200 bg-purple-300 selector flex flex-col justify-center items-center rounded-r-lg w-16 cursor-pointer'>" +
+				"<button onclick='addToItems(array, " + i + ");' title='Añadir' class='buttonsSS buttonsSSDefault selector flex flex-col justify-center items-center rounded-r-lg w-16 cursor-pointer'>" +
 					"<span class='fas fa-plus hover:text-gray-600'></span>" +
 				"</button>" +
 			"</div>" +
@@ -961,12 +960,12 @@ function recalculateTotal(){
 function checkGrid(){
 	if (Cookies.get("grid") == 1) {
 		$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
-		$('.fa-th-large').removeClass('text-gray-900').addClass('text-purple-500');
-		$('.fa-th-list').removeClass('text-purple-500').addClass('text-gray-900');
+		$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
+		$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
 	}
 	else{
-		$('.fa-th-large').removeClass('text-purple-500').addClass('text-gray-900');
-		$('.fa-th-list').removeClass('text-gray-900').addClass('text-purple-500');
+		$('.fa-th-large').removeClass('text-gray-900').addClass('text-gray-600');
+		$('.fa-th-list').removeClass('text-gray-600').addClass('text-gray-900');
 		$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
 	}
 	return false;
@@ -978,15 +977,15 @@ function switchGridList(){
 		if ($(this).hasClass('grid')) {
 			console.log("Grid");
 			Cookies.set('grid', 1);
-			$('.fa-th-large').removeClass('text-gray-900').addClass('text-purple-500');
-			$('.fa-th-list').removeClass('text-purple-500').addClass('text-gray-900');
+			$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
+			$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
 			$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
 		}
 		else if($(this).hasClass('list')) {
 			console.log("List");
 			Cookies.set('grid', 2);
-			$('.fa-th-large').removeClass('text-purple-500').addClass('text-gray-900');
-			$('.fa-th-list').removeClass('text-gray-900').addClass('text-purple-500');
+			$('.fa-th-large').removeClass('text-gray-900').addClass('text-gray-600');
+			$('.fa-th-list').removeClass('text-gray-600').addClass('text-gray-900');
 			$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
 		}
 	});
@@ -1203,26 +1202,27 @@ function initialIndex(){
 	$('.back').hide();
 	$('.shopping').hide();
 	let innerHTML = "<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
-		"<button onclick='selectPage(0);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+		"<button onclick='selectPage(0);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='fas fa-power-off text-white'></span>" +
 		"</button>" +
 
-		"<button onclick='selectPage(1);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+		"<button onclick='selectPage(1);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='far fa-lightbulb text-white'></span>" +
 		"</button>" +
 	"</div>" +
 
 	"<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
-		"<button onclick='location.href=\"shopping.html\"; Cookies.set(\"prevPlace\", \"index.html\");' type='button' class='shop bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
+		"<button onclick='location.href=\"shopping.html\"; Cookies.set(\"prevPlace\", \"index.html\");' type='button' class='shop buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='fas fa-shopping-basket text-gray-200'></span>" +
 		"</button>" +
 
-		"<button onclick='selectPage(2);' type='button' class='bg-purple-500 hover:bg-purple-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+		"<button onclick='selectPage(2);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='fas fa-charging-station text-white pl-3'></span>" +
 		"</button>" +
 	"</div>";
 
 	$('.index-content').html(innerHTML);
+	theme();
 	return false;
 }
 
@@ -1234,9 +1234,9 @@ function selectPage(id){
 	$('.back').show();
 	$('.shopping').show();
 
-	let innerHTML = "<h1 id='titlePage' class='text-4xl'>" + page[id].title + "</h1>" +
+	let innerHTML = "<h1 id='titlePage' class='text-4xl fontColor fontDefault'>" + page[id].title + "</h1>" +
 	"<div class='flex flex-wrap justify-center lg:flex-no-wrap lg:items-center'>" +
-		"<button type='button' class='hidden lg:block bg-purple-500 cursor-default text-6xl big-btn rounded-full ml-10'>" +
+		"<button type='button' onclick='initialIndex()' class='focus:outline-none focus:shadow-outline hidden lg:block buttonsColor buttonsColorDefault cursor-default text-6xl big-btn rounded-full ml-10'>" +
 			"<span class='xxl-font fas fa-" + page[id].bigbtn + " text-white'></span>" +
 		"</button>" +
 	"<div class='flex flex-wrap md:flex-no-wrap md:flex-col justify-center'>";
@@ -1265,6 +1265,7 @@ function selectPage(id){
 	if(page[id].title == "Luces") checkLightButtons("orange");
 	if(page[id].title == "Consumo energético") checkFrideMode();
 	if(page[id].title == "On/Off") checkMotorButtons("blue");
+	theme();
  	return false;
 }
 
@@ -1332,12 +1333,134 @@ function resetModo(id){
 }
 
 
+// Theme notations:
+// bgColor - fondo
+// 		- bgColorLight
+//      - bgColorDefault
+//
+// bdDarkerColor - Fondo izq
+// 		- bgDarkerLight
+//		- bgDarkerDefault
+//
+// fontColor - Fuente
+//		- fontLight
+//		- fontDefault
+
 function theme(){
-	console.log($(".bgColor"));
 	
+	var theme = Cookies.get("theme");
+	
+	if(theme == undefined || theme == 1){
+		var color = Cookies.get("color");
+		if(color == undefined) color = 0;
+		lightTheme(color);
+		return;
+	}
+	else{
+		darkTheme();
+	}
+
+}
+
+function lightTheme(color){
 	$(".bgColor").removeClass("bgColorDefault");
-	$(".bgColor").addClass("bgColorDark");
+	$(".bgColor").addClass("bgColorLight");
 	
+	$(".bdDarkerColor").removeClass("bgDarkerDefault");
+	$(".bdDarkerColor").addClass("bgDarkerLight");
+
+	$(".fontColor").removeClass("fontDefault");
+	$(".fontColor").addClass("fontLight");
+	
+	$(".buttonsHamburger").removeClass("buttonsHamburguerDark");
+	$(".buttonsHamburger").addClass("buttonsHamburguerLight");
+
+	switch (color) {
+		case '1':
+			
+			$(".buttonsColor").removeClass("buttonsColorDefault");
+			$(".buttonsColor").removeClass("buttonsColorPurple");
+			$(".buttonsColor").removeClass("buttonsColorOrange");
+			$(".buttonsColor").removeClass("buttonsColorPink");
+			$(".buttonsColor").addClass("buttonsColorBlue");
+		
+			$(".buttonsSS").removeClass("buttonsSSDefault");
+			$(".buttonsSS").removeClass("buttonsSSPurple");
+			$(".buttonsSS").removeClass("buttonsSSPink");
+			$(".buttonsSS").removeClass("buttonsSSOrange");
+			$(".buttonsSS").addClass("buttonsSSBlue");
+
+			$(".buttonFat").removeClass("buttonFatCodeDefault");
+			$(".buttonFat").removeClass("buttonsColorPurple");
+			$(".buttonFat").removeClass("buttonsColorOrange");
+			$(".buttonFat").removeClass("buttonsColorPink");
+			$(".buttonFat").addClass("buttonsColorBlue");
+			break;
+
+		case '2':
+			
+			$(".buttonsColor").removeClass("buttonsColorDefault");
+			$(".buttonsColor").removeClass("buttonsColorPurple");
+			$(".buttonsColor").removeClass("buttonsColorOrange");
+			$(".buttonsColor").removeClass("buttonsColorBlue");
+			$(".buttonsColor").addClass("buttonsColorPink");
+		
+			$(".buttonsSS").removeClass("buttonsSSDefault");
+			$(".buttonsSS").removeClass("buttonsSSPurple");
+			$(".buttonsSS").removeClass("buttonsSSOrange");
+			$(".buttonsSS").removeClass("buttonsSSBlue");
+			$(".buttonsSS").addClass("buttonsSSPink");
+		
+			$(".buttonFat").removeClass("buttonFatCodeDefault");
+			$(".buttonFat").removeClass("buttonsColorPurple");
+			$(".buttonFat").removeClass("buttonsColorOrange");
+			$(".buttonFat").removeClass("buttonsColorBlue");
+			$(".buttonFat").addClass("buttonsColorPink");
+			break;
+
+		case '3':
+			
+			$(".buttonsColor").removeClass("buttonsColorDefault");
+			$(".buttonsColor").removeClass("buttonsColorPurple");
+			$(".buttonsColor").removeClass("buttonsColorBlue");
+			$(".buttonsColor").removeClass("buttonsColorPink");
+			$(".buttonsColor").addClass("buttonsColorOrange");
+		
+			$(".buttonsSS").removeClass("buttonsSSDefault");
+			$(".buttonsSS").removeClass("buttonsSSPurple");
+			$(".buttonsSS").removeClass("buttonsSSBlue");
+			$(".buttonsSS").removeClass("buttonsSSPink");
+			$(".buttonsSS").addClass("buttonsSSOrange");
+		
+			$(".buttonFat").removeClass("buttonFatCodeDefault");
+			$(".buttonFat").removeClass("buttonsColorPurple");
+			$(".buttonFat").removeClass("buttonsColorBlue");
+			$(".buttonFat").removeClass("buttonsColorPink");
+			$(".buttonFat").addClass("buttonsColorOrange");
+			break;
+	
+		default:
+			$(".buttonsColor").removeClass("buttonsColorDefault");
+			$(".buttonsColor").removeClass("buttonsColorBlue");
+			$(".buttonsColor").removeClass("buttonsColorOrange");
+			$(".buttonsColor").removeClass("buttonsColorPink");
+			$(".buttonsColor").addClass("buttonsColorPurple");
+		
+			$(".buttonsSS").removeClass("buttonsSSDefault");
+			$(".buttonsSS").removeClass("buttonsSSBlue");
+			$(".buttonsSS").removeClass("buttonsSSPink");
+			$(".buttonsSS").removeClass("buttonsSSOrange");
+			$(".buttonsSS").addClass("buttonsSSPurple");
+
+			$(".buttonFat").removeClass("buttonFatCodeDefault");
+			$(".buttonFat").removeClass("buttonsColorBlue");
+			$(".buttonFat").removeClass("buttonsColorOrange");
+			$(".buttonFat").removeClass("buttonsColorPink");
+			$(".buttonFat").addClass("buttonsColorPurple");
+			break;
+	}
+
+
 }
 
 /* Fecha y hora */

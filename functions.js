@@ -5,6 +5,7 @@ var alerthigh = false;
 var alertopen = false;
 const widthChange = 767; 
 const second = 1000;
+const minute = 60;
 
 function isString(x) {
 	return Object.prototype.toString.call(x) === "[object String]";
@@ -16,7 +17,6 @@ window.setInterval(function(){
 	checkShoppingList();
 	let code = $('#code').val(frigo.frigorificoCodigo);
 
-	
 
 	if(window.innerWidth > widthChange){
 		small = false;
@@ -61,7 +61,7 @@ window.setInterval(function(){
 	theme();
 
 	if(!alerthigh && (frigo.refrigeradorTemperatura > 15 || frigo.congeladorTemperatura > 2)){
-		$(".alert-high").show();
+		if(Cookies.get('alertTemperature') == undefined || Cookies.get('alertTemperature') == 1) $(".alert-high").show();
 		//frigo.frigorificoAlarma = true;
 	} else{
 		//frigo.frigorificoAlarma = false;
@@ -91,6 +91,15 @@ window.setInterval(function(){
 		$(".alert-open").hide();
 		frigo.frigorificoAlarma = false;
 	}
+
+	if(Cookies.get('counterTurnOffScreen') != undefined){
+		var timer = Cookies.get('counterTurnOffScreen');
+		timer++;
+		Cookies.set('counterTurnOffScreen', timer);
+	}
+	else{
+		Cookies.set('counterTurnOffScreen', 0);
+	}
 	
 }, second);
 
@@ -106,20 +115,57 @@ function getCookiesChart(nameCookie){
 
 function checkScreen(){
 	if(frigo == null || frigo == undefined) return;
-	if(Cookies.get('inputPantalla') != undefined && Cookies.get('inputPantalla') == 1 && frigo.frigorificoPresencia){
-		frigo.frigorificoPantalla = 2;
+	
+	if(Cookies.get('powerMode') == undefined) Cookies.set('powerMode', 2);
+
+	if(Cookies.get('powerMode') == 0) return;
+	
+	if(Cookies.get('powerMode') == 3){
+		if(Cookies.get('inputPantallaBoost') != undefined && Cookies.get('inputPantallaBoost') == 1 && frigo.frigorificoPresencia){
+			if(Cookies.get('screenAttenuationBoost') != undefined && Cookies.get('screenAttenuationBoost') == 1){
+				frigo.frigorificoPantalla = 1;
+			}
+			else{
+				frigo.frigorificoPantalla = 2;
+			}
+			Cookies.set('counterTurnOffScreen', 0);
+		}
+		else{
+			if(Cookies.get('counterTurnOffScreen') != undefined){
+				if(parseInt(Cookies.get('timeTo')) * minute < parseInt(Cookies.get('counterTurnOffScreen'))){
+					frigo.frigorificoPantalla = 0;
+				}
+			}
+		}
 	}
 	else{
-		frigo.frigorificoPantalla = 0;
+		if(Cookies.get('inputPantalla') != undefined && Cookies.get('inputPantalla') == 1 && frigo.frigorificoPresencia){
+			if(Cookies.get('screenAttenuation') != undefined && Cookies.get('screenAttenuation') == 1){
+				frigo.frigorificoPantalla = 1;
+			}
+			else{
+				frigo.frigorificoPantalla = 2;
+			}
+			Cookies.set('counterTurnOffScreen', 0);
+		}
+		else{
+			if(Cookies.get('counterTurnOffScreen') != undefined){
+				if(parseInt(Cookies.get('timeTo')) * minute < parseInt(Cookies.get('counterTurnOffScreen'))){
+					frigo.frigorificoPantalla = 0;
+				}
+			}
+		}
 	}
 }
 
 var dataChartFrigo = [0,0,0,0,0,0];
 var dataChartCongelador = [0,0,0,0,0,0];
+var dataConsumo = [0,0,0,0,0,0];
 
 window.setInterval(function(){
 	addToChart();
-	if($('settingsName').html == 'Estadísticas') setChart();
+	
+	if($('#settingsName').text() == 'Estadísticas') setChart();
 	if(Cookies.get('consumo') == undefined){
 		Cookies.set('consumo', frigo.frigorificoConsumo);
 	} else{
@@ -144,27 +190,96 @@ function addToChart(){
 	dataChartCongelador.shift();
 	dataChartCongelador.push(frigo.congeladorTemperatura);	
 	Cookies.set("dataChartCongelador", dataChartCongelador);
+
+	dataConsumo = getCookiesChart("dataConsumo");
+	dataConsumo.shift();
+	dataConsumo.push(parseFloat(frigo.frigorificoConsumo) / 1000);	
+	console.log(frigo.frigorificoConsumo);
+	
+	Cookies.set("dataConsumo", dataConsumo);
+}
+
+function changeChart(){
+	var current = 0;
+	if(Cookies.get("chartChoice") != undefined) current = parseInt(Cookies.get("chartChoice"));
+	console.log(current);
+	
+	if(current == 0){
+		Cookies.set('chartChoice',1);
+		document.getElementById('buttonChangeChart').innerHTML = "Temperatura";
+	} 
+	else{
+		Cookies.set('chartChoice', 0);
+		document.getElementById('buttonChangeChart').innerHTML = "Consumo Total";
+	} 
+	
+	setChart();
 }
 
 function setChart(){
 	dataChartFrigo = getCookiesChart("dataChartFrigo");
 	dataChartCongelador = getCookiesChart("dataChartCongelador");
+	dataConsumo = getCookiesChart("dataConsumo");
+	if(Cookies.get("chartChoice") == undefined || Cookies.get("chartChoice") == 0) document.getElementById('buttonChangeChart').innerHTML = "Temperatura";
+	else document.getElementById('buttonChangeChart').innerHTML = "Consumo Total";
+	
+	var labels1 = ['Hace 2min 30s', 'Hace 2min', 'Hace 1min 30s', 'Hace 1min', 'Hace 30s', 'Ahora'];
 	
 	setTimeout(() => {
-		if(window.location.pathname != ("/interfaz/settings.html")) return;
-		var data = {
-			labels: ['Hace 2min 30s', 'Hace 2min', 'Hace 1min 30s', 'Hace 1min', 'Hace 30s', 'Ahora'],
-			series: [
-				dataChartFrigo,
-				dataChartCongelador
-			]
-			};
-	
-		new Chartist.Line('.ct-chart', data, optionsChart);
-
+		
+		if(Cookies.get("chartChoice") == undefined || Cookies.get("chartChoice") == 0){
+			if(window.location.pathname != ("/interfaz/settings.html")) return;
+			var data = {
+				labels: labels1,
+				series: [
+					dataChartFrigo,
+					dataChartCongelador
+				]
+				};
+		
+			new Chartist.Line('.ct-chart', data, optionsChart);
+		}
+		else{
+			if(window.location.pathname != ("/interfaz/settings.html")) return;
+			var data = {
+				labels: labels1,
+				series: [
+					dataConsumo
+				]
+				};
+		
+			new Chartist.Line('.ct-chart', data, optionsChart2);
+		}
 	}, 100);
 
 
+}
+
+function changeScreenTime(){
+	var time = $('#timeTo').html();
+	if(time == "Nunca") Cookies.set('timeTo', 0);
+	else Cookies.set('timeTo', time.split(" ")[0]);
+}
+
+function changeScreenAttenuation(set){
+	Cookies.set("screenAttenuation", (set)? 1:0);
+}
+
+function changeScreenAttenuationBoost(set){
+	Cookies.set("screenAttenuationBoost", (set)? 1:0);
+}
+
+function changeScreenTimeButtons(){
+	var time;
+	if(Cookies.get('timeTo') == undefined) time = 0;
+	else time = Cookies.get('timeTo');
+	time += "min";
+	$('#'+time).click();
+	
+	if(Cookies.get("screenAttenuation") != undefined && Cookies.get("screenAttenuation") == 0){
+		document.getElementById('checked4').checked = false;
+		changeInput('inputPantallaAhorro', false);
+	}
 }
 
 
@@ -186,30 +301,99 @@ function init(){
 	
 }
 
-function checkDoa(){
-	if(frigo.refrigeradorPuerta){
+function checkDoaFrigo(){
+	if(frigo.refrigeradorPuerta && (Cookies.get('lightFridgeOpen') == undefined || Cookies.get('lightFridgeOpen') == 1)){
 		frigo.refrigeradorLuz = true;
 	}
-	else if(Cookies.get('fridgelight') != 1) 
-			frigo.refrigeradorLuz = false;
-	
-	if(frigo.congeladorPuerta){
-		frigo.congeladorLuz = true;
-	}
-	else if(Cookies.get('freezerlight') != 1) 
-			frigo.congeladorLuz = false;
+	else
+		frigo.refrigeradorLuz = false;
 }
 
+function checkDoaCon(){
+	if(frigo.congeladorPuerta  && (Cookies.get('lightConOpen') == undefined || Cookies.get('lightConOpen') == 1)){
+		frigo.congeladorLuz = true;
+	}
+	else
+		frigo.congeladorLuz = false;
+}
 
+function changeLightApertureFr(set){
+	Cookies.set("lightFridgeOpen", (set)? 1:0);
+}
+
+function changeLightApertureCon(set){
+	Cookies.set("lightConOpen", (set)? 1:0);
+}
+
+function changeLightProxFr(set){
+	Cookies.set("lightFridgeProx", (set)? 1:0);
+}
+
+function changeLightProxCon(set){
+	Cookies.set("lightConProx", (set)? 1:0);
+}
+
+function setButtonsLightSettings(){
+	var lightFridgeOpen = 0,
+		lightConOpen = 0.
+		lightFridgeProx = 0,
+		lightConProx = 0;
+	
+	lightFridgeOpen = (Cookies.get('lightFridgeOpen')  != undefined)? parseInt(Cookies.get('lightFridgeOpen')) : 1;
+	lightConOpen = (Cookies.get('lightConOpen')  != undefined)? parseInt(Cookies.get('lightConOpen')) : 1;
+	lightFridgeProx = (Cookies.get('lightFridgeProx')  != undefined)? parseInt(Cookies.get('lightFridgeProx')) : 1;
+	lightConProx = (Cookies.get('lightConProx')  != undefined)? parseInt(Cookies.get('lightConProx')) : 1;
+
+	if(lightFridgeOpen == 0){
+		document.getElementById('checked').checked = false;
+		changeInput('inputDetect', false);
+	}
+
+	if(lightConOpen == 0){
+		document.getElementById('checked3').checked = false;
+		changeInput('inputDetect2', false);
+	}
+
+	if(lightFridgeProx == 0){
+		document.getElementById('checked2').checked = false;
+		changeInput('inputLight', false);
+	}
+
+	if(lightConProx == 0){
+		document.getElementById('checked4').checked = false;
+		changeInput('inputLight2', false);
+	}
+}
 
 function checkProximity(){
 	// Luces
-	if(frigo.frigorificoPresencia && Cookies.get('automaticLight') != undefined && Cookies.get('automaticLight') == 1){
-		frigo.refrigeradorLuz = true;
-		frigo.congeladorLuz = true;
+
+	if(Cookies.get('powerMode') == undefined) Cookies.set('powerMode', 2);
+
+	if(Cookies.get('powerMode') == 3){
+		if(frigo.frigorificoPresencia && Cookies.get('automaticLightBoost') != undefined && Cookies.get('automaticLightBoost') == 1){
+			if(Cookies.get('lightFridgeProx') == undefined || Cookies.get('lightFridgeProx') == 1) frigo.refrigeradorLuz = true;
+			else checkDoaFrigo();
+			
+			if(Cookies.get('lightConProx') == undefined || Cookies.get('lightConProx') == 1) frigo.congeladorLuz = true;
+			else checkDoaCon();
+		}
+		else{
+			checkDoaFrigo();
+			checkDoaCon();
+		}
 	}
 	else{
-		checkDoa();
+		if(frigo.frigorificoPresencia && Cookies.get('inputLuz') != undefined && Cookies.get('inputLuz') == 1){
+			if(Cookies.get('lightFridgeProx') == undefined || Cookies.get('lightFridgeProx') == 1) frigo.refrigeradorLuz = true;
+			else checkDoaFrigo();			
+			if(Cookies.get('lightConProx') == undefined || Cookies.get('lightConProx') == 1) frigo.congeladorLuz = true;
+			else checkDoaCon();
+		}
+		else{
+			checkDoaFrigo();
+			checkDoaCon();
+		}
 	}
 }
 	
@@ -723,11 +907,14 @@ function setSetting(text){
 
 		case "Modo energético":
 			$("#contenido2").html(consumption);
+			setButtonsDetectProximityBoost();
+			setTemperaturesModoEnergetico();
 			break;
 
 		case "Temperatura":
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
 			$("#contenido").html(temperature);
+			setButtonTemperature();
 			break;
 
 		case "Fecha y hora":
@@ -750,11 +937,13 @@ function setSetting(text){
 		case "Luces":
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
 			$("#contenido").html(lights);
+			setButtonsLightSettings();
 			break;
 
 		case "Pantalla":
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
 			$("#contenido").html(pantalla);
+			changeScreenTimeButtons();
 			break;
 
 		case "Estadísticas":
@@ -826,7 +1015,7 @@ function setButtonsDetectProximity(){
 	}
 
 	if(automaticProxVar == 1){
-		automaticLightVar = (Cookies.get('automaticLight')  != undefined)? parseInt(Cookies.get('automaticLight')) : 0;
+		automaticLightVar = (Cookies.get('inputLuz')  != undefined)? parseInt(Cookies.get('inputLuz')) : 0;
 		automaticScreenVar = (Cookies.get('inputPantalla')  != undefined)? parseInt(Cookies.get('inputPantalla')) : 0;
 	}
 
@@ -835,10 +1024,17 @@ function setButtonsDetectProximity(){
 		changeInput('inputDetect', false);
 
 		document.getElementById('checked2').checked = false;
+		$('#checked2').prop('disabled', true);
 		changeInput('inputLuz', false);
 
 		document.getElementById('checked3').checked = false;
+		$('#checked3').prop('disabled', true);
 		changeInput('inputPantalla', false);
+	}else{
+		$('#checked2').prop('disabled', false);
+		document.getElementById('checked2').checked = true;
+		$('#checked3').prop('disabled', false);
+		document.getElementById('checked3').checked = true;
 	}
 
 	if(automaticLightVar == 0){
@@ -852,52 +1048,187 @@ function setButtonsDetectProximity(){
 	}
 }
 
+function setButtonTemperature(){
+	var temFrig = 4,
+		temCong = -22;
+
+	if(Cookies.get('normal-nevera') != undefined) temFrig = parseInt(Cookies.get('normal-nevera'));
+	if(Cookies.get('normal-conge') != undefined) temCong = parseInt(Cookies.get('normal-conge'));
+	
+	$("#temperatureOutputId").text(temFrig);
+	$("#temperatureConOutputId").text(temCong);
+	
+	$("#temperatureRangeId").val(temFrig);
+	$("#temperaturaConRangeId").val(temCong);
+
+	var alerTemp = 0;
+	if(Cookies.get('alertTemperature') != undefined){
+		alerTemp = parseInt(Cookies.get('alertTemperature'));
+	}
+
+	if(alerTemp == 0){
+		document.getElementById('checked').checked = false;
+		changeInput('inputDetect', false);
+	}
+}
+
+function setButtonSetupTemp(){
+	var temFrig = 4,
+		temCong = -22;
+
+	if(Cookies.get('normal-nevera') != undefined) temFrig = parseInt(Cookies.get('normal-nevera'));
+	if(Cookies.get('normal-conge') != undefined) temCong = parseInt(Cookies.get('normal-conge'));
+	
+	$("#temperatureOutputId").text(temFrig);
+	$("#temperatureConOutputId").text(temCong);
+	
+	$("#temperatureRangeId").val(temFrig);
+	$("#temperaturaConRangeId").val(temCong);
+
+	setButtonsDetectProximity();
+
+	if(Cookies.get("screenAttenuation") != undefined && Cookies.get("screenAttenuation") == 0){
+		document.getElementById('checked4').checked = false;
+		changeInput('inputPantallaAhorro', false);
+	}
+
+	
+
+}
+
+function alertTemperature(set){
+	Cookies.set("alertTemperature", (set)? 1:0);
+}
+
+function setTemperaturesModoEnergetico(){
+	var temEcoFrig = 4,
+		temEcoCong = -22,
+		temBoostFrig = 2,
+		temBoostCong = -24;
+
+	if(Cookies.get('eco-nevera') != undefined) temEcoFrig = parseInt(Cookies.get('eco-nevera'));
+	if(Cookies.get('eco-conge') != undefined) temEcoCong = parseInt(Cookies.get('eco-conge'));
+	if(Cookies.get('speed-nevera') != undefined) temBoostFrig = parseInt(Cookies.get('speed-nevera'));
+	if(Cookies.get('speed-conge') != undefined) temBoostCong = parseInt(Cookies.get('speed-conge'));
+
+	$("#temperatureOutputId").text(temEcoFrig);
+	$("#temperatureConOutputId").text(temEcoCong);
+	$("#temperatureOutputIdS").text(temBoostFrig);
+	$("#temperatureConOutputIdS").text(temBoostCong);
+
+	$("#temperatureRangeId").val(temEcoFrig);
+	$("#temperaturaConRangeId").val(temEcoCong);
+	$("#temperatureRangeIdS").val(temBoostFrig);
+	$("#temperaturaConRangeIdS").val(temBoostCong);
+}
+
+function setButtonsDetectProximityBoost(){
+	var automaticProxVar = 0,
+		automaticLightVar = 0,
+		automaticScreenVar = 0;
+	if(Cookies.get('automaticDetectionBoost') != undefined){
+		automaticProxVar = parseInt(Cookies.get('automaticDetectionBoost'));
+	}
+
+	if(automaticProxVar == 1){
+		automaticLightVar = (Cookies.get('automaticLightBoost')  != undefined)? parseInt(Cookies.get('automaticLightBoost')) : 0;
+		automaticScreenVar = (Cookies.get('inputPantallaBoost')  != undefined)? parseInt(Cookies.get('inputPantallaBoost')) : 0;
+	}
+
+	if(automaticProxVar == 0){
+		document.getElementById('checked5').checked = false;
+		changeInput('inputDetect2', false);
+
+		document.getElementById('checked6').checked = false;
+		changeInput('inputLuz2', false);
+
+		document.getElementById('checked7').checked = false;
+		changeInput('inputPantalla2', false);
+	}
+
+	if(automaticLightVar == 0){
+		document.getElementById('checked6').checked = false;
+		changeInput('inputLuz2', false);
+	}
+
+	if(automaticScreenVar == 0){
+		document.getElementById('checked7').checked = false;
+		changeInput('inputPantalla2', false);
+	}
+
+	if(Cookies.get("screenAttenuationBoost") != undefined && Cookies.get("screenAttenuationBoost") == 0){
+		document.getElementById('checked8').checked = false;
+		changeInput('inputPantallaAhorro2', false);
+	}
+	else if(Cookies.get("screenAttenuationBoost") == 1){
+		document.getElementById('checked8').checked = true;
+		changeInput('inputPantallaAhorro2', true);
+	}
+}
+
 function changeDetection(set){
 	Cookies.set("automaticDetection", (set)? 1:0);
 	if(!set){
 		changeInput('inputLuz', false);
 		Cookies.set('inputLuz', 0);
+		document.getElementById('checked2').checked = false;
 		$('#checked2').prop('disabled', true);
 
 		changeInput('inputPantalla', false);
 		Cookies.set('inputPantalla', 0);
+		document.getElementById('checked2').checked = false;
 		$('#checked3').prop('disabled', true);
 	}
 	else{
 		changeInput('inputLuz', true);
 		Cookies.set('inputLuz', 1);
+		document.getElementById('checked2').checked = true;
 		$('#checked2').prop('disabled', false);
 
 		changeInput('inputPantalla', true);
 		Cookies.set('inputPantalla', 1);
+		document.getElementById('checked3').checked = true;
 		$('#checked3').prop('disabled', false);
 	}
 }
 
-function changeDetection2(set){
-	//Cookies.set("automaticDetection", (set)? 1:0);
+function changeDetectionBoost(set){
+	console.log(set);
+	Cookies.set("automaticDetectionBoost", (set)? 1:0);
 	if(!set){
 		changeInput('inputLuz2', false);
+		Cookies.set('automaticLightBoost', 0);
 		$('#checked6').prop('disabled', true);
 
 		changeInput('inputPantalla2', false);
+		Cookies.set('inputPantallaBoost', 0);
 		$('#checked7').prop('disabled', true);
 	}
 	else{
-		changeInput('inputLuz2', true);
+		changeInput('inputLuz2', true);		
+		Cookies.set('automaticLightBoost', 1);
 		$('#checked6').prop('disabled', false);
-
+		
 		changeInput('inputPantalla2', true);
+		Cookies.set('inputPantallaBoost', 1);
 		$('#checked7').prop('disabled', false);
 	}
 }
 
 function changeLight(set){
-	Cookies.set("automaticLight", (set)? 1:0);
+	Cookies.set("inputLuz", (set)? 1:0);
 }
 
 function changeScreen(set){
 	Cookies.set("inputPantalla", (set)? 1:0);
+}
+
+function changeLightBoost(set){
+	Cookies.set("automaticLightBoost", (set)? 1:0);
+}
+
+function changeScreenBoost(set){
+	Cookies.set("inputPantallaBoost", (set)? 1:0);
 }
 
 
@@ -1010,9 +1341,9 @@ function showShoppingList(){
 						"<h3 class='px-4 py-2 text-2xl'>" + items[i].title + "</h3>" +
 						"<h4 class='price font-bold px-4'>Precio: " + price + "€</h4>" +
 					"</div>" +
-					"<div class='selector flex flex-col justify-center rounded-r-lg w-12'>" +
+					"<div class='selector flex flex-col justify-center rounded-r-lg w-12 bgDarkerColor bgDarkerDefault'>" +
 						"<button onclick='increment(this, " + i +")' title='Aumentar cantidad' class='fontColor fontDefault buttonsSS buttonsSSDefault my-auto w-full h-full mb-2 rounded-tr-lg'><span class='fas fa-plus hover:text-gray-600'></span></button>" +
-						"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='bg-purple-100 text-center font-bold'>" +
+						"<input onchange = 'recalc(this, " + i +");' type='number' name='Cantidad' value='" + items[i].quantity + "' class='text-center font-bold bgDarkerColor bgDarkerDefault  fontColor fontDefault'>" +
 						"<button onclick='decrement(this, " + i +")' title='Disminuir cantidad' class='fontColor fontDefault buttonsSS buttonsSSDefault my-auto w-full h-full mt-2 rounded-br-lg'><span class='fas fa-minus hover:text-gray-600'></span></button>" +
 					"</div>" +
 				"</div>" +
@@ -1098,13 +1429,13 @@ function recalculateTotal(){
 
 function checkGrid(){
 	if (Cookies.get("grid") == 1) {
-		$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
-		$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
-		$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
-	}
-	else{
 		$('.fa-th-large').removeClass('text-gray-900').addClass('text-gray-600');
 		$('.fa-th-list').removeClass('text-gray-600').addClass('text-gray-900');
+		$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
+	}
+	else{
+		$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
+		$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
 		$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
 	}
 	return false;
@@ -1115,14 +1446,14 @@ function switchGridList(){
 	$('button').click(function(e) {
 		if ($(this).hasClass('grid')) {
 			Cookies.set('grid', 1);
-			$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
-			$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
+			$('.fa-th-large').removeClass('text-gray-900').addClass('text-gray-600');
+			$('.fa-th-list').removeClass('text-gray-600').addClass('text-gray-900');
 			$('.shopping-list').removeClass('flex-col w-auto').addClass('flex-col lg:inline-flex p-0 lg:p-2 lg:w-1/2');
 		}
 		else if($(this).hasClass('list')) {
 			Cookies.set('grid', 2);
-			$('.fa-th-large').removeClass('text-gray-900').addClass('text-gray-600');
-			$('.fa-th-list').removeClass('text-gray-600').addClass('text-gray-900');
+			$('.fa-th-large').removeClass('text-gray-600').addClass('text-gray-900');
+			$('.fa-th-list').removeClass('text-gray-900').addClass('text-gray-600');
 			$('.shopping-list').removeClass('lg:inline-flex lg:w-1/2').addClass('flex-col p-0 w-auto');
 		}
 	});
@@ -1336,7 +1667,7 @@ function initialIndex(){
 			"<span class='fas fa-power-off text-white'></span>" +
 		"</button>";
 
-	if(Cookies.get('automaticLight') == undefined || Cookies.get('automaticLight') == 0){
+	if(Cookies.get('inputLuz') == undefined || Cookies.get('inputLuz') == 0){
 		innerHTML +="<button onclick='selectPage(1);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='far fa-lightbulb text-white'></span>" +
 		"</button>";
@@ -1418,17 +1749,6 @@ function selectMode(id){
 	}
 }
 
-function selectModoAhorro(id){ 
-    if($(id).is(':checked')){
-        Cookies.set('modoAhorro', 1); 
-        frigo.frigorificoPantalla = 1; // Atenuada     
-    } else{
-        Cookies.set('modoAhorro', 2); 
-        frigo.frigorificoPantalla = 2; // Encendida
-	}
-}
-
-
 $(document).ready(function(){
 	$("#temperatureRangeId").mousemove(function(){
         $("#temperatureOutputId").html($("#temperatureRangeId").val() + "ºC");
@@ -1460,9 +1780,13 @@ function resetModo(id){
 		$("#temperatureRangeIdS").val(2);
 		$("#temperatureConOutputIdS").html(-24);
 		$("#temperaturaConRangeIdS").val(-24);
+		document.getElementById('checked5').checked = true;
 		changeInput('inputDetect2', true);
+		document.getElementById('checked6').checked = true;
 		changeInput('inputLuz2', true);
+		document.getElementById('checked7').checked = true;
 		changeInput('inputPantalla2', true);
+		document.getElementById('checked8').checked = false;
 		changeInput('inputPantallaAhorro2', false);
 	}
 }

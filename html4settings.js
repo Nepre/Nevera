@@ -52,9 +52,6 @@ var ajustesGenerales = `
         </h4> 
     </div>                                
     </div>
-    <div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-    <button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
-    </div>
 `
 
 var lights = `
@@ -69,7 +66,7 @@ var lights = `
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                       <span id="inputDetect" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                        <input id="checked" onclick="changeInput('inputDetect', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                        <input id="checked" onclick="changeInput('inputDetect', this.checked); changeLightApertureFr(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                       </span>
                     </span> 
                 </label>
@@ -85,7 +82,7 @@ var lights = `
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                       <span id="inputLight" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                        <input id="checked2" onclick="changeInput('inputLight', this.checked); changeLight(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                        <input id="checked2" onclick="changeInput('inputLight', this.checked); changeLightProxFr(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                       </span>
                     </span> 
                 </label>
@@ -108,7 +105,7 @@ var lights = `
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                       <span id="inputDetect2" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                        <input id="checked3" onclick="changeInput('inputDetect2', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                        <input id="checked3" onclick="changeInput('inputDetect2', this.checked); changeLightApertureCon(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                       </span>
                     </span> 
                 </label>
@@ -124,7 +121,7 @@ var lights = `
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                       <span id="inputLight2" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                        <input id="checked4" onclick="changeInput('inputLight2', this.checked); changeLight(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                        <input id="checked4" onclick="changeInput('inputLight2', this.checked); changeLightProxCon(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                       </span>
                     </span> 
                 </label>
@@ -135,19 +132,19 @@ var lights = `
         </div>
     </div>
 </div>
-
-<div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-    <button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
-</div>
-
 </div>
 `
 
 var stats = ` 
-<div id='chart1' class='flex flex-col sm:flex-row justify-start items-start' style = "margin-left: -25rem; margin-top: 2rem">
+<div id='chart1' class='flex flex-col sm:flex-row justify-start items-start' style = "margin-left: -6rem; margin-top: 2rem">
+    <h2 id="dataType"></h2>
     <div class="chart">
         <div class="ct-chart ct-golden-section"></div>
     </div>
+    
+</div>
+<div class="" style = "margin-top: 20rem; margin-left: 4rem;">
+    <button class="bg-purple-300 hover:bg-purple-200 font-bold py-2 px-4 rounded-full" onclick="changeChart();"><span id = 'buttonChangeChart'>tmp</span></button>
 </div>`
 
 var pantalla = `<div class="flex flex-col">
@@ -158,7 +155,7 @@ var pantalla = `<div class="flex flex-col">
                 <span class="relative">
                   <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                   <span id="inputPantallaAhorro" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                    <input id="checked4" onclick="changeInput('inputPantallaAhorro', this.checked); selectModoAhorro(this);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                    <input id="checked4" onclick="changeInput('inputPantallaAhorro', this.checked); changeScreenAttenuation(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                   </span>
                 </span> 
             </label>
@@ -174,16 +171,16 @@ var pantalla = `<div class="flex flex-col">
     <p class="p-2">Cuando se deje de detectar actividad, apagar la pantalla cuando pasen</p>
     <div class="dropdown inline-block relative flex justify-center">
         <button class="bg-purple-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-        <span class="time-value mr-1">-</span>
+        <span id='timeTo' class="time-value mr-1" onchange='changeScreenTime()'>Nunca</span>
         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
         </button>
-        <div class="dropdown-menu absolute hidden text-gray-700 pt-1">
-            <span class=""><a onclick="changeSelection(this);" class="rounded-t bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">30 minutos</a></span>
-            <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">10 minutos</a></span>
-            <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">5 minutos</a></span>
-            <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">2 minutos</a></span>
-            <span class=""><a onclick="changeSelection(this);" class="rounded-b bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">Nunca</a></span>
-        </div>
+        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+            <span class=""><a id='30min' onclick="changeSelection(this);" class="rounded-t bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">30 minutos</a></span>
+            <span class=""><a id='10min' onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">10 minutos</a></span>
+            <span class=""><a id='5min' onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">5 minutos</a></span>
+            <span class=""><a id='2min' onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">2 minutos</a></span>
+            <span class=""><a id='0min' onclick="changeSelection(this);" class="rounded-b bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">Nunca</a></span>
+        </ul>
     </div>
     
 </div> 
@@ -191,6 +188,7 @@ var pantalla = `<div class="flex flex-col">
 
 function changeSelection(id){
     $(".time-value").html($(id).text());
+    changeScreenTime();
 }
 
 var timedate = `
@@ -224,7 +222,7 @@ var consumption = `
   <div class="flex">
       <p class='fas fa-leaf py-2 pl-4 pr-2 text-lg text-purple-400'></p>
       <h3 class="text-center text-2xl pr-4">Modo ECO</h3>
-      <button id="reset-eco" onclick='resetModo(1);' title='Reestablecer' class='focus:outline-none focus:shadow-outline px-4 font-bold bg-gray-400 p-2 rounded-lg text-gray-700 hover:bg-gray-300 hover:text-gray-600 text-xs transition ease-in-out duration-500'>Reestablecer</button>
+      <button id="reset-eco" onclick='resetModo(1); guardarCambiosTempECOSPEED();' title='Reestablecer' class='focus:outline-none focus:shadow-outline px-4 font-bold bg-gray-400 p-2 rounded-lg text-gray-700 hover:bg-gray-300 hover:text-gray-600 text-xs transition ease-in-out duration-500'>Reestablecer</button>
   </div>
   <div class="flex flex-col lg:flex-row justify-center items-center">
       <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
@@ -232,14 +230,14 @@ var consumption = `
           <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
             <output id="temperatureOutputId">` + modesAndTarget[0].targetFridge + `</output>ºC
           </output>
-          <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="` + modesAndTarget[0].targetFridge + `" oninput="temperatureOutputId.value = temperatureRangeId.value">
+          <input onchange='guardarCambiosTempECOSPEED();' id="temperatureRangeId" type="range" min="2" max="8" step="2" value="` + modesAndTarget[0].targetFridge + `" oninput="temperatureOutputId.value = temperatureRangeId.value">
       </div>
       <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
           <label for="temperaturaConRangeId" class="text-2xl text-center">Temperatura congelador</label>
           <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
             <output id="temperatureConOutputId">` + modesAndTarget[0].targetFreezer + `</output>ºC
           </output>
-          <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[0].targetFreezer + `" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
+          <input onchange='guardarCambiosTempECOSPEED();' id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[0].targetFreezer + `" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
       </div>
   </div>
   <div class="flex justify-center flex-col md:flex-row">
@@ -251,13 +249,13 @@ var consumption = `
                       <span class="relative">
                         <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                         <span id="inputDetect" class="absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out">
-                          <input id="checked" onclick="changeInput('inputDetect', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked/>
+                          <input id="checked" onclick="changeInput('inputDetect', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked disabled/>
                         </span>
                       </span> 
                   </label>
               </div>
               <h4 class="text-xl">
-                  <span class="mb-16">Detección automática de proximidad </span>
+                  <span class="mb-16 text-gray-600">Detección automática de proximidad </span>
               </h4>
           </div>
           <div class="flex pl-6 pt-1"> 
@@ -266,13 +264,13 @@ var consumption = `
                       <span class="relative">
                         <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                         <span id="inputLuz" class="absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out">
-                          <input id="checked2" onclick="changeInput('inputLuz', this.checked); changeLight(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked/>
+                          <input id="checked2" onclick="changeInput('inputLuz', this.checked); changeLight(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked disabled/>
                         </span>
                       </span> 
                   </label>
               </div>
               <h4 class="text-xl">
-                  <span class="mb-16">Encender luz automáticamente </span>
+                  <span class="mb-16 text-gray-600" name="screenOptions">Encender luz automáticamente </span>
               </h4> 
           </div>
 
@@ -283,13 +281,13 @@ var consumption = `
                       <span class="relative">
                         <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                         <span id="inputPantalla" class="absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-outl">
-                          <input id="checked3" onclick="changeInput('inputPantalla', this.checked); changeScreen(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked/>
+                          <input id="checked3" onclick="changeInput('inputPantalla', this.checked); changeScreen(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked disabled/>
                         </span>
                       </span> 
                   </label>
               </div>
               <h4 class="text-xl">
-                  <span class="mb-16">Encender pantalla automáticamente </span>
+                  <span class="mb-16 text-gray-600" name="screenOptions">Encender pantalla automáticamente </span>
               </h4> 
           </div>
       </div>
@@ -302,15 +300,15 @@ var consumption = `
                       <span class="relative">
                         <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                         <span id="inputPantallaAhorro" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                          <input id="checked4" onclick="changeInput('inputPantallaAhorro', this.checked); selectModoAhorro(this);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                          <input id="checked4" onclick="changeInput('inputPantallaAhorro', this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked disabled/>
                         </span>
                       </span> 
                   </label>
               </div>
-              <div class="text-2xl text-left">
-                <h4>Modo ahorro</h4>
-                <p class="text-sm">Si activas este modo, la pantalla se atenuará consumiendo un 30% menos de energía</p>
-            </div>
+              <h4 class="text-xl text-left">
+                  <span class="mb-16 text-gray-600">Modo ahorro</span>
+                  <p class="text-sm text-gray-600">Si activas este modo, la pantalla consumirá un 15% menos de energía</p>
+              </h4>
           </div>
       </div>
   </div>
@@ -320,7 +318,7 @@ var consumption = `
       <div class="flex">
           <p class='fas fa-snowflake py-2 pl-4 pr-2 text-lg text-purple-400'></p>
           <h3 class="text-center text-2xl pr-4">Modo SPEED</h3>
-          <button id="reset-speed" onclick='resetModo(2);' title='Reestablecer' class='focus:outline-none focus:shadow-outline px-4 font-bold bg-gray-400 p-2 rounded-lg text-gray-700 hover:bg-gray-300 hover:text-gray-600 text-xs transition ease-in-out duration-500'>Reestablecer</button>
+          <button id="reset-speed" onclick='resetModo(2); guardarCambiosTempECOSPEED();' title='Reestablecer' class='focus:outline-none focus:shadow-outline px-4 font-bold bg-gray-400 p-2 rounded-lg text-gray-700 hover:bg-gray-300 hover:text-gray-600 text-xs transition ease-in-out duration-500'>Reestablecer</button>
       </div>
       <div class="flex flex-col lg:flex-row justify-center items-center">
           <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
@@ -328,14 +326,14 @@ var consumption = `
                 <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
                     <output id="temperatureOutputIdS">` + modesAndTarget[2].targetFridge + `</output>ºC
                 </output>
-              <input id="temperatureRangeIdS" type="range" min="2" max="8" step="2" value="` + modesAndTarget[2].targetFridge + `" oninput="temperatureOutputIdS.value = temperatureRangeIdS.value">
+              <input onchange='guardarCambiosTempECOSPEED();' id="temperatureRangeIdS" type="range" min="2" max="8" step="2" value="` + modesAndTarget[2].targetFridge + `" oninput="temperatureOutputIdS.value = temperatureRangeIdS.value">
           </div>
           <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4 w-full lg:w-1/2">
               <label for="temperaturaConRangeIdS" class="text-2xl text-center">Temperatura congelador</label>
                 <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
                     <output id="temperatureConOutputIdS">` + modesAndTarget[2].targetFreezer + `</output>ºC
                 </output>
-              <input id="temperaturaConRangeIdS" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[2].targetFreezer + `" oninput="temperatureConOutputIdS.value = temperaturaConRangeIdS.value">
+              <input onchange='guardarCambiosTempECOSPEED();' id="temperaturaConRangeIdS" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[2].targetFreezer + `" oninput="temperatureConOutputIdS.value = temperaturaConRangeIdS.value">
           </div>
       </div>
       <div class="flex justify-center flex-col md:flex-row">
@@ -347,7 +345,7 @@ var consumption = `
                           <span class="relative">
                             <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                             <span id="inputDetect2" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                              <input id="checked5" onclick="changeInput('inputDetect2', this.checked); changeDetection2(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                              <input id="checked5" onclick="changeInput('inputDetect2', this.checked); changeDetectionBoost(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                             </span>
                           </span> 
                       </label>
@@ -362,7 +360,7 @@ var consumption = `
                           <span class="relative">
                             <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                             <span id="inputLuz2" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                              <input id="checked6" onclick="changeInput('inputLuz2', this.checked); changeLight(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                              <input id="checked6" onclick="changeInput('inputLuz2', this.checked); changeLightBoost(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                             </span>
                           </span> 
                       </label>
@@ -379,7 +377,7 @@ var consumption = `
                           <span class="relative">
                             <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                             <span id="inputPantalla2" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                              <input id="checked7" onclick="changeInput('inputPantalla2', this.checked); changeScreen(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                              <input id="checked7" onclick="changeInput('inputPantalla2', this.checked); changeScreenBoost(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                             </span>
                           </span> 
                       </label>
@@ -398,7 +396,7 @@ var consumption = `
                           <span class="relative">
                             <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                             <span id="inputPantallaAhorro2" class="absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out">
-                              <input id="checked8" onclick="changeInput('inputPantallaAhorro2', this.checked); selectModoAhorro(this);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked/>
+                              <input id="checked8" onclick="changeInput('inputPantallaAhorro2', this.checked); changeScreenAttenuationBoost(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" unchecked/>
                             </span>
                           </span> 
                       </label>
@@ -412,10 +410,6 @@ var consumption = `
       </div>
       <div>
   <div>
-                              
-  <div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-  <button onclick="guardarCambiosTempECOSPEED();" title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
-  </div>
 `
 
 var temperature = `<div class="">
@@ -425,7 +419,7 @@ var temperature = `<div class="">
         <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
             <output id="temperatureOutputId">` + modesAndTarget[1].targetFridge + `</output>ºC
           </output>
-        <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="` + modesAndTarget[1].targetFridge + `" oninput="temperatureOutputId.value = temperatureRangeId.value">
+        <input onchange='guardarCambiosTemp();' id="temperatureRangeId" type="range" min="2" max="8" step="2" value="` + modesAndTarget[1].targetFridge + `" oninput="temperatureOutputId.value = temperatureRangeId.value">
     </div>
     
 
@@ -434,7 +428,7 @@ var temperature = `<div class="">
         <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
             <output id="temperatureConOutputId">` + modesAndTarget[1].targetFreezer + `</output>ºC
           </output>
-        <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[1].targetFreezer + `" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
+        <input onchange='guardarCambiosTemp();' id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="` + modesAndTarget[1].targetFreezer + `" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
     </div>
 </div>
 <div class="flex pt-1 flex justify-center mt-3"> 
@@ -443,7 +437,7 @@ var temperature = `<div class="">
         <span class="relative">
           <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
           <span id="inputDetect" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-            <input id="checked" onclick="changeInput('inputDetect', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+            <input id="checked" onclick="changeInput('inputDetect', this.checked); alertTemperature(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
           </span>
         </span> 
     </label>
@@ -451,9 +445,6 @@ var temperature = `<div class="">
 <h4 class="text-xl">
     <span class="mb-16">Recibir un aviso cuando la temperatura del frigorífico sea demasiado elevada</span>
 </h4>
-</div>
-<div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-<button onclick="guardarCambiosTemp();" title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
 </div>`
 
 
@@ -565,4 +556,25 @@ var optionsChart = {
          return value + 'ºC';
       }
   }
-  };
+};
+
+var optionsChart2 = {
+  // X-Axis specific configuration
+  axisX: {
+      // We can disable the grid for this axis
+      showGrid: false,
+  },
+  width: '400px',
+  height: '250px',
+  // Y-Axis specific configuration
+  axisY: {
+      // Lets offset the chart a bit from the labels
+      offset: 60,
+      // The label interpolation function enables you to modify the values
+      // used for the labels on each axis. Here we are converting the
+      // values into million pound.
+      labelInterpolationFnc: function(value) {
+         return value + 'W';
+      }
+  }
+};

@@ -39,14 +39,14 @@
                     <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4">
                         <label for="temperatureRangeId" class="text-2xl">Temperatura frigorífico</label>
                         <output id="temperatureOutputId" class="value text-4xl text-gray-800 font-bold my-4 w-11/12">4ºC</output>
-                        <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="4" oninput="temperatureOutputId.value = temperatureRangeId.value">
+                        <input onchange='guardarCambiosTemp();' id="temperatureRangeId" type="range" min="2" max="8" step="2" value="4" oninput="temperatureOutputId.value = temperatureRangeId.value">
                     </div>
                     
         
                     <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4">
                         <label for="temperaturaConRangeId" class="text-2xl">Temperatura congelador</label>
                         <output id="temperatureConOutputId" class="value text-4xl text-gray-800 font-bold my-4 w-11/12">-22ºC</output>
-                        <input id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="-22" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
+                        <input onchange='guardarCambiosTemp();' id="temperaturaConRangeId" type="range" min="-24" max="-16" step="2" value="-22" oninput="temperatureConOutputId.value = temperaturaConRangeId.value">
                     </div>
     
                 </div>
@@ -111,7 +111,7 @@
                                     <span class="relative">
                                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                                       <span id="inputPantallaAhorro" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-                                        <input id="checked4" onclick="changeInput('inputPantallaAhorro', this.checked); selectModoAhorro(this);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+                                        <input id="checked4" onclick="changeInput('inputPantallaAhorro', this.checked); changeScreenAttenuation(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
                                       </span>
                                     </span> 
                                 </label>
@@ -131,7 +131,10 @@
                     <button onclick="location.href='../index.html'" title='Comenzar' class='focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Comenzar</button>
             </div>
             
-	</div>
+    </div>
+    <script>
+        setButtonSetupTemp();
+    </script>
 </body>
 
 </html>

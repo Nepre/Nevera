@@ -493,9 +493,6 @@ var timeDate = `<!--Mensaje modal-->
             </span>
         </div>
     </div>
-</div>
-<div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-<button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
 </div>`
 
 var themeHTML = `<div class="flex flex-col">

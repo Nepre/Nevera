@@ -1509,7 +1509,7 @@ $(document).ready(function(){
 		"<div class='modal-close cursor-pointer z-50'>" +
 			"<span title='Cerrar' class='fas fa-times fill-current fontColor fontDefault hover:text-purple-300'></span>" +
 		"</div>" +
-	"</div>" +
+	"</div>" +	
 
 	"<p class='p-modal'>Pulsa 'Continuar' para confirmar el envío a tu domicilio de la siguiente compra.</p>" +
 	

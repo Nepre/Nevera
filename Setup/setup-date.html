@@ -36,12 +36,11 @@
 		<div class="flex  items-center text-center justify-center w-full" style="height: 80%;">
 			<div class="">
 				<div id="modalHAc" class="flex date flex-col md:flex-row justify-center modal-open z-50 cursor-pointer hover:text-gray-700 transition ease-in-out duration-500">
-					<h2 id="dateH" onclick="changeWhat(0);" class="text-4xl md:text-5xl" style="font-size: 3em;">Error fetching date </h2>
-					<p class="fas fa-edit pt-4 md:pt-10 pl-3"></p>
+					<h2 id="dateH" class="text-4xl md:text-5xl" style="font-size: 3em;">Error fetching date </h2>
 				</div>
 				
 				<div id="modalHDate" class="flex time justify-center modal-open cursor-pointer hover:text-gray-700 transition ease-in-out duration-500">
-					<p  id="time" onclick="changeWhat(1);" class="flex items-center justify-center text-big"></p>	
+					<p  id="time" class="flex items-center justify-center text-big"></p>	
 					<p class="fas fa-edit pl-3" style="padding-top:8.5rem;"></p>
 				</div>
 				<br>
@@ -60,6 +59,34 @@
 
 			<div class="modal-content py-4 text-left px-6">
 				<!--Contenido del modal-->
+				<div class='flex justify-between items-center pb-3'>
+					<p class='text-2xl font-bold'>Cambiar la fecha</p>
+					<div class='modal-close cursor-pointer z-50'>
+						<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>
+					</div>
+				</div>
+			
+				<p class='p-modal'>Selecciona una nueva fecha para tu frigorífico, puedes cambiarla en cualquier momento.</p>
+			
+				<div class='flex'>
+					<input id='dateInput' class='text-center justify-start border-2 border-gray-300 rounded-lg p-2 w-full my-2' type='date'>
+				</div>
+
+				<div class='flex justify-between items-center pb-3'>
+					<p class='text-2xl font-bold'>Cambiar la hora</p>
+				</div>
+			
+				<p class='p-modal'>Selecciona una nueva hora para tu frigorífico, puedes cambiarla en cualquier momento.</p>
+			
+				<div class='flex'>
+					<input id='timeInput' type='time' class='text-center border-2 border-gray-300 rounded-lg p-2 w-full my-2'>
+				</div>
+			
+			
+				<div class='flex justify-end pt-2'>
+					<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>
+					<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>
+				</div>
 			</div>
 		</div>
 	</div>

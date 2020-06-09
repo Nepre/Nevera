@@ -81,56 +81,6 @@ function fetchOnline(){
     //if($("#fetchOnline").prop)
 }
 
-$(document).ready(function(){
-	$(".date").click(function(){
-		let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
-		"<p class='text-2xl font-bold'>Cambiar la fecha</p>" +
-		"<div class='modal-close cursor-pointer z-50'>" +
-			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
-		"</div>" +
-	"</div>" +
-
-	"<p class='p-modal'>Selecciona una nueva fecha para tu frigorífico, puedes cambiarla en cualquier momento.</p>" +
-
-	"<div class='flex'>" +
-		"<input id='dateInput' class='text-center justify-start border-2 border-gray-300 rounded-lg p-2 w-full my-2' type='date'>" +
-	"</div>" +
-
-	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
-		"<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>" +
-	"</div>";
-
-	$(".modal-content").html(innerHTML);
-	});
-});
-
-$(document).ready(function(){
-	$(".time").click(function(){
-		let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
-		"<p class='text-2xl font-bold'>Cambiar la hora</p>" +
-		"<div class='modal-close cursor-pointer z-50'>" +
-			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
-		"</div>" +
-	"</div>" +
-
-	"<p class='p-modal'>Selecciona una nueva hora para tu frigorífico, puedes cambiarla en cualquier momento.</p>" +
-
-	"<div class='flex'>" +
-		"<input id='timeInput' type='time' class='text-center border-2 border-gray-300 rounded-lg p-2 w-full my-2' type='date'>" +
-	"</div>" +
-
-
-	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
-		"<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>" +
-	"</div>";
-
-	$(".modal-content").html(innerHTML);
-	});
-});
-
-
 // ------ WELCOME ------ //
 
 // Click anywhere and move to the next page

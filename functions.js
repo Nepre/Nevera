@@ -194,8 +194,7 @@ function addToChart(){
 	dataConsumo = getCookiesChart("dataConsumo");
 	dataConsumo.shift();
 	dataConsumo.push(parseFloat(frigo.frigorificoConsumo) / 1000);	
-	console.log(frigo.frigorificoConsumo);
-	
+
 	Cookies.set("dataConsumo", dataConsumo);
 }
 

@@ -4,7 +4,15 @@ var cont = 0;
 // ------ DATE ------ //
 
 function checkTime(){
-    if($("#fetchOnline").is(":checked")) initDate();
+    if(document.getElementById("fetchOnline").checked){
+        $('#modalHAc').css('pointer-events','none');
+        $('#modalHDate').css('pointer-events','none');
+        initDate();
+    } 
+    else{
+        $('#modalHAc').css('pointer-events','auto');
+        $('#modalHDate').css('pointer-events','auto');
+    }
 }
 
 function changeWhat(time){

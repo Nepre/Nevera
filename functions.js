@@ -1495,7 +1495,7 @@ $(document).ready(function(){
 	innerHTML += "</div>" +
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Añadir' onclick='addToShoppingList();' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Añadir</button>" +
+		"<button title='Añadir' onclick='addToShoppingList();' class='modal-close px-4 p-3 rounded-lg text-white buttonFat buttonFatCodeDefault '><span class = 'fontColor fontDefault'>Añadir</span></button>" +
 	"</div>";
 
 	$(".modal-content").html(innerHTML);
@@ -1521,10 +1521,10 @@ $(document).ready(function(){
 
 	innerHTML += "</ul>" + 
 
-	"<p class='order-price mt-3 font-bold bg-purple-300 mr-2 px-3 py-1 rounded-sm'>Total: " + $('.total-price').text() + "</p>" +
+	"<p class='order-price mt-3 font-bold mr-2 px-3 py-1 rounded-sm bgColor bgColorDefault fontColor fontDefault'>Total: " + $('.total-price').text() + "</p>" +
 
-	"<div class='flex justify-end pt-2'>" +
-		"<button onclick='showFinalModal();' title='Continuar' class='px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Continuar</button>" +
+	"<div class='flex justify-end pt-2'>" + 
+		"<button onclick='showFinalModal();' title='Continuar' class='px-4 p-3 rounded-lg text-white buttonFat buttonFatCodeDefault'><span class='fontColor fontDefault'>Continuar</span></button>" +
 	"</div>";
 
 	$(".modal-content").html(innerHTML);
@@ -1610,10 +1610,10 @@ function showFinalModal(){
 		"</div>" +
 	"</div>" +
 
-	"<p class='p-modal'>¿Está seguro de querer realizar este pedido? Pulse 'Hecho' para confirmar.</p>" +
+	"<p class='p-modal'>¿Está seguro de querer realizar este pedido? Pulse 'Hecho' para confirmar.</p>" + 
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button onclick='items.splice(0, items.length); showShoppingList();' title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+		"<button onclick='items.splice(0, items.length); showShoppingList();' title='Hecho' class='modal-close px-4 p-3 rounded-lg text-white buttonFat buttonFatCodeDefault '><span class='fontColor fontDefault'>Hecho</span></button>" +
 	"</div>";
 
 	$(".modal-content").html(innerHTML);

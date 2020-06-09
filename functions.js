@@ -1495,7 +1495,6 @@ $(document).ready(function(){
 	innerHTML += "</div>" +
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button title='Añadir' onclick='addToShoppingList();' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Añadir</button>" +
 	"</div>";
 
@@ -1508,7 +1507,7 @@ $(document).ready(function(){
 		let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
 		"<p class='text-2xl font-bold'>Resumen del pedido</p>" +
 		"<div class='modal-close cursor-pointer z-50'>" +
-			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
+			"<span title='Cerrar' class='fas fa-times fill-current fontColor fontDefault hover:text-purple-300'></span>" +
 		"</div>" +
 	"</div>" +
 
@@ -1517,7 +1516,7 @@ $(document).ready(function(){
 	"<ul class='order-list mt-3'>";
 	
 	for(let i = 0; i < items.length; i++){
-		innerHTML += "<li class='bg-purple-200 p-1 rounded-sm m-2 ml-0'><span title='Eliminar' onclick='removeFinalItem(" + i + ");' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4 cursor-pointer'></span>" + items[i].title + " <b>x" + items[i].quantity + "</b></li>";
+		innerHTML += "<li class='p-1 rounded-sm m-2 ml-0'><span title='Eliminar' onclick='removeFinalItem(" + i + ");' class='fas fa-times fill-current text-grey hover:text-purple-300 px-4 cursor-pointer'></span>" + items[i].title + " <b>x" + items[i].quantity + "</b></li>";
 	}
 
 	innerHTML += "</ul>" + 
@@ -1525,7 +1524,6 @@ $(document).ready(function(){
 	"<p class='order-price mt-3 font-bold bg-purple-300 mr-2 px-3 py-1 rounded-sm'>Total: " + $('.total-price').text() + "</p>" +
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button onclick='showFinalModal();' title='Continuar' class='px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Continuar</button>" +
 	"</div>";
 
@@ -1575,7 +1573,6 @@ function showDateModal(){
 	"</div>" +
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>" +
 	"</div>";
 
@@ -1599,7 +1596,6 @@ function showTimeModal(){
 
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button title='Guardar' class='focus:outline-none focus:shadow-outline px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Guardar</button>" +
 	"</div>";
 
@@ -1617,7 +1613,6 @@ function showFinalModal(){
 	"<p class='p-modal'>¿Está seguro de querer realizar este pedido? Pulse 'Hecho' para confirmar.</p>" +
 
 	"<div class='flex justify-end pt-2'>" +
-		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button onclick='items.splice(0, items.length); showShoppingList();' title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
 	"</div>";
 

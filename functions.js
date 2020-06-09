@@ -1204,7 +1204,6 @@ function changeDetection(set){
 }
 
 function changeDetectionBoost(set){
-	console.log(set);
 	Cookies.set("automaticDetectionBoost", (set)? 1:0);
 	if(!set){
 		changeInput('inputLuz2', false);

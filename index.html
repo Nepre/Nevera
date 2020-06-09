@@ -102,6 +102,7 @@
 		initialIndex();
 		init();
 		theme();
+		if(Cookies.get('setupDone') == undefined || Cookies.get('setupDone') == 0) location.href = "/interfaz/setup/setup-welcome.html";
 	</script>
 </body>
 

@@ -6,9 +6,16 @@ var alertopen = false;
 const widthChange = 767; 
 const second = 1000;
 
+function isString(x) {
+	return Object.prototype.toString.call(x) === "[object String]";
+}
+
 window.setInterval(function(){
 	recalculateTotal();
 	checkShoppingList();
+	let code = $('#code').val(frigo.frigorificoCodigo);
+
+	
 
 	if(window.innerWidth > widthChange){
 		small = false;
@@ -83,7 +90,6 @@ window.setInterval(function(){
 		$(".alert-open").hide();
 		frigo.frigorificoAlarma = false;
 	}
-	console.log(secondsOpen);
 	
 }, second);
 
@@ -107,13 +113,18 @@ var dataChartCongelador = [0,0,0,0,0,0];
 window.setInterval(function(){
 	addToChart();
 	setChart();
+	if(Cookies.get('consumo') == undefined){
+		Cookies.set('consumo', frigo.frigorificoConsumo);
+	} else{
+		if((frigo.frigorificoConsumo - parseInt(Cookies.get('consumo'))) > 20000){
+			$(".alert-consumo").show();			
+		} else $(".alert-consumo").hide();
+		Cookies.set('consumo', frigo.frigorificoConsumo);
+	}
 }, 30*second);
 
 var cont = 1;
 var media = 0;
-
-
-
 
 function addToChart(){
 
@@ -589,27 +600,37 @@ function deleteElement(id){
 	$(id).hide();
 }
 
+var tagsHTML = "";
+var tagitems = [];
+
 function addElement(){
-	$(".new-tag").show();
-	$(".new-tag").html("<div class='new-tag m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'><p>Pan</p><span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span></div>");
+	let rand = Math.floor((Math.random() * 6));
+	tagsHTML += "<div onclick='deleteElement(this);' class='taggie m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
+					"<p id='" + items[rand].id + "'>" + items[rand].title + "</p>" +
+					"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
+				"</div>"
+	tagitems.push(items[rand]);
+
+	$(".tags").html(tagsHTML);
 }
 
-/*
-function setHora(){
-	setInterval(function(){
-		var date = new Date();
-		setTime(date);
-	}, 1);
+function addToShoppingList(){		
+	for(let i = 0; i < tagitems.length; i++){
+		addToItems(tagitems, i);
+		showShoppingList();
+	}
 }
 
-function setTime(dateobj){
-	var hours = ("0" + dateobj.getHours()).slice(-2);
-	var minutes = ("0" + dateobj.getMinutes()).slice(-2);
-	var converted_date = "";
-
-	converted_date = hours + ":" + minutes;
-	document.getElementById("hour").innerHTML = converted_date;
-}*/
+function showTagItems(){
+	console.log(tagitems);
+	/*for(let i = 0; i < tagitems.length; i++){
+		taggies += "<div onclick='deleteElement(this);' class='taggie m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
+					"<p id='" + tagitems[i].id + "'>" + tagitems[i].title + "</p>" +
+					"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
+				"</div>"				
+	}*/
+	$(".tags").html("me cago en todo");
+}
 
 /*** JQUERY ***/
 
@@ -980,9 +1001,9 @@ function addToItems(array, id){
 			break;
 		}
 	}
-	if(exists) // Si existe, aumentamos la cantidad
+	if(exists){ // Si existe, aumentamos la cantidad
 		items[element].quantity++;
-	else // Si no existe, lo añadimos al array de items
+	} else // Si no existe, lo añadimos al array de items
 		items.push(array[id]);
 
 	return false;
@@ -1046,6 +1067,7 @@ function checkPrevPage(){
 
 $(document).ready(function(){
 	$(".bar-code").click(function(){
+	
 		let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
 		"<p class='text-2xl font-bold'>Añadir producto</p>" +
 		"<div class='modal-close cursor-pointer z-50'>" +
@@ -1055,29 +1077,22 @@ $(document).ready(function(){
 
 	"<p class='p-modal'>Coloque el código de barras del producto frente al lector del frigorífico o introduzca el código a mano.</p>" +
 	"<div class='flex'>" +
-		"<input type='number' placeholder='ej.: 1234 5678 9123' class='border-2 border-gray-300 rounded-lg p-2 w-full my-2'>" +
+		"<input id='code' type='number' placeholder='ej.: 11111111' class='border-2 border-gray-300 rounded-lg p-2 w-full my-2' disabled>" +
 		"<span title='Añadir' onclick='addElement();' class='p-6 cursor-pointer fas fa-plus fill-current text-grey hover:text-purple-300'></span>" +
 	"</div>" +
 
-	"<div class='tags flex'>" +
-		"<div onclick='deleteElement(this);' class='m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
-			"<p>Huevos</p>" +
-			"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
-		"</div>" +
-
-		"<div onclick='deleteElement(this);' class='m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
-			"<p>Leche</p>" +
-			"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
-		"</div>" +
-
-		"<div onclick='deleteElement(this);' class='new-tag'>" +
-
-		"</div>" +
-	"</div>" +
+	"<div class='tags flex flex-wrap'>";
+	for(let i = 0; i < tagitems.length; i++){
+		innerHTML += "<div onclick='deleteElement(this);' class='taggie m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
+					"<p id='" + tagitems[i].id + "'>" + tagitems[i].title + "</p>" +
+					"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
+				"</div>";
+	}
+	innerHTML += "</div>" +
 
 	"<div class='flex justify-end pt-2'>" +
 		"<button title='Cancelar' class='modal-close px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
-		"<button title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+		"<button title='Hecho' onclick='addToShoppingList();' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
 	"</div>";
 
 	$(".modal-content").html(innerHTML);
@@ -1253,7 +1268,7 @@ function initialIndex(){
 
 	"<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
 		"<button onclick='location.href=\"shopping.html\"; Cookies.set(\"prevPlace\", \"index.html\");' type='button' class='shop buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
-			"<span class='fas fa-shopping-basket text-gray-200'></span>" +
+			"<span class='fas fa-shopping-basket text-white'></span>" +
 		"</button>" +
 
 		"<button onclick='selectPage(2);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +

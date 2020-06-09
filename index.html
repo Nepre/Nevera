@@ -68,7 +68,7 @@
         <span title='Cerrar' onclick="if($('.alert-speed').hasClass('block'))$('.alert-speed').removeClass('block').addClass('hidden');" class='fas fa-times fill-current text-white pl-6 cursor-pointer'></span>
 	</div>
 
-	<div role="alert" class="alert-high fixed bottom-0 w-full z-50">
+	<div role="alert" class="alert-high fixed bottom-0 w-full z-50" hidden>
 		<div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
 		  ¡Cuidado!
 		  <span title='Cerrar' onclick="$('.alert-high').hide(); alerthigh = true;" class='fixed right-0 px-4 py-1 fas fa-times fill-current text-white pl-6 cursor-pointer'></span>
@@ -78,13 +78,23 @@
 		</div>
 	</div>
 
-	<div role="alert" class="alert-open fixed bottom-0 w-full z-50">
+	<div role="alert" class="alert-open fixed bottom-0 w-full z-50" hidden>
 		<div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
 		  ¡Cuidado!
 		  <span title='Cerrar' onclick="$('.alert-open').hide(); alertopen = true;" class='fixed right-0 px-4 py-1 fas fa-times fill-current text-white pl-6 cursor-pointer'></span>
 		</div>
 		<div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
 		  <p>Parece que te has dejado alguna puerta abierta, comprueba que queden bien cerradas para que tu frigorífico no pierda el frío.</p>
+		</div>
+	</div>
+
+	<div role="alert" class="alert-consumo fixed bottom-0 w-full z-50" hidden>
+		<div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+		  ¡Cuidado!
+		  <span title='Cerrar' onclick="$('.alert-consumo').hide();" class='fixed right-0 px-4 py-1 fas fa-times fill-current text-white pl-6 cursor-pointer'></span>
+		</div>
+		<div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+		  <p>Parece que el consumo de tu frigorífico es demasiado elevado, si tienes activado el Modo SPEED, quizá sería recomendable desactivarlo.</p>
 		</div>
 	</div>
 

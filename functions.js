@@ -366,10 +366,16 @@ function setButtonsLightSettings(){
 
 function checkProximity(){
 	// Luces
-
 	if(Cookies.get('powerMode') == undefined) Cookies.set('powerMode', 2);
+	
+	//if((Cookies.get('powerMode') == 1 || Cookies.get('powerMode') == 2) && (Cookies.get('automaticDetection') == undefined || Cookies.get('automaticDetection') == 0)) leave1 = true;
+	
+	//if((Cookies.get('powerMode') == 3) && (Cookies.get('automaticLightBoost') == undefined || Cookies.get('automaticLightBoost') == 0)) leave2 = true;
 
-	if(Cookies.get('powerMode') == 3){
+
+	if(Cookies.get('powerMode') == 3 && (Cookies.get('automaticLightBoost') != undefined && Cookies.get('automaticLightBoost') == 1)){
+		console.log("1");
+		
 		if(frigo.frigorificoPresencia && Cookies.get('automaticLightBoost') != undefined && Cookies.get('automaticLightBoost') == 1){
 			if(Cookies.get('lightFridgeProx') == undefined || Cookies.get('lightFridgeProx') == 1) frigo.refrigeradorLuz = true;
 			else checkDoaFrigo();
@@ -382,7 +388,8 @@ function checkProximity(){
 			checkDoaCon();
 		}
 	}
-	else{
+	else if((Cookies.get('powerMode') == 1 || Cookies.get('powerMode') == 2) && (Cookies.get('automaticDetection') != undefined && Cookies.get('automaticDetection') == 1)){
+		console.log("2");
 		if(frigo.frigorificoPresencia && Cookies.get('inputLuz') != undefined && Cookies.get('inputLuz') == 1){
 			if(Cookies.get('lightFridgeProx') == undefined || Cookies.get('lightFridgeProx') == 1) frigo.refrigeradorLuz = true;
 			else checkDoaFrigo();			
@@ -398,10 +405,12 @@ function checkProximity(){
 	
 				
 function alternarLuzRefrigerador() {
+
 	var value = !frigo.refrigeradorLuz;
 	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
+	
 	if(value){
-		if(frigo.congeladorLuz == 1 || frigo.congeladorLuz == 2) turnOnOffButton(true, 3, "orange");
+		if(frigo.congeladorLuz == 1) turnOnOffButton(true, 3, "orange");
 		Cookies.set('fridgelight', 1);
 		turnOnOffButton(true, 1, "orange");
 
@@ -411,6 +420,7 @@ function alternarLuzRefrigerador() {
 		turnOnOffButton(false, 1, "orange");
 		turnOnOffButton(false, 3, "orange");
 	}
+
 	return false;
 }
 
@@ -431,6 +441,7 @@ function alternarLuzCongelador() {
 }
 
 function alternarAmbasLuces() { // Esto luce feote pero no sabia como hacerlo de otra forma
+	
 	if(frigo.refrigeradorLuz == true && frigo.congeladorLuz == false){
 		frigo.refrigeradorLuz = true;
 		frigo.congeladorLuz = true;
@@ -1661,7 +1672,18 @@ function initialIndex(){
 			"<span class='fas fa-power-off text-white'></span>" +
 		"</button>";
 
-	if(Cookies.get('inputLuz') == undefined || Cookies.get('inputLuz') == 0){
+
+		
+		
+		
+	if((Cookies.get('powerMode') == 2 || Cookies.get('powerMode') == 1 ) && (Cookies.get('inputLuz') == undefined || Cookies.get('inputLuz') == 0)){
+		console.log("1");
+		
+		innerHTML +="<button onclick='selectPage(1);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+			"<span class='far fa-lightbulb text-white'></span>" +
+		"</button>";
+	}
+	else if((Cookies.get('powerMode') == 3) && (Cookies.get('automaticLightBoost') == undefined || Cookies.get('automaticLightBoost') == 0)){
 		innerHTML +="<button onclick='selectPage(1);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='far fa-lightbulb text-white'></span>" +
 		"</button>";

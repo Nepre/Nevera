@@ -374,7 +374,6 @@ function checkProximity(){
 
 
 	if(Cookies.get('powerMode') == 3 && (Cookies.get('automaticLightBoost') != undefined && Cookies.get('automaticLightBoost') == 1)){
-		console.log("1");
 		
 		if(frigo.frigorificoPresencia && Cookies.get('automaticLightBoost') != undefined && Cookies.get('automaticLightBoost') == 1){
 			if(Cookies.get('lightFridgeProx') == undefined || Cookies.get('lightFridgeProx') == 1) frigo.refrigeradorLuz = true;

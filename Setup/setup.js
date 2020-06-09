@@ -66,14 +66,18 @@ function initDate(){
     if(min == 0) min = "00";
     else if(min < 10) min = "0"+min
     var str2 = d.getHours() + ":" + min;
+
+    var currentDate = d.toISOString().slice(0,10);
     
     $("#dateH").html(str);
     $("#time").html(str2);
+    $("#dateInput").val(currentDate);
+    $("#timeInput").val(str2);
 }
 
 function fetchOnline(){
     if(!$("#fetchOnline").is(":checked")){
-
+        initDate();
     }
     else
         $("#dateInput").css('visibility', 'hidden');

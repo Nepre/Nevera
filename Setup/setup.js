@@ -30,16 +30,6 @@ function changeWhat(time){
     }
     
 }
-
-function setTimeDate(){
-    if($("#valueModal").text() = "0"){
-
-    }
-    else{
-        
-    }
-}
-
 // Function credits to Salman A on stackoverflow
 // Add nth to number
 function ordinal_suffix_of(i) {

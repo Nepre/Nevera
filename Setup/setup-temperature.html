@@ -2,9 +2,9 @@
 <html lang="es">
 
 <head>
-	<meta charset="utf8">
+	<meta charset="utf-8">
 	<title>Interfaz de Frigorífico</title>
-	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/tailwindcss@1.0/dist/tailwind.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../index.css">
 	<link rel="stylesheet" href="setup.css">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
                        
                     
                     <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4">
-                        <label for="temperaturaRangeId" class="text-2xl">Temperatura frigorífico</label>
+                        <label for="temperatureRangeId" class="text-2xl">Temperatura frigorífico</label>
                         <output id="temperatureOutputId" class="value text-4xl text-gray-800 font-bold my-4 w-11/12">4ºC</output>
                         <input id="temperatureRangeId" type="range" min="2" max="8" step="2" value="4" oninput="temperatureOutputId.value = temperatureRangeId.value">
                     </div>
@@ -81,7 +81,7 @@
                                 </label>
                             </div>
                             <h4 class="text-2xl">
-                                <span class="mb-16" name="screenOptions">Encender luz automáticamente </span>
+                                <span class="mb-16">Encender luz automáticamente </span>
                             </h4> 
                         </div>
         
@@ -98,7 +98,7 @@
                                 </label>
                             </div>
                             <h4 class="text-2xl">
-                                <span class="mb-16" name="screenOptions">Encender pantalla automáticamente </span>
+                                <span class="mb-16">Encender pantalla automáticamente </span>
                             </h4> 
                         </div>
                     </div>
@@ -116,10 +116,10 @@
                                     </span> 
                                 </label>
                             </div>
-                            <h4 class="text-2xl text-left">
-                                <span class="mb-16">Modo ahorro</span>
-                                <p class="text-sm">Si activas este modo, la pantalla consumirá un 15% menos de energía</p>
-                            </h4>
+                            <div class="text-2xl text-left">
+                                <h4>Modo ahorro</h4>
+                                <p class="text-sm">Si activas este modo, la pantalla se atenuará consumiendo un 30% menos de energía</p>
+                            </div>
                         </div>
                     </div> 
                     

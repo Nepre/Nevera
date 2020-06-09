@@ -31,7 +31,7 @@ var ajustesGenerales = `
             </label>
         </div>
         <h4 class="text-2xl">
-            <span class="mb-16" name="screenOptions">Encender luz automáticamente </span>
+            <span class="mb-16">Encender luz automáticamente </span>
         </h4> 
     </div>
 
@@ -48,7 +48,7 @@ var ajustesGenerales = `
             </label>
         </div>
         <h4 class="text-2xl">
-            <span class="mb-16" name="screenOptions">Encender pantalla automáticamente </span>
+            <span class="mb-16">Encender pantalla automáticamente </span>
         </h4> 
     </div>                                
     </div>
@@ -163,10 +163,10 @@ var pantalla = `<div class="flex flex-col">
                 </span> 
             </label>
         </div>
-        <h4 class="text-2xl text-left">
-            <span class="mb-16">Modo ahorro</span>
-            <p class="text-sm">Si activas este modo, la pantalla consumirá un 15% menos de energía</p>
-        </h4>
+        <div class="text-2xl text-left">
+            <h4>Modo ahorro</h4>
+            <p class="text-sm">Si activas este modo, la pantalla se atenuará consumiendo un 30% menos de energía</p>
+        </div>
     </div>
 </div>
 
@@ -177,13 +177,13 @@ var pantalla = `<div class="flex flex-col">
         <span class="time-value mr-1">-</span>
         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
         </button>
-        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
-        <span class=""><a onclick="changeSelection(this);" class="rounded-t bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">30 minutos</a></span>
-        <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">10 minutos</a></span>
-        <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">5 minutos</a></span>
-        <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">2 minutos</a></span>
-        <span class=""><a onclick="changeSelection(this);" class="rounded-b bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">Nunca</a></span>
-    </ul>
+        <div class="dropdown-menu absolute hidden text-gray-700 pt-1">
+            <span class=""><a onclick="changeSelection(this);" class="rounded-t bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">30 minutos</a></span>
+            <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">10 minutos</a></span>
+            <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">5 minutos</a></span>
+            <span class=""><a onclick="changeSelection(this);" class="bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">2 minutos</a></span>
+            <span class=""><a onclick="changeSelection(this);" class="rounded-b bg-purple-300 hover:bg-purple-200 py-2 px-4 block whitespace-no-wrap" href="#">Nunca</a></span>
+        </div>
     </div>
     
 </div> 
@@ -272,7 +272,7 @@ var consumption = `
                   </label>
               </div>
               <h4 class="text-xl">
-                  <span class="mb-16" name="screenOptions">Encender luz automáticamente </span>
+                  <span class="mb-16">Encender luz automáticamente </span>
               </h4> 
           </div>
 
@@ -289,7 +289,7 @@ var consumption = `
                   </label>
               </div>
               <h4 class="text-xl">
-                  <span class="mb-16" name="screenOptions">Encender pantalla automáticamente </span>
+                  <span class="mb-16">Encender pantalla automáticamente </span>
               </h4> 
           </div>
       </div>
@@ -307,10 +307,10 @@ var consumption = `
                       </span> 
                   </label>
               </div>
-              <h4 class="text-xl text-left">
-                  <span class="mb-16">Modo ahorro</span>
-                  <p class="text-sm">Si activas este modo, la pantalla consumirá un 15% menos de energía</p>
-              </h4>
+              <div class="text-2xl text-left">
+                <h4>Modo ahorro</h4>
+                <p class="text-sm">Si activas este modo, la pantalla se atenuará consumiendo un 30% menos de energía</p>
+            </div>
           </div>
       </div>
   </div>
@@ -368,7 +368,7 @@ var consumption = `
                       </label>
                   </div>
                   <h4 class="text-xl">
-                      <span class="mb-16" name="screenOptions">Encender luz automáticamente </span>
+                      <span class="mb-16">Encender luz automáticamente </span>
                   </h4> 
               </div>
 
@@ -385,7 +385,7 @@ var consumption = `
                       </label>
                   </div>
                   <h4 class="text-xl">
-                      <span class="mb-16" name="screenOptions">Encender pantalla automáticamente </span>
+                      <span class="mb-16">Encender pantalla automáticamente </span>
                   </h4> 
               </div>
           </div>
@@ -403,10 +403,10 @@ var consumption = `
                           </span> 
                       </label>
                   </div>
-                  <h4 class="text-xl text-left">
-                      <span class="mb-16">Modo ahorro</span>
-                      <p class="text-sm">Si activas este modo, la pantalla consumirá un 15% menos de energía</p>
-                  </h4>
+                    <div class="text-2xl text-left">
+                        <h4>Modo ahorro</h4>
+                        <p class="text-sm">Si activas este modo, la pantalla se atenuará consumiendo un 30% menos de energía</p>
+                    </div>
               </div>
           </div>
       </div>
@@ -421,7 +421,7 @@ var consumption = `
 var temperature = `<div class="">
 <div class="flex flex-col lg:flex-row w-full md:w-auto justify-center text-center">
     <div class="flex flex-col justify-center shadow-lg bg-gray-200 rounded-md p-6 m-4">
-        <label for="temperaturaRangeId" class="text-2xl">Temperatura frigorífico</label>
+        <label for="temperatureRangeId" class="text-2xl">Temperatura frigorífico</label>
         <output class="value text-4xl text-center text-gray-800 font-bold my-4 w-11/12">
             <output id="temperatureOutputId">` + modesAndTarget[1].targetFridge + `</output>ºC
           </output>
@@ -515,7 +515,7 @@ var themeHTML = `<div class="flex flex-col">
     </div>
     <div onclick="Cookies.set('theme', 1); $('#color-theme').css('outline-style', 'solid'); $('#color-theme').css('outline-color', '#a1cef1'); $('#darkImg').css('outline-style', 'none');" class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
         <p class="font-bold text-gray-600">Modo día</p>
-        <img id="color-theme" src="resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
+        <img id="color-theme" src="resources/day-purple.png" alt="Modo día" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
         <div class="colors p-2">
             <button onclick="$('#color-theme').attr('src', 'resources/day-purple.png'); Cookies.set('color', 0);" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
             <button onclick="$('#color-theme').attr('src', 'resources/day-blue.png'); Cookies.set('color', 1);" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
@@ -537,7 +537,7 @@ var themeHTML = `<div class="flex flex-col">
     </label>
 </div>
 <h4 class="text-xl">
-<span name="screenOptions">Activar modo noche automáticamente a partir de</span>
+<span>Activar modo noche automáticamente a partir de</span>
 <input id='fromTheme' onchange='changeTimeCookieTheme(false);' type="time" value="20:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
 <span>hasta </span>
 <input id='toTheme' onchange='changeTimeCookieTheme(true);' type="time" value="07:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">

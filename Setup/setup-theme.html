@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-	<meta charset="utf8">
+	<meta charset="utf-8">
 	<title>Interfaz de Frigorífico</title>
-	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/tailwindcss@1.0/dist/tailwind.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../index.css">
 	<link rel="stylesheet" href="setup.css">
 	<script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
@@ -40,7 +40,7 @@
             </div>
             <div onclick="Cookies.set('theme', 1); $('#color-theme').css('outline-style', 'solid'); $('#color-theme').css('outline-color', '#a1cef1'); $('#darkImg').css('outline-style', 'none');" class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
                 <p class="font-bold text-gray-600">Modo día</p>
-                <img id="color-theme" src="../resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
+                <img id="color-theme" src="../resources/day-purple.png" alt="Modo día" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
                 <div class="colors p-2">
                     <button onclick="$('#color-theme').attr('src', '../resources/day-purple.png'); Cookies.set('color', 0);" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
                     <button onclick="$('#color-theme').attr('src', '../resources/day-blue.png'); Cookies.set('color', 1);" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
@@ -51,7 +51,7 @@
             
         </div>
         <div class="flex p-2 px-6"> 
-            <div class="pr-3 pt-2 md:pt-4">
+            <div class="pr-3 pt-2">
                 <label for="checked2" class="inline-flex items-center cursor-pointer">
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
@@ -61,12 +61,12 @@
                     </span> 
                 </label>
             </div>
-            <h4 class="text-2xl">
-                <span class="mb-16" name="screenOptions">Activar modo noche automáticamente a partir de</span>
+            <div class="text-2xl text-center">
+                <h4 class="">Activar modo noche automáticamente a partir de</h4>
                 <input type="time" value="20:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
                 <span>hasta </span>
                 <input type="time" value="07:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
-            </h4> 
+            </div> 
         </div>
     </main>
 

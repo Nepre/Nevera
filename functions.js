@@ -611,10 +611,12 @@ var tagitems = [];
 
 function addElement(){
 	let rand = Math.floor((Math.random() * 6));
+	
 	tagsHTML += "<div onclick='deleteElement(this);' class='taggie m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
-					"<p id='" + items[rand].id + "'>" + items[rand].title + "</p>" +
+					"<p>" + items[rand].title + "</p>" +
 					"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
-				"</div>"
+				"</div>";
+
 	tagitems.push(items[rand]);
 
 	$(".tags").html(tagsHTML);
@@ -625,17 +627,6 @@ function addToShoppingList(){
 		addToItems(tagitems, i);
 		showShoppingList();
 	}
-}
-
-function showTagItems(){
-	console.log(tagitems);
-	/*for(let i = 0; i < tagitems.length; i++){
-		taggies += "<div onclick='deleteElement(this);' class='taggie m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
-					"<p id='" + tagitems[i].id + "'>" + tagitems[i].title + "</p>" +
-					"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
-				"</div>"				
-	}*/
-	$(".tags").html("me cago en todo");
 }
 
 /*** JQUERY ***/
@@ -1167,7 +1158,7 @@ $(document).ready(function(){
 	"<div class='tags flex flex-wrap'>";
 	for(let i = 0; i < tagitems.length; i++){
 		innerHTML += "<div onclick='deleteElement(this);' class='taggie m-1 text-xs flex inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-purple-300 text-gray-700 rounded-full'>" +
-					"<p id='" + tagitems[i].id + "'>" + tagitems[i].title + "</p>" +
+					"<p>" + tagitems[i].title + "</p>" +
 					"<span title='Eliminar' class='fas fa-times cursor-pointer px-1 py-2 fill-current text-grey'></span>" +
 				"</div>";
 	}
@@ -1175,7 +1166,7 @@ $(document).ready(function(){
 
 	"<div class='flex justify-end pt-2'>" +
 		"<button title='Cancelar' class='modal-close px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
-		"<button title='Hecho' onclick='addToShoppingList();' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
+		"<button title='Añadir' onclick='addToShoppingList();' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Añadir</button>" +
 	"</div>";
 
 	$(".modal-content").html(innerHTML);
@@ -1287,15 +1278,16 @@ function showTimeModal(){
 
 function showFinalModal(){
 	let innerHTML = "<div class='flex justify-between items-center pb-3'>" +
-		"<p class='text-2xl font-bold'>¡Su pedido se ha realizado con éxito!</p>" +
+		"<p class='text-2xl font-bold'>¡Todo listo para realizar su pedido!</p>" +
 		"<div class='modal-close cursor-pointer z-50 -mt-8'>" +
 			"<span title='Cerrar' class='fas fa-times fill-current text-grey hover:text-purple-300'></span>" +
 		"</div>" +
 	"</div>" +
 
-	"<p class='p-modal'>Pulsa 'Hecho' para finalizar.</p>" +
+	"<p class='p-modal'>¿Está seguro de querer realizar este pedido? Pulse 'Hecho' para confirmar.</p>" +
 
 	"<div class='flex justify-end pt-2'>" +
+		"<button title='Cancelar' class='modal-close focus:outline-none focus:shadow-outline px-4 bg-transparent p-3 rounded-lg text-gray-700 hover:bg-purple-300 hover:text-white mr-2'>Cancelar</button>" +
 		"<button onclick='items.splice(0, items.length); showShoppingList();' title='Hecho' class='modal-close px-4 bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300'>Hecho</button>" +
 	"</div>";
 
@@ -1386,20 +1378,20 @@ function selectPage(id){
 
 	if(id != 2){
 		innerHTML += "<button id='button1' type='button' onclick='return " + page[id].function1 + ";' class='flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='text-gray-200 text-xl'>Refrigerador <span id='span1'>Off</span></p>" +
+				"<span class='text-gray-200 text-xl'>Refrigerador <span id='span1'>Off</span></span>" +
 			"</button>" +
 			"<button id='button2' type='button' onclick='return " + page[id].function2 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 lg:ml-24'>" +
-				"<p class='text-gray-200 text-xl'>Congelador <span id='span2'>On</span></p>" +
+				"<span class='text-gray-200 text-xl'>Congelador <span id='span2'>On</span></span>" +
 			"</button>" +
 			"<button id='button3' type='button' onclick='return " + page[id].function3 + ";' class='bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='text-gray-200 text-xl'>Ambos <span id='span3'>On</span></p>" +
+				"<span class='text-gray-200 text-xl'>Ambos <span id='span3'>On</span></span>" +
 			"</button>";
 	} else{
 		innerHTML += "<button id='button1' type='button' onclick='selectMode(1); return " + page[id].function1 + ";' class='alert-eco flex flex-wrap justify-center items-center bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6'>" +
-				"<p class='fas fa-leaf text-gray-200'></p>" +
+				"<span class='fas fa-leaf text-gray-200'></span>" +
 			"</button>" +
 			"<button id='button2' type='button' onclick='selectMode(2); return " + page[id].function2 + ";' class='alert-speed bg-gray-500 hover:bg-gray-400 focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6' >" +
-				"<p class='fas fa-snowflake text-gray-200'></p>" +
+				"<span class='fas fa-snowflake text-gray-200'></span>" +
 			"</button>";
 	}
 	innerHTML += "</div></div>";

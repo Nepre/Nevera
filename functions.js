@@ -407,6 +407,8 @@ function checkProximity(){
 function alternarLuzRefrigerador() {
 
 	var value = !frigo.refrigeradorLuz;
+	console.log(frigo.refrigeradorLuz);
+	
 	frigo.refrigeradorLuz = !frigo.refrigeradorLuz;
 	
 	if(value){

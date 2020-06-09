@@ -10,6 +10,7 @@ function isString(x) {
 	return Object.prototype.toString.call(x) === "[object String]";
 }
 
+// Update
 window.setInterval(function(){
 	recalculateTotal();
 	checkShoppingList();
@@ -26,7 +27,7 @@ window.setInterval(function(){
 		$(".burger").hide();
 	} 
 
-	var closemodal = document.querySelectorAll('.modal-close');
+	if(document != null) var closemodal = document.querySelectorAll('.modal-close');
 	for (var i = 0; i < closemodal.length; i++) {
 		closemodal[i].addEventListener('click', toggleModal);
 	}
@@ -54,10 +55,10 @@ window.setInterval(function(){
 	
 	$("#hour").html(hours);
 
-	checkOpenDoor();
-
 	temperatureManager();
 	checkProximity();
+	checkScreen();
+	theme();
 
 	if(!alerthigh && (frigo.refrigeradorTemperatura > 15 || frigo.congeladorTemperatura > 2)){
 		$(".alert-high").show();
@@ -103,8 +104,14 @@ function getCookiesChart(nameCookie){
 	return data;
 }
 
-function checkOpenDoor(){
-
+function checkScreen(){
+	if(frigo == null || frigo == undefined) return;
+	if(Cookies.get('inputPantalla') != undefined && Cookies.get('inputPantalla') == 1 && frigo.frigorificoPresencia){
+		frigo.frigorificoPantalla = 2;
+	}
+	else{
+		frigo.frigorificoPantalla = 0;
+	}
 }
 
 var dataChartFrigo = [0,0,0,0,0,0];
@@ -112,7 +119,7 @@ var dataChartCongelador = [0,0,0,0,0,0];
 
 window.setInterval(function(){
 	addToChart();
-	setChart();
+	if($('settingsName').html == 'Estadísticas') setChart();
 	if(Cookies.get('consumo') == undefined){
 		Cookies.set('consumo', frigo.frigorificoConsumo);
 	} else{
@@ -144,7 +151,6 @@ function setChart(){
 	dataChartCongelador = getCookiesChart("dataChartCongelador");
 	
 	setTimeout(() => {
-
 		if(window.location.pathname != ("/interfaz/settings.html")) return;
 		var data = {
 			labels: ['Hace 2min 30s', 'Hace 2min', 'Hace 1min 30s', 'Hace 1min', 'Hace 30s', 'Ahora'],
@@ -198,7 +204,7 @@ function checkDoa(){
 
 function checkProximity(){
 	// Luces
-	if(frigo.frigorificoPresencia){
+	if(frigo.frigorificoPresencia && Cookies.get('automaticLight') != undefined && Cookies.get('automaticLight') == 1){
 		frigo.refrigeradorLuz = true;
 		frigo.congeladorLuz = true;
 	}
@@ -666,8 +672,8 @@ $(document).ready(function(){
 			})
 		}
 			
-		const overlay = document.querySelector('.modal-overlay')
-		overlay.addEventListener('click', toggleModal)
+		const overlay = document.querySelector('.modal-overlay');
+		if(overlay != undefined) overlay.addEventListener('click', toggleModal);
 
 
 		document.onkeydown = function(evt) {
@@ -740,12 +746,14 @@ function setSetting(text){
 		
 		case "Apariencia":
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
-			$("#contenido").html(theme);
+			$("#contenido").html(themeHTML);
+			setButtonAutomaticTheme();
 			break;
 
 		case "Detección de proximidad":
 			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
 			$("#contenido").html(ajustesGenerales);
+			setButtonsDetectProximity();
 			break;
 
 		case "Luces":
@@ -759,8 +767,8 @@ function setSetting(text){
 			break;
 
 		case "Estadísticas":
-			$("#contenido2").html("<div id='contenido' class='flex items-center justify-center'></div>")
-			$("#contenido").html(stats);
+			$("#contenido2").html(stats);
+			setChart();
 			break;
 
 		default:
@@ -782,20 +790,95 @@ function changeInput(idInput, checkedIn){
 	}
 }
 
+function automaticTheme(set){
+	Cookies.set("automaticTheme", (set)? 1:0);
+}
+
+function setButtonAutomaticTheme(){
+	var automaticThemeVar = 0;
+	if(Cookies.get('automaticTheme') != undefined){
+		automaticThemeVar = Cookies.get('automaticTheme');
+	}
+
+	if(Cookies.get('toTheme') != undefined){
+		$('#toTheme').val(Cookies.get('toTheme'));
+	}
+	if(Cookies.get('fromTheme') != undefined){
+		$('#fromTheme').val(Cookies.get('fromTheme')); 
+	}
+
+	if(automaticThemeVar == 0){
+		document.getElementById('checkedThemeHTML').checked = false;
+		changeInput('inputDetectTheme', false);
+	}
+	else{
+		document.getElementById('checkedThemeHTML').checked = true;
+		changeInput('inputDetectTheme', true);
+	}
+}
+
+function changeTimeCookieTheme(fromto){
+	if(fromto){
+		Cookies.set('toTheme', $('#toTheme').val())
+	}
+	else{
+		Cookies.set('fromTheme', $('#fromTheme').val())
+	}
+}
+
+function setButtonsDetectProximity(){
+	var automaticProxVar = 0,
+		automaticLightVar = 0,
+		automaticScreenVar = 0;
+	if(Cookies.get('automaticDetection') != undefined){
+		automaticProxVar = parseInt(Cookies.get('automaticDetection'));
+	}
+
+	if(automaticProxVar == 1){
+		automaticLightVar = (Cookies.get('automaticLight')  != undefined)? parseInt(Cookies.get('automaticLight')) : 0;
+		automaticScreenVar = (Cookies.get('inputPantalla')  != undefined)? parseInt(Cookies.get('inputPantalla')) : 0;
+	}
+
+	if(automaticProxVar == 0){
+		document.getElementById('checked').checked = false;
+		changeInput('inputDetect', false);
+
+		document.getElementById('checked2').checked = false;
+		changeInput('inputLuz', false);
+
+		document.getElementById('checked3').checked = false;
+		changeInput('inputPantalla', false);
+	}
+
+	if(automaticLightVar == 0){
+		document.getElementById('checked2').checked = false;
+		changeInput('inputLuz', false);
+	}
+
+	if(automaticScreenVar == 0){
+		document.getElementById('checked3').checked = false;
+		changeInput('inputPantalla', false);
+	}
+}
+
 function changeDetection(set){
 	Cookies.set("automaticDetection", (set)? 1:0);
 	if(!set){
 		changeInput('inputLuz', false);
+		Cookies.set('inputLuz', 0);
 		$('#checked2').prop('disabled', true);
 
 		changeInput('inputPantalla', false);
+		Cookies.set('inputPantalla', 0);
 		$('#checked3').prop('disabled', true);
 	}
 	else{
 		changeInput('inputLuz', true);
+		Cookies.set('inputLuz', 1);
 		$('#checked2').prop('disabled', false);
 
 		changeInput('inputPantalla', true);
+		Cookies.set('inputPantalla', 1);
 		$('#checked3').prop('disabled', false);
 	}
 }
@@ -1259,12 +1342,17 @@ function initialIndex(){
 	let innerHTML = "<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
 		"<button onclick='selectPage(0);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='fas fa-power-off text-white'></span>" +
-		"</button>" +
+		"</button>";
 
-		"<button onclick='selectPage(1);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
+	if(Cookies.get('automaticLight') == undefined || Cookies.get('automaticLight') == 0){
+		innerHTML +="<button onclick='selectPage(1);' type='button' class='buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
 			"<span class='far fa-lightbulb text-white'></span>" +
-		"</button>" +
-	"</div>" +
+		"</button>";
+	}
+	
+
+		
+	innerHTML += "</div>" +
 
 	"<div class='flex flex-wrap md:flex-no-wrap justify-center'>" +
 		"<button onclick='location.href=\"shopping.html\"; Cookies.set(\"prevPlace\", \"index.html\");' type='button' class='shop buttonsColor buttonsColorDefault focus:outline-none focus:shadow-outline text-6xl w-40 h-40 rounded-full m-6 transition ease-in-out duration-500'>" +
@@ -1387,6 +1475,12 @@ function resetModo(id){
 	}
 }
 
+// true first hight
+// false second high
+function compareTimes(h1, m1, h2, m2){
+	return (h1 > h2 || (h1 == h2 && m1 > m2));
+}
+
 
 // Theme notations:
 // bgColor - fondo
@@ -1403,9 +1497,50 @@ function resetModo(id){
 
 function theme(){
 	
-	var theme = Cookies.get("theme");
+	if(Cookies.get('automaticTheme') != undefined && Cookies.get('automaticTheme') == 1 && Cookies.get('toTheme') != undefined && Cookies.get('fromTheme') != undefined){
+		// manage time for theme
+		var color = Cookies.get("color");
+		if(color == undefined) color = 0;
+
+		var to =  Cookies.get('toTheme');
+		var from =  Cookies.get('fromTheme');
+
+		if(!(frigo.frigorificoHora != undefined && typeof frigo.frigorificoHora.getMinutes === 'function')) return;
+
+		var currentDH = frigo.frigorificoHora.getHours();
+		var currentDM = frigo.frigorificoHora.getMinutes();
+		
+		var fromDateH = from.split(':')[0];
+		var fromDateM = from.split(':')[1];
+		
+		var toDateH = to.split(':')[0];
+		var toDateM = to.split(':')[1];
+		
+		
+
+		if(compareTimes(toDateH, toDateM, fromDateH, fromDateM)){ // fromDate < toDate
+			if(compareTimes(currentDH, currentDM, fromDateH, fromDateM) && compareTimes(toDateH, toDateM, currentDH, currentDM)){ // fromDate < currentD && currentD < toDate
+				darkTheme();
+			}
+			else{
+				lightTheme(color);
+			}
+		}
+		else{
+			if(!(compareTimes(currentDH, currentDM, toDateH, toDateM) && compareTimes(fromDateH, fromDateM, currentDH, currentDM))){ // toDateH < currentDH && currentDH < fromDateH
+				darkTheme();
+			}
+			else{
+				lightTheme(color);
+			}
+		}
+
+		return;
+	}
+
+	var themeVar = Cookies.get("theme");
 	
-	if(theme == undefined || theme == 1){
+	if(themeVar == undefined || themeVar == 1){
 		var color = Cookies.get("color");
 		if(color == undefined) color = 0;
 		lightTheme(color);
@@ -1418,7 +1553,38 @@ function theme(){
 }
 
 function darkTheme(){
-	// Es el default así que
+	$(".bgColor").removeClass("bgColorLight");
+	$(".bgColor").addClass("bgColorDefault");
+
+	$(".bgDarkerMMColor").removeClass("bgDarkerMMLight");
+	$(".bgDarkerMMColor").addClass("bgDarkerMMDefaul");
+	
+	$(".bgDarkerColor").removeClass("bgDarkerLight");
+	$(".bgDarkerColor").addClass("bgDarkerDefault");
+
+	$(".fontColor").removeClass("fontLight");
+	$(".fontColor").addClass("fontDefault");
+	
+	$(".buttonsHamburger").removeClass("buttonsHamburguerLight");
+	$(".buttonsHamburger").addClass("buttonsHamburguerDark");
+			
+	$(".buttonsColor").removeClass("buttonsColorPurple");
+	$(".buttonsColor").removeClass("buttonsColorOrange");
+	$(".buttonsColor").removeClass("buttonsColorPink");
+	$(".buttonsColor").removeClass("buttonsColorBlue");
+	$(".buttonsColor").addClass("buttonsColorDefault");
+	
+	$(".buttonsSS").removeClass("buttonsSSPurple");
+	$(".buttonsSS").removeClass("buttonsSSPink");
+	$(".buttonsSS").removeClass("buttonsSSOrange");
+	$(".buttonsSS").removeClass("buttonsSSBlue");
+	$(".buttonsSS").addClass("buttonsSSDefault");
+
+	$(".buttonFat").removeClass("buttonsColorPurple");
+	$(".buttonFat").removeClass("buttonsColorOrange");
+	$(".buttonFat").removeClass("buttonsColorPink");
+	$(".buttonFat").removeClass("buttonsColorBlue");
+	$(".buttonFat").addClass("buttonFatCodeDefault");
 }
 
 function lightTheme(color){

@@ -143,8 +143,11 @@ var lights = `
 </div>
 `
 
-var stats = ` <div class="chart">
-<div class="ct-chart ct-golden-section"></div>
+var stats = ` 
+<div id='chart1' class='flex flex-col sm:flex-row justify-start items-start' style = "margin-left: -25rem; margin-top: 2rem">
+    <div class="chart">
+        <div class="ct-chart ct-golden-section"></div>
+    </div>
 </div>`
 
 var pantalla = `<div class="flex flex-col">
@@ -184,10 +187,6 @@ var pantalla = `<div class="flex flex-col">
     </div>
     
 </div> 
-</div>
-
-<div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-    <button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
 </div>`
 
 function changeSelection(id){
@@ -508,46 +507,44 @@ var timeDate = `<!--Mensaje modal-->
 <button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
 </div>`
 
-var theme = `<div class="flex flex-col">
+var themeHTML = `<div class="flex flex-col">
 <div class='flex flex-col sm:flex-row justify-center items-center'>
-    <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4 mt-20 sm:-mt-10">
+    <div onclick="Cookies.set('theme', 0); $('#darkImg').css('outline-style', 'solid'); $('#darkImg').css('outline-color', '#a1cef1'); $('#color-theme').css('outline-style', 'none');" class="w-3/4 sm:w-2/4 md:w-5/12 m-4 mt-20 sm:-mt-10">
         <p class="font-bold text-gray-600">Modo noche</p>
-        <img src="resources/night.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
+        <img id = "darkImg" src="resources/night.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
     </div>
-    <div class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
+    <div onclick="Cookies.set('theme', 1); $('#color-theme').css('outline-style', 'solid'); $('#color-theme').css('outline-color', '#a1cef1'); $('#darkImg').css('outline-style', 'none');" class="w-3/4 sm:w-2/4 md:w-5/12 m-4">
         <p class="font-bold text-gray-600">Modo día</p>
         <img id="color-theme" src="resources/day-purple.png" alt="Modo noche" class="hover:shadow-outline focus:outline-none focus:shadow-outline cursor-pointer transition ease-in-out duration-500">
         <div class="colors p-2">
-            <button onclick="$('#color-theme').attr('src', 'resources/day-purple.png');" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
-            <button onclick="$('#color-theme').attr('src', 'resources/day-blue.png');" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
-            <button onclick="$('#color-theme').attr('src', 'resources/day-pink.png');" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
-            <button onclick="$('#color-theme').attr('src', 'resources/day-orange.png');" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+            <button onclick="$('#color-theme').attr('src', 'resources/day-purple.png'); Cookies.set('color', 0);" title="Púrpura" class="rounded-full bg-purple-500 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+            <button onclick="$('#color-theme').attr('src', 'resources/day-blue.png'); Cookies.set('color', 1);" title="Azul" class="rounded-full bg-blue-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+            <button onclick="$('#color-theme').attr('src', 'resources/day-pink.png'); Cookies.set('color', 2);" title="Rosa" class="rounded-full bg-pink-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
+            <button onclick="$('#color-theme').attr('src', 'resources/day-orange.png'); Cookies.set('color', 3);" title="Naranja" class="rounded-full bg-orange-400 w-8 h-8 hover:shadow-outline focus:outline-none focus:shadow-outline transition ease-in-out duration-500"></button>
         </div>
     </div>
     
 </div>
 <div class="flex pt-1 flex justify-center mb-12"> 
 <div class="pr-3 pt-2">
-    <label for="checked" class="inline-flex items-center cursor-pointer">
+    <label for="checkedThemeHTML" class="inline-flex items-center cursor-pointer">
         <span class="relative">
           <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
-          <span id="inputDetect" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
-            <input id="checked" onclick="changeInput('inputDetect', this.checked); changeDetection(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
+          <span id="inputDetectTheme" class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-400 transform translate-x-full">
+            <input id="checkedThemeHTML" onclick="changeInput('inputDetectTheme', this.checked); automaticTheme(this.checked);" type="checkbox" class="absolute opacity-0 w-0 h-0" checked/>
           </span>
         </span> 
     </label>
 </div>
 <h4 class="text-xl">
 <span name="screenOptions">Activar modo noche automáticamente a partir de</span>
-<input type="time" value="20:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
+<input id='fromTheme' onchange='changeTimeCookieTheme(false);' type="time" value="20:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
 <span>hasta </span>
-<input type="time" value="07:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
+<input id='toTheme' onchange='changeTimeCookieTheme(true);' type="time" value="07:00" class="border rounded-lg border-gray-300 hover:border-gray-400 text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:border-purple-400 focus:outline-none focus:shadow-outline transition ease-in-out duration-500 px-2 py-1 cursor-pointer">
 </h4>
 </div>
 </div>
-<div class="text-right mt-12 fixed bottom-0 right-0 m-6">
-<button title='Guardar cambios' class='opacity-75 hover:opacity-100 focus:outline-none focus:shadow-outline px-4 font-bold bg-purple-400 p-3 rounded-lg text-white hover:bg-purple-300 transition ease-in-out duration-500'>Guardar</button>
-</div>`
+`
 
 var optionsChart = {
   // X-Axis specific configuration
